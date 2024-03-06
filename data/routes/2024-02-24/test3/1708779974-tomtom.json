@@ -1,0 +1,747 @@
+{
+  "formatVersion": "0.0.12",
+  "routes": [
+    {
+      "summary": {
+        "lengthInMeters": 2237,
+        "travelTimeInSeconds": 394,
+        "trafficDelayInSeconds": 0,
+        "trafficLengthInMeters": 0,
+        "departureTime": "2024-02-24T14:06:12+01:00",
+        "arrivalTime": "2024-02-24T14:12:41+01:00",
+        "noTrafficTravelTimeInSeconds": 361,
+        "historicTrafficTravelTimeInSeconds": 394,
+        "liveTrafficIncidentsTravelTimeInSeconds": 394
+      },
+      "legs": [
+        {
+          "summary": {
+            "lengthInMeters": 73,
+            "travelTimeInSeconds": 14,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:06:12+01:00",
+            "arrivalTime": "2024-02-24T14:06:25+01:00",
+            "noTrafficTravelTimeInSeconds": 8,
+            "historicTrafficTravelTimeInSeconds": 14,
+            "liveTrafficIncidentsTravelTimeInSeconds": 14,
+            "originalWaypointIndexAtEndOfLeg": 0
+          },
+          "points": [
+            {
+              "latitude": 59.37841,
+              "longitude": 18.01173
+            },
+            {
+              "latitude": 59.37832,
+              "longitude": 18.01133
+            },
+            {
+              "latitude": 59.37831,
+              "longitude": 18.01101
+            },
+            {
+              "latitude": 59.37832,
+              "longitude": 18.01084
+            },
+            {
+              "latitude": 59.37837,
+              "longitude": 18.01062
+            },
+            {
+              "latitude": 59.3784,
+              "longitude": 18.01053
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 286,
+            "travelTimeInSeconds": 56,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:06:25+01:00",
+            "arrivalTime": "2024-02-24T14:07:20+01:00",
+            "noTrafficTravelTimeInSeconds": 47,
+            "historicTrafficTravelTimeInSeconds": 56,
+            "liveTrafficIncidentsTravelTimeInSeconds": 56,
+            "originalWaypointIndexAtEndOfLeg": 1
+          },
+          "points": [
+            {
+              "latitude": 59.3784,
+              "longitude": 18.01053
+            },
+            {
+              "latitude": 59.37851,
+              "longitude": 18.01042
+            },
+            {
+              "latitude": 59.3786,
+              "longitude": 18.01034
+            },
+            {
+              "latitude": 59.3789,
+              "longitude": 18.01003
+            },
+            {
+              "latitude": 59.37898,
+              "longitude": 18.00996
+            },
+            {
+              "latitude": 59.37909,
+              "longitude": 18.00982
+            },
+            {
+              "latitude": 59.37925,
+              "longitude": 18.00964
+            },
+            {
+              "latitude": 59.37934,
+              "longitude": 18.00953
+            },
+            {
+              "latitude": 59.3797,
+              "longitude": 18.00916
+            },
+            {
+              "latitude": 59.37976,
+              "longitude": 18.00911
+            },
+            {
+              "latitude": 59.37998,
+              "longitude": 18.00891
+            },
+            {
+              "latitude": 59.38004,
+              "longitude": 18.00886
+            },
+            {
+              "latitude": 59.38016,
+              "longitude": 18.00875
+            },
+            {
+              "latitude": 59.38018,
+              "longitude": 18.00878
+            },
+            {
+              "latitude": 59.3802,
+              "longitude": 18.00879
+            },
+            {
+              "latitude": 59.38024,
+              "longitude": 18.00879
+            },
+            {
+              "latitude": 59.38027,
+              "longitude": 18.00878
+            },
+            {
+              "latitude": 59.38029,
+              "longitude": 18.00875
+            },
+            {
+              "latitude": 59.3803,
+              "longitude": 18.00873
+            },
+            {
+              "latitude": 59.38032,
+              "longitude": 18.00869
+            },
+            {
+              "latitude": 59.38033,
+              "longitude": 18.00866
+            },
+            {
+              "latitude": 59.38033,
+              "longitude": 18.00862
+            },
+            {
+              "latitude": 59.38033,
+              "longitude": 18.0086
+            },
+            {
+              "latitude": 59.38037,
+              "longitude": 18.0085
+            },
+            {
+              "latitude": 59.38046,
+              "longitude": 18.00835
+            },
+            {
+              "latitude": 59.38058,
+              "longitude": 18.00823
+            },
+            {
+              "latitude": 59.38061,
+              "longitude": 18.00821
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 332,
+            "travelTimeInSeconds": 81,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:07:20+01:00",
+            "arrivalTime": "2024-02-24T14:08:41+01:00",
+            "noTrafficTravelTimeInSeconds": 75,
+            "historicTrafficTravelTimeInSeconds": 81,
+            "liveTrafficIncidentsTravelTimeInSeconds": 81,
+            "originalWaypointIndexAtEndOfLeg": 2
+          },
+          "points": [
+            {
+              "latitude": 59.38061,
+              "longitude": 18.00821
+            },
+            {
+              "latitude": 59.38074,
+              "longitude": 18.00812
+            },
+            {
+              "latitude": 59.38081,
+              "longitude": 18.00809
+            },
+            {
+              "latitude": 59.38085,
+              "longitude": 18.00807
+            },
+            {
+              "latitude": 59.38091,
+              "longitude": 18.00804
+            },
+            {
+              "latitude": 59.38105,
+              "longitude": 18.00793
+            },
+            {
+              "latitude": 59.38127,
+              "longitude": 18.00771
+            },
+            {
+              "latitude": 59.38132,
+              "longitude": 18.00761
+            },
+            {
+              "latitude": 59.38136,
+              "longitude": 18.00747
+            },
+            {
+              "latitude": 59.38136,
+              "longitude": 18.00745
+            },
+            {
+              "latitude": 59.38141,
+              "longitude": 18.00726
+            },
+            {
+              "latitude": 59.38142,
+              "longitude": 18.00718
+            },
+            {
+              "latitude": 59.38144,
+              "longitude": 18.00696
+            },
+            {
+              "latitude": 59.38143,
+              "longitude": 18.00678
+            },
+            {
+              "latitude": 59.38142,
+              "longitude": 18.00666
+            },
+            {
+              "latitude": 59.38137,
+              "longitude": 18.00648
+            },
+            {
+              "latitude": 59.3813,
+              "longitude": 18.00633
+            },
+            {
+              "latitude": 59.38122,
+              "longitude": 18.0062
+            },
+            {
+              "latitude": 59.38118,
+              "longitude": 18.00615
+            },
+            {
+              "latitude": 59.3811,
+              "longitude": 18.0061
+            },
+            {
+              "latitude": 59.38108,
+              "longitude": 18.0061
+            },
+            {
+              "latitude": 59.38096,
+              "longitude": 18.00607
+            },
+            {
+              "latitude": 59.38081,
+              "longitude": 18.00603
+            },
+            {
+              "latitude": 59.38079,
+              "longitude": 18.00602
+            },
+            {
+              "latitude": 59.38074,
+              "longitude": 18.00595
+            },
+            {
+              "latitude": 59.38069,
+              "longitude": 18.00584
+            },
+            {
+              "latitude": 59.38068,
+              "longitude": 18.00578
+            },
+            {
+              "latitude": 59.38066,
+              "longitude": 18.00567
+            },
+            {
+              "latitude": 59.38066,
+              "longitude": 18.00556
+            },
+            {
+              "latitude": 59.381,
+              "longitude": 18.00547
+            },
+            {
+              "latitude": 59.38099,
+              "longitude": 18.00541
+            },
+            {
+              "latitude": 59.381,
+              "longitude": 18.00517
+            },
+            {
+              "latitude": 59.38101,
+              "longitude": 18.00487
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 278,
+            "travelTimeInSeconds": 61,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:08:41+01:00",
+            "arrivalTime": "2024-02-24T14:09:42+01:00",
+            "noTrafficTravelTimeInSeconds": 60,
+            "historicTrafficTravelTimeInSeconds": 61,
+            "liveTrafficIncidentsTravelTimeInSeconds": 61,
+            "originalWaypointIndexAtEndOfLeg": 3
+          },
+          "points": [
+            {
+              "latitude": 59.38101,
+              "longitude": 18.00487
+            },
+            {
+              "latitude": 59.38107,
+              "longitude": 18.00394
+            },
+            {
+              "latitude": 59.38107,
+              "longitude": 18.00382
+            },
+            {
+              "latitude": 59.38108,
+              "longitude": 18.0037
+            },
+            {
+              "latitude": 59.38113,
+              "longitude": 18.00265
+            },
+            {
+              "latitude": 59.38114,
+              "longitude": 18.00239
+            },
+            {
+              "latitude": 59.38116,
+              "longitude": 18.00211
+            },
+            {
+              "latitude": 59.38117,
+              "longitude": 18.00201
+            },
+            {
+              "latitude": 59.38118,
+              "longitude": 18.00184
+            },
+            {
+              "latitude": 59.38119,
+              "longitude": 18.00167
+            },
+            {
+              "latitude": 59.38089,
+              "longitude": 18.00157
+            },
+            {
+              "latitude": 59.38081,
+              "longitude": 18.00154
+            },
+            {
+              "latitude": 59.38067,
+              "longitude": 18.00148
+            },
+            {
+              "latitude": 59.38057,
+              "longitude": 18.00142
+            },
+            {
+              "latitude": 59.3805,
+              "longitude": 18.0014
+            },
+            {
+              "latitude": 59.3804,
+              "longitude": 18.00138
+            },
+            {
+              "latitude": 59.38036,
+              "longitude": 18.00138
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 394,
+            "travelTimeInSeconds": 69,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:09:42+01:00",
+            "arrivalTime": "2024-02-24T14:10:50+01:00",
+            "noTrafficTravelTimeInSeconds": 66,
+            "historicTrafficTravelTimeInSeconds": 69,
+            "liveTrafficIncidentsTravelTimeInSeconds": 69,
+            "originalWaypointIndexAtEndOfLeg": 4
+          },
+          "points": [
+            {
+              "latitude": 59.38036,
+              "longitude": 18.00138
+            },
+            {
+              "latitude": 59.38023,
+              "longitude": 18.00139
+            },
+            {
+              "latitude": 59.38008,
+              "longitude": 18.00145
+            },
+            {
+              "latitude": 59.37986,
+              "longitude": 18.00158
+            },
+            {
+              "latitude": 59.37853,
+              "longitude": 18.0026
+            },
+            {
+              "latitude": 59.37813,
+              "longitude": 18.00289
+            },
+            {
+              "latitude": 59.37806,
+              "longitude": 18.00296
+            },
+            {
+              "latitude": 59.37798,
+              "longitude": 18.00305
+            },
+            {
+              "latitude": 59.37784,
+              "longitude": 18.00324
+            },
+            {
+              "latitude": 59.37782,
+              "longitude": 18.00328
+            },
+            {
+              "latitude": 59.37774,
+              "longitude": 18.00346
+            },
+            {
+              "latitude": 59.37772,
+              "longitude": 18.00341
+            },
+            {
+              "latitude": 59.3777,
+              "longitude": 18.00338
+            },
+            {
+              "latitude": 59.37767,
+              "longitude": 18.00336
+            },
+            {
+              "latitude": 59.37764,
+              "longitude": 18.00334
+            },
+            {
+              "latitude": 59.37759,
+              "longitude": 18.00333
+            },
+            {
+              "latitude": 59.37747,
+              "longitude": 18.00343
+            },
+            {
+              "latitude": 59.37738,
+              "longitude": 18.00352
+            },
+            {
+              "latitude": 59.37736,
+              "longitude": 18.00354
+            },
+            {
+              "latitude": 59.3772,
+              "longitude": 18.00367
+            },
+            {
+              "latitude": 59.37718,
+              "longitude": 18.00371
+            },
+            {
+              "latitude": 59.37716,
+              "longitude": 18.00373
+            },
+            {
+              "latitude": 59.37713,
+              "longitude": 18.00375
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 541,
+            "travelTimeInSeconds": 45,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:10:50+01:00",
+            "arrivalTime": "2024-02-24T14:11:34+01:00",
+            "noTrafficTravelTimeInSeconds": 41,
+            "historicTrafficTravelTimeInSeconds": 45,
+            "liveTrafficIncidentsTravelTimeInSeconds": 45,
+            "originalWaypointIndexAtEndOfLeg": 5
+          },
+          "points": [
+            {
+              "latitude": 59.37713,
+              "longitude": 18.00375
+            },
+            {
+              "latitude": 59.37703,
+              "longitude": 18.00383
+            },
+            {
+              "latitude": 59.37695,
+              "longitude": 18.00388
+            },
+            {
+              "latitude": 59.37682,
+              "longitude": 18.00396
+            },
+            {
+              "latitude": 59.37607,
+              "longitude": 18.00439
+            },
+            {
+              "latitude": 59.37547,
+              "longitude": 18.00478
+            },
+            {
+              "latitude": 59.37508,
+              "longitude": 18.00508
+            },
+            {
+              "latitude": 59.37389,
+              "longitude": 18.00606
+            },
+            {
+              "latitude": 59.37373,
+              "longitude": 18.0062
+            },
+            {
+              "latitude": 59.37367,
+              "longitude": 18.00618
+            },
+            {
+              "latitude": 59.37349,
+              "longitude": 18.00635
+            },
+            {
+              "latitude": 59.3733,
+              "longitude": 18.00657
+            },
+            {
+              "latitude": 59.37308,
+              "longitude": 18.00673
+            },
+            {
+              "latitude": 59.37302,
+              "longitude": 18.00677
+            },
+            {
+              "latitude": 59.37298,
+              "longitude": 18.00681
+            },
+            {
+              "latitude": 59.37294,
+              "longitude": 18.00684
+            },
+            {
+              "latitude": 59.3729,
+              "longitude": 18.00686
+            },
+            {
+              "latitude": 59.37267,
+              "longitude": 18.00705
+            },
+            {
+              "latitude": 59.37261,
+              "longitude": 18.00709
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 241,
+            "travelTimeInSeconds": 22,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:11:34+01:00",
+            "arrivalTime": "2024-02-24T14:11:56+01:00",
+            "noTrafficTravelTimeInSeconds": 21,
+            "historicTrafficTravelTimeInSeconds": 22,
+            "liveTrafficIncidentsTravelTimeInSeconds": 22,
+            "originalWaypointIndexAtEndOfLeg": 6
+          },
+          "points": [
+            {
+              "latitude": 59.37261,
+              "longitude": 18.00709
+            },
+            {
+              "latitude": 59.37256,
+              "longitude": 18.0071
+            },
+            {
+              "latitude": 59.37253,
+              "longitude": 18.00713
+            },
+            {
+              "latitude": 59.37248,
+              "longitude": 18.00718
+            },
+            {
+              "latitude": 59.37244,
+              "longitude": 18.00725
+            },
+            {
+              "latitude": 59.37239,
+              "longitude": 18.0073
+            },
+            {
+              "latitude": 59.37229,
+              "longitude": 18.00741
+            },
+            {
+              "latitude": 59.37224,
+              "longitude": 18.00745
+            },
+            {
+              "latitude": 59.37197,
+              "longitude": 18.00762
+            },
+            {
+              "latitude": 59.37167,
+              "longitude": 18.00778
+            },
+            {
+              "latitude": 59.37147,
+              "longitude": 18.00786
+            },
+            {
+              "latitude": 59.37126,
+              "longitude": 18.00792
+            },
+            {
+              "latitude": 59.37105,
+              "longitude": 18.00797
+            },
+            {
+              "latitude": 59.371,
+              "longitude": 18.00798
+            },
+            {
+              "latitude": 59.37098,
+              "longitude": 18.00801
+            },
+            {
+              "latitude": 59.37089,
+              "longitude": 18.00802
+            },
+            {
+              "latitude": 59.37065,
+              "longitude": 18.00812
+            },
+            {
+              "latitude": 59.37053,
+              "longitude": 18.00817
+            }
+          ]
+        },
+        {
+          "summary": {
+            "lengthInMeters": 92,
+            "travelTimeInSeconds": 46,
+            "trafficDelayInSeconds": 0,
+            "trafficLengthInMeters": 0,
+            "departureTime": "2024-02-24T14:11:56+01:00",
+            "arrivalTime": "2024-02-24T14:12:41+01:00",
+            "noTrafficTravelTimeInSeconds": 43,
+            "historicTrafficTravelTimeInSeconds": 46,
+            "liveTrafficIncidentsTravelTimeInSeconds": 46
+          },
+          "points": [
+            {
+              "latitude": 59.37053,
+              "longitude": 18.00817
+            },
+            {
+              "latitude": 59.37038,
+              "longitude": 18.00823
+            },
+            {
+              "latitude": 59.37041,
+              "longitude": 18.00845
+            },
+            {
+              "latitude": 59.37045,
+              "longitude": 18.0087
+            },
+            {
+              "latitude": 59.37073,
+              "longitude": 18.0086
+            },
+            {
+              "latitude": 59.3708,
+              "longitude": 18.00858
+            },
+            {
+              "latitude": 59.37086,
+              "longitude": 18.00854
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

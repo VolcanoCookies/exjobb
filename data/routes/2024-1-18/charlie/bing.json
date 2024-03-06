@@ -1,0 +1,2078 @@
+{
+  "authenticationResultCode": "ValidCredentials",
+  "brandLogoUri": "https://dev.virtualearth.net/Branding/logo_powered_by.png",
+  "copyright": "Copyright © 2024 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+  "resourceSets": [
+    {
+      "estimatedTotal": 1,
+      "resources": [
+        {
+          "__type": "Route:http://schemas.microsoft.com/search/local/ws/rest/v1",
+          "bbox": [
+            59.276847,
+            18.078545,
+            59.281303,
+            18.090429
+          ],
+          "id": "v70,h520093720,i0,a0,cen-US,dAAAAAAAAAAA1,y0,s1,m1,o1,t15,w1JipaNGjTUCNdeqcyxQyQA2~ALLAyLnRGjZbAADgAc8NDT8A0~U3ZhbXB2w6RnZW41~270~~~~~~~v12,wEsIWI6mjTUBGl5DzFxYyQA2~ALLAyLkZmjVbAADgAQAAAAAA0~U3ZhbXB2w6RnZW41~~~~~~~~v12,wD1SrjXijTUAeQcPvKhYyQA2~ALLAyLkBajVbAADgAV2TzT0A0~UsO2cnNvcHBzdsOkZ2Vu0~~~~~~~~v12,wN7nTRnCjTUDGwWB7txYyQA2~ALLAyLnBezVbAADgAXKkhj4A0~S2FudGFyZWxsdsOkZ2Vu0~~~~~~~~v12,wN2huZ5ijTUDc6ySv3BYyQA2~ALLAyLkhczVbAADgAd9iYz8A0~VHJ5ZmZlbGdyw6RuZA2~~~~~~~~v12,wHEeL6K2jTUC7AoFqHhcyQA2~ALLAyLnxWDVbAADgAZCxBD8A0~S3Jva3bDpGdlbg2~~~~~~~~v12,w0jYfAbujTUBOYQng2BYyQA2~ALLAyLkxeTVbAADgAXJeBT8A0~U29ja2VudsOkZ2Vu0~~~~~~~~v12,wlkVH5M6jTUAkqtjskhYyQA2~ALLAyLnZWzVbAADgARQn0z4A0~U2tvZ3N2w6RnZW41~~~~~~~~v12,wLZ77ltijTUB8OfOMXhYyQA2~ALLAyLlRmDVbAADgAQZWFD8A0~S8OkbGx2w6RnZW41~~~~~~~~v12,wvHM5y9ajTUBuXHJKORYyQA2~ALLAyLnBWjVbAADgAYdhjT4A0~TcOlbmhvcm5zZ3LDpG5k0~~~~~~~~v12,k1,qatt:1",
+          "distanceUnit": "Kilometer",
+          "durationUnit": "Second",
+          "routeLegs": [
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.278626,
+                  18.086154
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.279833,
+                  18.081233
+                ]
+              },
+              "alternateVias": [],
+              "description": "Svampvägen, Sockenvägen",
+              "endTime": "/Date(1708287996058-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 284,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Svampvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartStart",
+                    "text": "Head west on Svampvägen toward Mellanvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279833,
+                      18.081233
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Mellanvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.17,
+                  "travelDuration": 43,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 50,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Plantskolevägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Plantskolevägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.280539,
+                      18.078545
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.102,
+                  "travelDuration": 42,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 106,
+                      "endPathIndices": [
+                        8
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Sockenvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.281303,
+                      18.079518
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.575,
+                  "travelDuration": 77,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "south",
+                  "details": [
+                    {
+                      "compassDegrees": 199,
+                      "endPathIndices": [
+                        10
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Skogsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        8
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Skogsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278879,
+                      18.088446
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.068,
+                  "travelDuration": 23,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 275,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Svampvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        10
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Svampvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278283,
+                      18.088264
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.127,
+                  "travelDuration": 34,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 279,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Svampvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        13
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Rörsoppsvägen"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Svampvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278626,
+                      18.086154
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278626,
+                      18.086154
+                    ],
+                    "description": "Svampvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|25|154|53|91|0|0|224|1|0|0|0|0|0|59.278626,18.086154",
+                    "routePathIndex": 13
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279833,
+                      18.081233
+                    ],
+                    "description": "Svampvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|209|26|54|91|0|0|224|1|207|13|13|63|0|59.279833,18.081233",
+                    "routePathIndex": 0
+                  },
+                  "travelDistance": 1.042,
+                  "travelDuration": 194
+                }
+              ],
+              "startTime": "/Date(1708287776058-0800)/",
+              "travelDistance": 1.042,
+              "travelDuration": 194,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.277114,
+                  18.086598
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.278626,
+                  18.086154
+                ]
+              },
+              "alternateVias": [],
+              "description": "Svampvägen, Rörsoppsvägen",
+              "endTime": "/Date(1708288014067-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 103,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Svampvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head east on Svampvägen toward Rörsoppsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278626,
+                      18.086154
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Rörsoppsvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.063,
+                  "travelDuration": 10,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southwest",
+                  "details": [
+                    {
+                      "compassDegrees": 203,
+                      "endPathIndices": [
+                        4
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Rörsoppsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Rörsoppsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278392,
+                      18.087158
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.145,
+                  "travelDuration": 34,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southwest",
+                  "details": [
+                    {
+                      "compassDegrees": 203,
+                      "endPathIndices": [
+                        4
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Rörsoppsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        4
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Svampvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Fasanvägen, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Rörsoppsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.277114,
+                      18.086598
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.277114,
+                      18.086598
+                    ],
+                    "description": "Rörsoppsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|1|106|53|91|0|0|224|1|93|147|205|61|0|59.277114,18.086598",
+                    "routePathIndex": 17
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278626,
+                      18.086154
+                    ],
+                    "description": "Svampvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|25|154|53|91|0|0|224|1|0|0|0|0|0|59.278626,18.086154",
+                    "routePathIndex": 13
+                  },
+                  "travelDistance": 0.208,
+                  "travelDuration": 44
+                }
+              ],
+              "startTime": "/Date(1708287970067-0800)/",
+              "travelDistance": 0.208,
+              "travelDuration": 44,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.276858,
+                  18.088737
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.277114,
+                  18.086598
+                ]
+              },
+              "alternateVias": [],
+              "description": "Rörsoppsvägen, Kantarellvägen",
+              "endTime": "/Date(1708288047064-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "southwest",
+                  "details": [
+                    {
+                      "compassDegrees": 205,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Rörsoppsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head southwest on Rörsoppsvägen toward Fasanvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.277114,
+                      18.086598
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Fasanvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.016,
+                  "travelDuration": 3,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 94,
+                      "endPathIndices": [
+                        6
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Kantarellvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Kantarellvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.277005,
+                      18.086623
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.121,
+                  "travelDuration": 29,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 93,
+                      "endPathIndices": [
+                        6
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Kantarellvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        6
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Skogsvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Tryffelgränd, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Kantarellvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.276858,
+                      18.088737
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.276858,
+                      18.088737
+                    ],
+                    "description": "Kantarellvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|193|123|53|91|0|0|224|1|114|164|134|62|0|59.276858,18.088737",
+                    "routePathIndex": 23
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.277114,
+                      18.086598
+                    ],
+                    "description": "Rörsoppsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|1|106|53|91|0|0|224|1|93|147|205|61|0|59.277114,18.086598",
+                    "routePathIndex": 17
+                  },
+                  "travelDistance": 0.137,
+                  "travelDuration": 33
+                }
+              ],
+              "startTime": "/Date(1708288014064-0800)/",
+              "travelDistance": 0.137,
+              "travelDuration": 33,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.278087,
+                  18.089315
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.276858,
+                  18.088737
+                ]
+              },
+              "alternateVias": [],
+              "description": "Kantarellvägen, Tryffelgränd",
+              "endTime": "/Date(1708288109066-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 91,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Kantarellvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head east on Kantarellvägen toward Tryffelgränd"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.276858,
+                      18.088737
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Tryffelgränd",
+                  "transitTerminus": "",
+                  "travelDistance": 0.018,
+                  "travelDuration": 4,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 11,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Tryffelgränd"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Tryffelgränd"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.276847,
+                      18.08907
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.138,
+                  "travelDuration": 58,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 11,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Tryffelgränd"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Kantarellvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Svampvägen, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Tryffelgränd"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278087,
+                      18.089315
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278087,
+                      18.089315
+                    ],
+                    "description": "Tryffelgränd",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|33|115|53|91|0|0|224|1|223|98|99|63|0|59.278087,18.089315",
+                    "routePathIndex": 25
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.276858,
+                      18.088737
+                    ],
+                    "description": "Kantarellvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|193|123|53|91|0|0|224|1|114|164|134|62|0|59.276858,18.088737",
+                    "routePathIndex": 23
+                  },
+                  "travelDistance": 0.156,
+                  "travelDuration": 62
+                }
+              ],
+              "startTime": "/Date(1708288047066-0800)/",
+              "travelDistance": 0.156,
+              "travelDuration": 62,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.278744,
+                  18.090305
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.278087,
+                  18.089315
+                ]
+              },
+              "alternateVias": [],
+              "description": "Tryffelgränd, Krokvägen",
+              "endTime": "/Date(1708288166063-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 11,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Tryffelgränd"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head north on Tryffelgränd toward Svampvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278087,
+                      18.089315
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Svampvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.017,
+                  "travelDuration": 4,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 91,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Svampvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        1
+                      ]
+                    },
+                    {
+                      "compassDegrees": 352,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Krokvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRightThenTurnLeft",
+                    "text": "Turn right onto Svampvägen, then immediately turn left onto Krokvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278243,
+                      18.089346
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.121,
+                  "travelDuration": 52,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 342,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Krokvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Svampvägen"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Krokvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278744,
+                      18.090305
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278744,
+                      18.090305
+                    ],
+                    "description": "Krokvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|241|88|53|91|0|0|224|1|144|177|4|63|0|59.278744,18.090305",
+                    "routePathIndex": 30
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278087,
+                      18.089315
+                    ],
+                    "description": "Tryffelgränd",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|33|115|53|91|0|0|224|1|223|98|99|63|0|59.278087,18.089315",
+                    "routePathIndex": 25
+                  },
+                  "travelDistance": 0.138,
+                  "travelDuration": 57
+                }
+              ],
+              "startTime": "/Date(1708288109063-0800)/",
+              "travelDistance": 0.138,
+              "travelDuration": 57,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.279146,
+                  18.089247
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.278744,
+                  18.090305
+                ]
+              },
+              "alternateVias": [],
+              "description": "Krokvägen, Sockenvägen",
+              "endTime": "/Date(1708288203089-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 341,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Krokvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head north on Krokvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278744,
+                      18.090305
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.035,
+                  "travelDuration": 7,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 342,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Sockenvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279064,
+                      18.090198
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.07,
+                  "travelDuration": 29,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 264,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Krokvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Skogsvägen, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Sockenvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279146,
+                      18.089247
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279146,
+                      18.089247
+                    ],
+                    "description": "Sockenvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|49|121|53|91|0|0|224|1|114|94|5|63|0|59.279146,18.089247",
+                    "routePathIndex": 35
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.278744,
+                      18.090305
+                    ],
+                    "description": "Krokvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|241|88|53|91|0|0|224|1|144|177|4|63|0|59.278744,18.090305",
+                    "routePathIndex": 30
+                  },
+                  "travelDistance": 0.105,
+                  "travelDuration": 37
+                }
+              ],
+              "startTime": "/Date(1708288166089-0800)/",
+              "travelDistance": 0.105,
+              "travelDuration": 37,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.279752,
+                  18.088181
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.279146,
+                  18.089247
+                ]
+              },
+              "alternateVias": [],
+              "description": "Sockenvägen, Skogsvägen",
+              "endTime": "/Date(1708288228098-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 265,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head west on Sockenvägen toward Skogsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279146,
+                      18.089247
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Skogsvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.043,
+                  "travelDuration": 4,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 352,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Skogsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Skogsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.27908,
+                      18.088492
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.076,
+                  "travelDuration": 20,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 339,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Skogsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Sockenvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Källvägen, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Skogsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279752,
+                      18.088181
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279752,
+                      18.088181
+                    ],
+                    "description": "Skogsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|217|91|53|91|0|0|224|1|20|39|211|62|0|59.279752,18.088181",
+                    "routePathIndex": 40
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279146,
+                      18.089247
+                    ],
+                    "description": "Sockenvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|49|121|53|91|0|0|224|1|114|94|5|63|0|59.279146,18.089247",
+                    "routePathIndex": 35
+                  },
+                  "travelDistance": 0.119,
+                  "travelDuration": 25
+                }
+              ],
+              "startTime": "/Date(1708288203098-0800)/",
+              "travelDistance": 0.119,
+              "travelDuration": 25,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.280047,
+                  18.08738
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.279752,
+                  18.088181
+                ]
+              },
+              "alternateVias": [],
+              "description": "Skogsvägen, Källvägen",
+              "endTime": "/Date(1708288263095-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 328,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Skogsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head northwest on Skogsvägen toward Källvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279752,
+                      18.088181
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Källvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.051,
+                  "travelDuration": 9,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 254,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Källvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Källvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.280173,
+                      18.087827
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.028,
+                  "travelDuration": 26,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 254,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Källvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        3
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Skogsvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Månhornsgränd, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Källvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.280047,
+                      18.08738
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.280047,
+                      18.08738
+                    ],
+                    "description": "Källvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|81|152|53|91|0|0|224|1|6|86|20|63|0|59.280047,18.08738",
+                    "routePathIndex": 43
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279752,
+                      18.088181
+                    ],
+                    "description": "Skogsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|217|91|53|91|0|0|224|1|20|39|211|62|0|59.279752,18.088181",
+                    "routePathIndex": 40
+                  },
+                  "travelDistance": 0.079,
+                  "travelDuration": 35
+                }
+              ],
+              "startTime": "/Date(1708288228095-0800)/",
+              "travelDistance": 0.079,
+              "travelDuration": 35,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.279983,
+                  18.086809
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.280047,
+                  18.08738
+                ]
+              },
+              "alternateVias": [],
+              "description": "Källvägen, Månhornsgränd",
+              "endTime": "/Date(1708288274098-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 254,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Källvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head west on Källvägen toward Månhornsgränd"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.280047,
+                      18.08738
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Månhornsgränd",
+                  "transitTerminus": "",
+                  "travelDistance": 0.021,
+                  "travelDuration": 4,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 283,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Månhornsgränd"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Månhornsgränd"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279903,
+                      18.08715
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.021,
+                  "travelDuration": 7,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 283,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Månhornsgränd"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        3
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Källvägen"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveFinish",
+                    "text": "Arrive at Månhornsgränd"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279983,
+                      18.086809
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279983,
+                      18.086809
+                    ],
+                    "description": "Månhornsgränd",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|193|90|53|91|0|0|224|1|135|97|141|62|0|59.279983,18.086809",
+                    "routePathIndex": 46
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.280047,
+                      18.08738
+                    ],
+                    "description": "Källvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|81|152|53|91|0|0|224|1|6|86|20|63|0|59.280047,18.08738",
+                    "routePathIndex": 43
+                  },
+                  "travelDistance": 0.042,
+                  "travelDuration": 11
+                }
+              ],
+              "startTime": "/Date(1708288263098-0800)/",
+              "travelDistance": 0.042,
+              "travelDuration": 11,
+              "travelMode": "Driving"
+            }
+          ],
+          "routePath": {
+            "generalizations": [],
+            "line": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  59.279833,
+                  18.081233
+                ],
+                [
+                  59.280539,
+                  18.078545
+                ],
+                [
+                  59.280675,
+                  18.078708
+                ],
+                [
+                  59.28101,
+                  18.079111
+                ],
+                [
+                  59.281249,
+                  18.079393
+                ],
+                [
+                  59.281302,
+                  18.079518
+                ],
+                [
+                  59.281093,
+                  18.080213
+                ],
+                [
+                  59.278959,
+                  18.087703
+                ],
+                [
+                  59.278879,
+                  18.088445
+                ],
+                [
+                  59.278812,
+                  18.088421
+                ],
+                [
+                  59.278282,
+                  18.088263
+                ],
+                [
+                  59.278392,
+                  18.087158
+                ],
+                [
+                  59.278421,
+                  18.08698
+                ],
+                [
+                  59.278626,
+                  18.086153
+                ],
+                [
+                  59.278421,
+                  18.08698
+                ],
+                [
+                  59.278392,
+                  18.087158
+                ],
+                [
+                  59.2775,
+                  18.086778
+                ],
+                [
+                  59.277114,
+                  18.086597
+                ],
+                [
+                  59.277009,
+                  18.086548
+                ],
+                [
+                  59.277005,
+                  18.086622
+                ],
+                [
+                  59.276927,
+                  18.087547
+                ],
+                [
+                  59.276906,
+                  18.087807
+                ],
+                [
+                  59.276867,
+                  18.088434
+                ],
+                [
+                  59.276857,
+                  18.088737
+                ],
+                [
+                  59.276846,
+                  18.089069
+                ],
+                [
+                  59.278086,
+                  18.089314
+                ],
+                [
+                  59.278242,
+                  18.089345
+                ],
+                [
+                  59.278216,
+                  18.090429
+                ],
+                [
+                  59.278452,
+                  18.0904
+                ],
+                [
+                  59.278479,
+                  18.090391
+                ],
+                [
+                  59.278743,
+                  18.090305
+                ],
+                [
+                  59.278989,
+                  18.090224
+                ],
+                [
+                  59.279063,
+                  18.090197
+                ],
+                [
+                  59.279224,
+                  18.090148
+                ],
+                [
+                  59.279217,
+                  18.090067
+                ],
+                [
+                  59.279145,
+                  18.089246
+                ],
+                [
+                  59.279079,
+                  18.088491
+                ],
+                [
+                  59.279117,
+                  18.088487
+                ],
+                [
+                  59.279338,
+                  18.088405
+                ],
+                [
+                  59.27958,
+                  18.088287
+                ],
+                [
+                  59.279752,
+                  18.08818
+                ],
+                [
+                  59.279902,
+                  18.088087
+                ],
+                [
+                  59.280172,
+                  18.087826
+                ],
+                [
+                  59.280047,
+                  18.08738
+                ],
+                [
+                  59.280032,
+                  18.087327
+                ],
+                [
+                  59.279903,
+                  18.087149
+                ],
+                [
+                  59.279983,
+                  18.086809
+                ]
+              ]
+            }
+          },
+          "trafficCongestion": "None",
+          "trafficDataUsed": "FlowAndClosure",
+          "travelDistance": 2.026,
+          "travelDuration": 502,
+          "travelDurationTraffic": 493,
+          "travelMode": "Driving"
+        }
+      ]
+    }
+  ],
+  "statusCode": 200,
+  "statusDescription": "OK",
+  "traceId": "0fb34f2aaf27e2a8fabb4ef5642428cf|DU00003065|0.0.0.0|DUB00092A1, Leg1-DUB0009288, Leg0-DUB0009284, Leg2-DUB000928A, Leg3-DUB0010628, Leg4-DUB001062A, Leg7-DUB000928A, Leg8-DUB0010628, Leg5-DUB0009284, Leg6-DUB0009288"
+}

@@ -1,0 +1,481 @@
+{
+  "authenticationResultCode": "ValidCredentials",
+  "brandLogoUri": "https://dev.virtualearth.net/Branding/logo_powered_by.png",
+  "copyright": "Copyright © 2024 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+  "resourceSets": [
+    {
+      "estimatedTotal": 1,
+      "resources": [
+        {
+          "__type": "Route:http://schemas.microsoft.com/search/local/ws/rest/v1",
+          "bbox": [
+            59.300542,
+            18.060637,
+            59.328009,
+            18.081347
+          ],
+          "id": "v70,h-1107296099,i0,a0,cen-US,dAAAAAAAAAAA1,y0,s1,m1,o1,t15,wlFl7MHimTUDt-qhL0xQyQA2~AHZn-kaJHiNbAADgAUoQ6z4A0~cm9hZA2~270~~~~~~~v12,wYoF87vupTUDdeB7fhg8yQA2~AHZn-kZJIxtbAADgAQAAgD8A0~Q2VudHJhbGJyb241~~~~~~~~v12,k1,qatt:1",
+          "distanceUnit": "Kilometer",
+          "durationUnit": "Second",
+          "routeLegs": [
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.328009,
+                  18.060637
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.300542,
+                  18.081347
+                ]
+              },
+              "alternateVias": [],
+              "description": "Söderledstunneln, Centralbron",
+              "endTime": "/Date(1707949082652-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 319,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartStart",
+                    "text": "Depart and head toward Johanneshovsbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.300542,
+                      18.081347
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Johanneshovsbron",
+                  "transitTerminus": "",
+                  "travelDistance": 0.178,
+                  "travelDuration": 10,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 303,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Johanneshovsbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.301864,
+                      18.079628
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.554,
+                  "travelDuration": 25,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 334,
+                      "endPathIndices": [
+                        10
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        7
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.306327,
+                      18.075436
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.091,
+                  "travelDuration": 3,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 336,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderledstunneln"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        10
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderledstunneln"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307131,
+                      18.075096
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.535,
+                  "travelDuration": 233,
+                  "travelMode": "Driving",
+                  "warnings": [
+                    {
+                      "endTime": {
+                        "DateTime": "/Date(1707917400000)/",
+                        "OffsetMinutes": 0
+                      },
+                      "origin": "59.309701,18.073949",
+                      "severity": "None",
+                      "startTime": {
+                        "DateTime": "/Date(1707914100000)/",
+                        "OffsetMinutes": 0
+                      },
+                      "text": "Stationary traffic on Söderledstunneln from Trafikplats Johanneshov (E4.25) to Tegelbacken (E4.25) due to broken-down vehicle.",
+                      "to": "59.325073,18.065699",
+                      "warningType": "DisabledVehicle"
+                    },
+                    {
+                      "origin": "59.313978,18.071905",
+                      "severity": "Serious",
+                      "text": "Serious congestion",
+                      "to": "59.314034,18.071877",
+                      "warningType": "TrafficFlow"
+                    }
+                  ]
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 328,
+                      "endPathIndices": [
+                        18
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        13
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Centralbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320516,
+                      18.068559
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.969,
+                  "travelDuration": 130,
+                  "travelMode": "Driving",
+                  "warnings": [
+                    {
+                      "endTime": {
+                        "DateTime": "/Date(1707917400000)/",
+                        "OffsetMinutes": 0
+                      },
+                      "origin": "59.320785,18.068391",
+                      "severity": "None",
+                      "startTime": {
+                        "DateTime": "/Date(1707914067000)/",
+                        "OffsetMinutes": 0
+                      },
+                      "text": "Höger körfält avstängt. E4.25 vid Centralbron i riktning mot Norrtull i Stockholms län (AB)",
+                      "to": "59.325073,18.065699",
+                      "warningType": "DisabledVehicle"
+                    },
+                    {
+                      "origin": "59.320516,18.068559",
+                      "severity": "Serious",
+                      "text": "Serious congestion",
+                      "to": "59.320588,18.068515",
+                      "warningType": "TrafficFlow"
+                    }
+                  ]
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 297,
+                      "endPathIndices": [
+                        18
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        18
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Riddarfjärdspåfarten"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Vattugatan, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveFinish",
+                    "text": "Arrive at Centralbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328009,
+                      18.060637
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328009,
+                      18.060637
+                    ],
+                    "description": "Centralbron",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|73|35|27|91|0|0|224|1|0|0|128|63|0|59.328009,18.060637",
+                    "routePathIndex": 18
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.300542,
+                      18.081347
+                    ],
+                    "description": "road",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|137|30|35|91|0|0|224|1|74|16|235|62|0|59.300542,18.081347",
+                    "routePathIndex": 0
+                  },
+                  "travelDistance": 3.327,
+                  "travelDuration": 313
+                }
+              ],
+              "startTime": "/Date(1707948677652-0800)/",
+              "travelDistance": 3.327,
+              "travelDuration": 313,
+              "travelMode": "Driving"
+            }
+          ],
+          "routePath": {
+            "generalizations": [],
+            "line": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  59.300542,
+                  18.081347
+                ],
+                [
+                  59.301213,
+                  18.080614
+                ],
+                [
+                  59.301864,
+                  18.079627
+                ],
+                [
+                  59.302004,
+                  18.079413
+                ],
+                [
+                  59.302743,
+                  18.078344
+                ],
+                [
+                  59.303747,
+                  18.077251
+                ],
+                [
+                  59.305006,
+                  18.076246
+                ],
+                [
+                  59.306326,
+                  18.075436
+                ],
+                [
+                  59.306622,
+                  18.075295
+                ],
+                [
+                  59.307004,
+                  18.075145
+                ],
+                [
+                  59.30713,
+                  18.075096
+                ],
+                [
+                  59.307195,
+                  18.075068
+                ],
+                [
+                  59.312587,
+                  18.072614
+                ],
+                [
+                  59.320515,
+                  18.068559
+                ],
+                [
+                  59.320588,
+                  18.068515
+                ],
+                [
+                  59.32444,
+                  18.066268
+                ],
+                [
+                  59.325179,
+                  18.065587
+                ],
+                [
+                  59.326117,
+                  18.064224
+                ],
+                [
+                  59.328009,
+                  18.060637
+                ]
+              ]
+            }
+          },
+          "trafficCongestion": "Heavy",
+          "trafficDataUsed": "FlowAndClosure",
+          "travelDistance": 3.327,
+          "travelDuration": 181,
+          "travelDurationTraffic": 313,
+          "travelMode": "Driving"
+        }
+      ]
+    }
+  ],
+  "statusCode": 200,
+  "statusDescription": "OK",
+  "traceId": "620b34928b860d7d2a5c4a579824a718|DU0000303D|0.0.0.0|DUB000929F, Leg0-DUB0010629"
+}

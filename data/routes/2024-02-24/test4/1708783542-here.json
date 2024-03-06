@@ -1,0 +1,258 @@
+{
+  "routes": [
+    {
+      "id": "80d1ecf0-a3dc-4093-b424-6e8ad6ee0bce",
+      "sections": [
+        {
+          "id": "e174a1b8-6091-4260-9217-a231c84cf616",
+          "type": "vehicle",
+          "departure": {
+            "time": "2024-02-24T15:05:40+01:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 59.3055395,
+                "lng": 18.0159456
+              },
+              "originalLocation": {
+                "lat": 59.3055516,
+                "lng": 18.0159634
+              }
+            }
+          },
+          "arrival": {
+            "time": "2024-02-24T15:06:17+01:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 59.3102539,
+                "lng": 18.0074366
+              },
+              "originalLocation": {
+                "lat": 59.3102613,
+                "lng": 18.0074701
+              },
+              "waypoint": 0
+            }
+          },
+          "summary": {
+            "duration": 37,
+            "length": 727,
+            "baseDuration": 33
+          },
+          "polyline": "BGmk3jxD0szriB2F3OgKzZ8GrT4DzK8BrEwCrEgF_OkD3IoBjDsE_JwC7G4IrY4I3X8BzF0KvbwM7f8QjmB4IrT8QjhB0FzK0F_JsJ_OgKzPoLvRwb3mBoavgBsJ_J0yB3wBkHtG",
+          "refReplacements": {
+            "0": "hrn:here:data::olp-here:rib-2:5767:",
+            "1": "here:cm:segment"
+          },
+          "spans": [
+            {
+              "offset": 0,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 91,
+              "duration": 4,
+              "baseDuration": 4,
+              "typicalDuration": 4,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.6666679,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373528:$1:159871923#+0.9248795034188962..1"
+            },
+            {
+              "offset": 6,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 16,
+              "duration": 1,
+              "baseDuration": 1,
+              "typicalDuration": 1,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 20.833334,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:157767244#+0..0.04516439047762295"
+            },
+            {
+              "offset": 7,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 10,
+              "duration": 1,
+              "baseDuration": 0,
+              "typicalDuration": 1,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.6666679,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:157767244#+0.04516439047762295..0.072085213864242"
+            },
+            {
+              "offset": 8,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 16,
+              "duration": 1,
+              "baseDuration": 1,
+              "typicalDuration": 1,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.9444447,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:157767244#+0.072085213864242..0.11528848021181498"
+            },
+            {
+              "offset": 10,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 319,
+              "duration": 16,
+              "baseDuration": 14,
+              "typicalDuration": 16,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.6666679,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:157767244#+0.11528848021181498..1"
+            },
+            {
+              "offset": 23,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 142,
+              "duration": 7,
+              "baseDuration": 6,
+              "typicalDuration": 7,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.6666679,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:814974098#-0..0.11641917054458037"
+            },
+            {
+              "offset": 26,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 133,
+              "duration": 7,
+              "baseDuration": 7,
+              "typicalDuration": 7,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.1111126,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:814974098#-0.11641917054458037..0.22654152643553482"
+            }
+          ],
+          "transport": {
+            "mode": "car"
+          }
+        },
+        {
+          "id": "ab7efe1b-7b6c-4c65-aa71-4c0fbbfeaffd",
+          "type": "vehicle",
+          "departure": {
+            "time": "2024-02-24T15:06:17+01:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 59.3102539,
+                "lng": 18.0074366
+              },
+              "originalLocation": {
+                "lat": 59.3102613,
+                "lng": 18.0074701
+              },
+              "waypoint": 0
+            }
+          },
+          "arrival": {
+            "time": "2024-02-24T15:06:58+01:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 59.3168934,
+                "lng": 18.0008412
+              },
+              "originalLocation": {
+                "lat": 59.3168902,
+                "lng": 18.0008315
+              }
+            }
+          },
+          "summary": {
+            "duration": 41,
+            "length": 829,
+            "baseDuration": 39
+          },
+          "polyline": "BG8qgkxD64iriBoHhGge7asd7a4D3D4cvb4hBrdghCr7B0oBnkBkXnVsnBnkBgZna8QrTwWvbsd3mBmU5a",
+          "refReplacements": {
+            "0": "hrn:here:data::olp-here:rib-2:5767:",
+            "1": "here:cm:segment"
+          },
+          "spans": [
+            {
+              "offset": 0,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 389,
+              "duration": 20,
+              "baseDuration": 19,
+              "typicalDuration": 20,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.1111126,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:814974098#-0.22654152620270418..0.5466088393113131"
+            },
+            {
+              "offset": 7,
+              "carAttributes": [
+                "open"
+              ],
+              "length": 440,
+              "duration": 21,
+              "baseDuration": 20,
+              "typicalDuration": 21,
+              "maxSpeed": 19.4444447,
+              "dynamicSpeedInfo": {
+                "trafficSpeed": 19.4444447,
+                "baseSpeed": 21.6666679,
+                "turnTime": 0
+              },
+              "segmentRef": "$0:378373519:$1:814974098#-0.5466088393113131..0.9105962330732952"
+            }
+          ],
+          "transport": {
+            "mode": "car"
+          }
+        }
+      ]
+    }
+  ]
+}

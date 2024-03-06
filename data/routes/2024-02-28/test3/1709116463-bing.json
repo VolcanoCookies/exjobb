@@ -1,0 +1,2312 @@
+{
+  "authenticationResultCode": "ValidCredentials",
+  "brandLogoUri": "https://dev.virtualearth.net/Branding/logo_powered_by.png",
+  "copyright": "Copyright © 2024 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+  "resourceSets": [
+    {
+      "estimatedTotal": 1,
+      "resources": [
+        {
+          "__type": "Route:http://schemas.microsoft.com/search/local/ws/rest/v1",
+          "bbox": [
+            59.30013,
+            17.994506,
+            59.331759,
+            18.025648
+          ],
+          "id": "v70,h606537455,i0,a0,cen-US,dAAAAAAAAAAA1,y0,s1,m1,o1,t15,wLGqLj2umTUBWmfW7kQYyQA2~AAozyZo945wtAADgAfBV_D4A0~NzUgLyDDhXJzdGFsw6Rua2Vu0~315~~~~~~~v12,wDA8-2E-nTUBWmfXLGwMyQA2~AAozyZrBgpktAADgARuSgz4A0~MTU2IC8gSMOkZ2Vyc3RlbnNww6VmYXJ0ZW41~~~~~~~~v12,w9XzrzA2pTUDx_tlQLv8xQA2~AAozyZq1h5ktAADgAYyC9T4A0~RTA0IC8gRTQgLyBlMjAgLyBFc3NpbmdlbGVkZW41~~~~~~~~v12,wnvamlNapTUCaAjU85QEyQA2~AAozyZrZn5MtAADgAcs_0D4A0~RTA0IC8gRTQgLyBlMjAgLyBFc3NpbmdlbGVkZW41~~~~~~~~v12,w6XqR5giqTUBbmJ2FOQMyQA2~AAozyZoptJMtAADgAWhhNz4A0~UsOlbGFtYnN2w6RnZW41~~~~~~~~v12,weSAsg0CqTUBEzmHj1wUyQA2~AAozyZrhI5gtAADgAQVHCz8A0~TGlsbGEgVsOkc3RlcmJyb241~~~~~~~~v12,wkDPtBneqTUBEzmFrIgYyQA2~AAozyZrRI5gtAADgAQAAgD8A0~TGlsbGEgVsOkc3RlcmJyb241~~~~~~~~v12,k1,qatt:1",
+          "distanceUnit": "Kilometer",
+          "durationUnit": "Second",
+          "routeLegs": [
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.30715,
+                  18.012153
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.30013,
+                  18.025648
+                ]
+              },
+              "alternateVias": [],
+              "description": "e20, E4",
+              "endTime": "/Date(1709149450091-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 295,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Årstalänken"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "75"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartStart",
+                    "text": "Depart and head northwest on 75 / Årstalänken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30013,
+                      18.025648
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.714,
+                  "travelDuration": 34,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 290,
+                      "endPathIndices": [
+                        14
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e20"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        7
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto e20 / E4 / E04 / Essingeleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.304924,
+                      18.017612
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.958,
+                  "travelDuration": 91,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 325,
+                      "endPathIndices": [
+                        21
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Stora Essingeavfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        14
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TakeRampRight",
+                    "text": "Take the ramp on the right for Badstrandsvägen and head toward ESSINGEÖARNA"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.319048,
+                      17.997979
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "ESSINGEÖARNA"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.47,
+                  "travelDuration": 16,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 313,
+                      "endPathIndices": [
+                        24
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Badstrandsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        21
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Badstrandsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.323103,
+                      17.996465
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.182,
+                  "travelDuration": 23,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 93,
+                      "endPathIndices": [
+                        28
+                      ],
+                      "maneuverType": "UTurn",
+                      "mode": "Driving",
+                      "names": [
+                        "Badstrandsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        24
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "UTurn",
+                    "text": "Make a U-turn to stay on Badstrandsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.324331,
+                      17.994506
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.182,
+                  "travelDuration": 139,
+                  "travelMode": "Driving",
+                  "warnings": [
+                    {
+                      "severity": "None",
+                      "text": "U-Turns may not be allowed",
+                      "warningType": "IllegalUTurn"
+                    }
+                  ]
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 160,
+                      "endPathIndices": [
+                        38
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Stora Essingepåfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        28
+                      ]
+                    },
+                    {
+                      "compassDegrees": 126,
+                      "endPathIndices": [
+                        43
+                      ],
+                      "maneuverType": "Merge",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E4"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        38
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RampThenHighwayRight",
+                    "text": "Take the ramp on the right for E4 / e20 / E04 / Essingeleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.323103,
+                      17.996465
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.772,
+                  "travelDuration": 87,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 148,
+                      "endPathIndices": [
+                        49
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Hägerstensavfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        43
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TakeRampRight",
+                    "text": "Take the ramp on the right for Hägerstensvägen and head toward Aspudden / LILJEHOLMEN"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.308828,
+                      18.008624
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Aspudden",
+                    "LILJEHOLMEN"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.385,
+                  "travelDuration": 35,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 250,
+                      "endPathIndices": [
+                        51
+                      ],
+                      "maneuverType": "KeepLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Hägerstensvägen"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        49
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepLeft",
+                    "text": "Keep left to get onto Hägerstensvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.306145,
+                      18.012219
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.145,
+                  "travelDuration": 60,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 85,
+                      "endPathIndices": [
+                        53
+                      ],
+                      "maneuverType": "UTurn",
+                      "mode": "Driving",
+                      "names": [
+                        "Hägerstensvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        51
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "UTurn",
+                    "text": "Make a U-turn"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.305856,
+                      18.009744
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.16,
+                  "travelDuration": 44,
+                  "travelMode": "Driving",
+                  "uTurnCrossStreetName": "Kilabergsvägen"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 51,
+                      "endPathIndices": [
+                        56
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        53
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TakeRampRight",
+                    "text": "Take the ramp on the right for E20 N / E4 N and head toward Stockholm / centre"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.305997,
+                      18.012367
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Stockholm",
+                    "centre",
+                    "E20 N",
+                    "E4 N"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.057,
+                  "travelDuration": 18,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 18,
+                      "endPathIndices": [
+                        60
+                      ],
+                      "maneuverType": "BearLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Hägerstenspåfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        56
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearLeft",
+                    "text": "Bear left onto ramp"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.306274,
+                      18.013177
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.124,
+                  "travelDuration": 34,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 291,
+                      "endPathIndices": [
+                        60
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Hägerstenspåfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        60
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is 156"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach e20 / E4 / E04 / Essingeleden, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at ramp"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30715,
+                      18.012153
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30715,
+                      18.012153
+                    ],
+                    "description": "156 / Hägerstenspåfarten",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|193|130|153|45|0|0|224|1|27|146|131|62|0|59.30715,18.012153",
+                    "routePathIndex": 60
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30013,
+                      18.025648
+                    ],
+                    "description": "75 / Årstalänken",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|61|227|156|45|0|0|224|1|240|85|252|62|0|59.30013,18.025648",
+                    "routePathIndex": 0
+                  },
+                  "travelDistance": 6.149,
+                  "travelDuration": 541
+                }
+              ],
+              "startTime": "/Date(1709148864091-0800)/",
+              "travelDistance": 6.149,
+              "travelDuration": 541,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.320728,
+                  17.996765
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.30715,
+                  18.012153
+                ]
+              },
+              "alternateVias": [],
+              "description": "e20, E04",
+              "endTime": "/Date(1709149486091-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 291,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Hägerstenspåfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        0
+                      ]
+                    },
+                    {
+                      "compassDegrees": 305,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "Merge",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E4"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart ramp for E4 / E04 / e20 / Essingeleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30715,
+                      18.012153
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "e20 / E4 / E04 / Essingeleden",
+                  "transitTerminus": "",
+                  "travelDistance": 1.762,
+                  "travelDuration": 80,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 317,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E04"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        9
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Stora Essingeavfarten"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Lilla Essingepåfarten, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at E04 / E4 / e20 / Essingeleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320728,
+                      17.996765
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320728,
+                      17.996765
+                    ],
+                    "description": "E04 / E4 / e20 / Essingeleden",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|181|135|153|45|0|0|224|1|140|130|245|62|0|59.320728,17.996765",
+                    "routePathIndex": 69
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30715,
+                      18.012153
+                    ],
+                    "description": "156 / Hägerstenspåfarten",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|193|130|153|45|0|0|224|1|27|146|131|62|0|59.30715,18.012153",
+                    "routePathIndex": 60
+                  },
+                  "travelDistance": 1.762,
+                  "travelDuration": 81
+                }
+              ],
+              "startTime": "/Date(1709149405091-0800)/",
+              "travelDistance": 1.762,
+              "travelDuration": 81,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.326875,
+                  18.007396
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.320728,
+                  17.996765
+                ]
+              },
+              "alternateVias": [],
+              "description": "E04, e20",
+              "endTime": "/Date(1709149529084-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 350,
+                      "endPathIndices": [
+                        8
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E04"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head north on E04 / E4 / e20 / Essingeleden toward Lilla Essingepåfarten"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320728,
+                      17.996765
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Lilla Essingepåfarten",
+                  "transitTerminus": "",
+                  "travelDistance": 0.952,
+                  "travelDuration": 43,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 60,
+                      "endPathIndices": [
+                        8
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E04"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        8
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Lilla Essingepåfarten"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Fredhällsavfarten, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at E04 / E4 / e20 / Essingeleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.326875,
+                      18.007396
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.326875,
+                      18.007396
+                    ],
+                    "description": "E04 / E4 / e20 / Essingeleden",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|217|159|147|45|0|0|224|1|203|63|208|62|0|59.326875,18.007396",
+                    "routePathIndex": 77
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320728,
+                      17.996765
+                    ],
+                    "description": "E04 / E4 / e20 / Essingeleden",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|181|135|153|45|0|0|224|1|140|130|245|62|0|59.320728,17.996765",
+                    "routePathIndex": 69
+                  },
+                  "travelDistance": 0.952,
+                  "travelDuration": 43
+                }
+              ],
+              "startTime": "/Date(1709149486084-0800)/",
+              "travelDistance": 0.952,
+              "travelDuration": 43,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.328405,
+                  18.012597
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.326875,
+                  18.007396
+                ]
+              },
+              "alternateVias": [],
+              "description": "Gjörwellsgatan, Rålambsvägen",
+              "endTime": "/Date(1709149861092-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 61,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Essingeleden"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E04"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head northeast on E04 / E4 / e20 / Essingeleden toward Fredhällsavfarten"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.326875,
+                      18.007396
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Fredhällsavfarten",
+                  "transitTerminus": "",
+                  "travelDistance": 0.327,
+                  "travelDuration": 14,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 40,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Mariebergsavfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        3
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TakeRampRight",
+                    "text": "Take the ramp on the right for Drottningholmsvägen and head toward Fridhemsplan / Stockholm / Stockholm C / HOSPITAL"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.329555,
+                      18.009637
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Fridhemsplan",
+                    "Stockholm",
+                    "Stockholm C",
+                    "HOSPITAL"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.173,
+                  "travelDuration": 10,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 73,
+                      "endPathIndices": [
+                        11
+                      ],
+                      "maneuverType": "KeepRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Drottningholmsvägen"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        7
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepRight",
+                    "text": "Keep right, heading toward Centrum / Fridhemsplan / HORNSBERG / HOSPITAL"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330906,
+                      18.011041
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Centrum",
+                    "Fridhemsplan",
+                    "HORNSBERG",
+                    "HOSPITAL"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.466,
+                  "travelDuration": 63,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 116,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Lindhagensplan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        11
+                      ]
+                    },
+                    {
+                      "compassDegrees": 106,
+                      "endPathIndices": [
+                        16
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Rålambshovsleden"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        13
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRightThenBearRight",
+                    "text": "Bear right onto Lindhagensplan,  then immediately bear right onto Rålambshovsleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.331463,
+                      18.01911
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.103,
+                  "travelDuration": 42,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 117,
+                      "endPathIndices": [
+                        22
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Gjörwellsgatan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        16
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Gjörwellsgatan toward Fredhäll / Marieberg"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330961,
+                      18.020567
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Fredhäll",
+                    "Marieberg"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.35,
+                  "travelDuration": 64,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 284,
+                      "endPathIndices": [
+                        26
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Rålambsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        22
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Rålambsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328334,
+                      18.018952
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.563,
+                  "travelDuration": 74,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 101,
+                      "endPathIndices": [
+                        29
+                      ],
+                      "maneuverType": "UTurn",
+                      "mode": "Driving",
+                      "names": [
+                        "Rålambsvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        26
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "UTurn",
+                    "text": "Make a U-turn"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328863,
+                      18.009147
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.215,
+                  "travelDuration": 62,
+                  "travelMode": "Driving",
+                  "uTurnCrossStreetName": "Viktor Rydbergs Gata"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 91,
+                      "endPathIndices": [
+                        29
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Rålambsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        29
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Svedbergsplan"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Rålambsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328405,
+                      18.012597
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328405,
+                      18.012597
+                    ],
+                    "description": "Rålambsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|41|180|147|45|0|0|224|1|104|97|55|62|0|59.328405,18.012597",
+                    "routePathIndex": 106
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.326875,
+                      18.007396
+                    ],
+                    "description": "E04 / E4 / e20 / Essingeleden",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|217|159|147|45|0|0|224|1|203|63|208|62|0|59.326875,18.007396",
+                    "routePathIndex": 77
+                  },
+                  "travelDistance": 2.197,
+                  "travelDuration": 332
+                }
+              ],
+              "startTime": "/Date(1709149529092-0800)/",
+              "travelDistance": 2.197,
+              "travelDuration": 332,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.330102,
+                  18.022814
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.328405,
+                  18.012597
+                ]
+              },
+              "alternateVias": [],
+              "description": "Rålambsvägen, Lilla Västerbron",
+              "endTime": "/Date(1709150058087-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 91,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Rålambsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head east on Rålambsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328405,
+                      18.012597
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.496,
+                  "travelDuration": 82,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 97,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "KeepLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Västerbroplan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepLeft",
+                    "text": "Keep left to get onto Västerbroplan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328151,
+                      18.021299
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.126,
+                  "travelDuration": 102,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 11,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Lilla Västerbron"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        7
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Lilla Västerbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328696,
+                      18.021837
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.166,
+                  "travelDuration": 12,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 36,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Lilla Västerbron"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        9
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Västerbroplan"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Lilla Västerbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330102,
+                      18.022814
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330102,
+                      18.022814
+                    ],
+                    "description": "Lilla Västerbron",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|225|35|152|45|0|0|224|1|5|71|11|63|0|59.330102,18.022814",
+                    "routePathIndex": 115
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328405,
+                      18.012597
+                    ],
+                    "description": "Rålambsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|41|180|147|45|0|0|224|1|104|97|55|62|0|59.328405,18.012597",
+                    "routePathIndex": 106
+                  },
+                  "travelDistance": 0.788,
+                  "travelDuration": 197
+                }
+              ],
+              "startTime": "/Date(1709149861087-0800)/",
+              "travelDistance": 0.788,
+              "travelDuration": 197,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.331759,
+                  18.023956
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.330102,
+                  18.022814
+                ]
+              },
+              "alternateVias": [],
+              "description": "Lilla Västerbron",
+              "endTime": "/Date(1709150101147-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 36,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Lilla Västerbron"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head northeast on Lilla Västerbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330102,
+                      18.022814
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.194,
+                  "travelDuration": 43,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 357,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Lilla Västerbron"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveFinish",
+                    "text": "Arrive at Lilla Västerbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.331759,
+                      18.023956
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.331759,
+                      18.023956
+                    ],
+                    "description": "Lilla Västerbron",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|209|35|152|45|0|0|224|1|0|0|128|63|0|59.331759,18.023956",
+                    "routePathIndex": 117
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330102,
+                      18.022814
+                    ],
+                    "description": "Lilla Västerbron",
+                    "isVia": false,
+                    "locationIdentifier": "0|10|51|201|154|225|35|152|45|0|0|224|1|5|71|11|63|0|59.330102,18.022814",
+                    "routePathIndex": 115
+                  },
+                  "travelDistance": 0.194,
+                  "travelDuration": 43
+                }
+              ],
+              "startTime": "/Date(1709150058147-0800)/",
+              "travelDistance": 0.194,
+              "travelDuration": 43,
+              "travelMode": "Driving"
+            }
+          ],
+          "routePath": {
+            "generalizations": [],
+            "line": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  59.30013,
+                  18.025648
+                ],
+                [
+                  59.300936,
+                  18.023867
+                ],
+                [
+                  59.301593,
+                  18.022116
+                ],
+                [
+                  59.301915,
+                  18.021494
+                ],
+                [
+                  59.302216,
+                  18.021076
+                ],
+                [
+                  59.303865,
+                  18.019497
+                ],
+                [
+                  59.304237,
+                  18.018959
+                ],
+                [
+                  59.304923,
+                  18.017611
+                ],
+                [
+                  59.304936,
+                  18.017578
+                ],
+                [
+                  59.307162,
+                  18.011731
+                ],
+                [
+                  59.308313,
+                  18.009623
+                ],
+                [
+                  59.309412,
+                  18.008243
+                ],
+                [
+                  59.315314,
+                  18.002828
+                ],
+                [
+                  59.316324,
+                  18.001615
+                ],
+                [
+                  59.319048,
+                  17.997979
+                ],
+                [
+                  59.319143,
+                  17.997914
+                ],
+                [
+                  59.319726,
+                  17.997433
+                ],
+                [
+                  59.320233,
+                  17.997176
+                ],
+                [
+                  59.321738,
+                  17.997351
+                ],
+                [
+                  59.322238,
+                  17.997228
+                ],
+                [
+                  59.32266,
+                  17.996935
+                ],
+                [
+                  59.323103,
+                  17.996464
+                ],
+                [
+                  59.323449,
+                  17.996095
+                ],
+                [
+                  59.324142,
+                  17.995229
+                ],
+                [
+                  59.324331,
+                  17.994505
+                ],
+                [
+                  59.324325,
+                  17.994613
+                ],
+                [
+                  59.324225,
+                  17.995035
+                ],
+                [
+                  59.324036,
+                  17.995399
+                ],
+                [
+                  59.323103,
+                  17.996464
+                ],
+                [
+                  59.322991,
+                  17.996504
+                ],
+                [
+                  59.322788,
+                  17.996629
+                ],
+                [
+                  59.322548,
+                  17.996654
+                ],
+                [
+                  59.321454,
+                  17.996282
+                ],
+                [
+                  59.321024,
+                  17.996218
+                ],
+                [
+                  59.320533,
+                  17.99629
+                ],
+                [
+                  59.319993,
+                  17.996565
+                ],
+                [
+                  59.31975,
+                  17.996774
+                ],
+                [
+                  59.319494,
+                  17.99701
+                ],
+                [
+                  59.319161,
+                  17.997538
+                ],
+                [
+                  59.319106,
+                  17.997611
+                ],
+                [
+                  59.315941,
+                  18.001825
+                ],
+                [
+                  59.315279,
+                  18.002593
+                ],
+                [
+                  59.309827,
+                  18.007587
+                ],
+                [
+                  59.308828,
+                  18.008624
+                ],
+                [
+                  59.308711,
+                  18.008695
+                ],
+                [
+                  59.308445,
+                  18.008896
+                ],
+                [
+                  59.307656,
+                  18.01012
+                ],
+                [
+                  59.306526,
+                  18.012406
+                ],
+                [
+                  59.306328,
+                  18.012461
+                ],
+                [
+                  59.306145,
+                  18.012219
+                ],
+                [
+                  59.306099,
+                  18.012089
+                ],
+                [
+                  59.305855,
+                  18.009743
+                ],
+                [
+                  59.30575,
+                  18.009785
+                ],
+                [
+                  59.305996,
+                  18.012366
+                ],
+                [
+                  59.306067,
+                  18.012733
+                ],
+                [
+                  59.306135,
+                  18.013017
+                ],
+                [
+                  59.306274,
+                  18.013177
+                ],
+                [
+                  59.306371,
+                  18.013209
+                ],
+                [
+                  59.306611,
+                  18.013182
+                ],
+                [
+                  59.306816,
+                  18.013014
+                ],
+                [
+                  59.30715,
+                  18.012153
+                ],
+                [
+                  59.308313,
+                  18.009623
+                ],
+                [
+                  59.308374,
+                  18.009539
+                ],
+                [
+                  59.309412,
+                  18.008243
+                ],
+                [
+                  59.315314,
+                  18.002828
+                ],
+                [
+                  59.316005,
+                  18.002029
+                ],
+                [
+                  59.319048,
+                  17.997979
+                ],
+                [
+                  59.319582,
+                  17.997371
+                ],
+                [
+                  59.320004,
+                  17.997029
+                ],
+                [
+                  59.320727,
+                  17.996764
+                ],
+                [
+                  59.321136,
+                  17.996755
+                ],
+                [
+                  59.32157,
+                  17.996884
+                ],
+                [
+                  59.322242,
+                  17.997355
+                ],
+                [
+                  59.322665,
+                  17.997848
+                ],
+                [
+                  59.324113,
+                  18.000238
+                ],
+                [
+                  59.324593,
+                  18.001173
+                ],
+                [
+                  59.326358,
+                  18.006306
+                ],
+                [
+                  59.326875,
+                  18.007395
+                ],
+                [
+                  59.327189,
+                  18.007888
+                ],
+                [
+                  59.327611,
+                  18.008318
+                ],
+                [
+                  59.329555,
+                  18.009636
+                ],
+                [
+                  59.329791,
+                  18.009836
+                ],
+                [
+                  59.330432,
+                  18.010329
+                ],
+                [
+                  59.330697,
+                  18.010624
+                ],
+                [
+                  59.330906,
+                  18.01104
+                ],
+                [
+                  59.330954,
+                  18.011208
+                ],
+                [
+                  59.331097,
+                  18.012067
+                ],
+                [
+                  59.331199,
+                  18.015589
+                ],
+                [
+                  59.331463,
+                  18.01911
+                ],
+                [
+                  59.331425,
+                  18.019185
+                ],
+                [
+                  59.331333,
+                  18.019729
+                ],
+                [
+                  59.331297,
+                  18.019853
+                ],
+                [
+                  59.331115,
+                  18.02011
+                ],
+                [
+                  59.33096,
+                  18.020567
+                ],
+                [
+                  59.330799,
+                  18.020881
+                ],
+                [
+                  59.330676,
+                  18.021211
+                ],
+                [
+                  59.330543,
+                  18.02122
+                ],
+                [
+                  59.329671,
+                  18.020076
+                ],
+                [
+                  59.329087,
+                  18.019073
+                ],
+                [
+                  59.328334,
+                  18.018952
+                ],
+                [
+                  59.328369,
+                  18.018818
+                ],
+                [
+                  59.328631,
+                  18.011966
+                ],
+                [
+                  59.328606,
+                  18.010752
+                ],
+                [
+                  59.328863,
+                  18.009147
+                ],
+                [
+                  59.328789,
+                  18.009088
+                ],
+                [
+                  59.328472,
+                  18.010787
+                ],
+                [
+                  59.328405,
+                  18.012596
+                ],
+                [
+                  59.328151,
+                  18.021299
+                ],
+                [
+                  59.328121,
+                  18.021517
+                ],
+                [
+                  59.328051,
+                  18.021944
+                ],
+                [
+                  59.328148,
+                  18.02221
+                ],
+                [
+                  59.328237,
+                  18.022216
+                ],
+                [
+                  59.328479,
+                  18.021917
+                ],
+                [
+                  59.328696,
+                  18.021836
+                ],
+                [
+                  59.328779,
+                  18.021853
+                ],
+                [
+                  59.330102,
+                  18.022813
+                ],
+                [
+                  59.331619,
+                  18.023935
+                ],
+                [
+                  59.331758,
+                  18.023955
+                ]
+              ]
+            }
+          },
+          "trafficCongestion": "None",
+          "trafficDataUsed": "FlowAndClosure",
+          "travelDistance": 12.042,
+          "travelDuration": 1276,
+          "travelDurationTraffic": 1299,
+          "travelMode": "Driving"
+        }
+      ]
+    }
+  ],
+  "statusCode": 200,
+  "statusDescription": "OK",
+  "traceId": "80bbd7afe0480d36c4e39affa309534d|DU0000303D|0.0.0.0|DUB0009297, Leg1-DUB001062A, Leg0-DUB0010628, Leg2-DUB0009285, Leg3-DUB000928F, Leg4-DUB0009283, Leg5-DUB000928D"
+}

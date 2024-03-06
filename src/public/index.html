@@ -1,0 +1,78 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style></style>
+		<title>HERE.com Map</title>
+
+		<!-- Reference to the Bing Maps SDK -->
+		<script src="https://d3js.org/d3.v4.js"></script>
+		<script src="mode.js" type="module"></script>
+		<script
+			type="text/javascript"
+			src="http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=***REMOVED***"
+			async
+			defer
+		></script>
+		<link rel="stylesheet" href="master.css" />
+	</head>
+	<body>
+		<div id="graph-overlay" style="display: none">
+			<div class="overlay-inner">
+				<div id="graph">
+					<div id="graph-settings">
+						<div class="graph-settings-container">
+							<p class="graph-settings-label">Graph Type</p>
+							<select
+								id="graph-type-select"
+								class="graph-settings-input"
+							></select>
+						</div>
+						<div class="graph-settings-container">
+							<p class="graph-settings-label">Start Date</p>
+							<input
+								type="datetime-local"
+								id="graph-start-date"
+								class="graph-settings-input"
+							/>
+						</div>
+						<div class="graph-settings-container">
+							<p class="graph-settings-label">End Date</p>
+							<input
+								type="datetime-local"
+								id="graph-end-date"
+								class="graph-settings-input"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav>
+			<select id="mode-select">
+				<option value="hereflowmap">HereFlowMap</option>
+				<option value="route">Route</option>
+			</select>
+			<select id="route-select"></select>
+			<form id="route-form" action="n">
+				<label for="name">Name:</label>
+				<input type="text" id="route-form-name" name="name" />
+				<input
+					type="submit"
+					value="Request Route"
+					id="route-form-submit"
+				/>
+			</form>
+			<button id="refresh-flow">Refrest Flow</button>
+		</nav>
+		<table id="route-stats"></table>
+		<div
+			id="myMap"
+			style="position: relative; display: flex-block; margin: auto"
+		></div>
+		<!--
+			<div id="container"></div>
+			<script src="script.js" type="module"></script>
+		-->
+	</body>
+</html>

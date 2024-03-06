@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.insertSpaces": false,
+		"javascript.preferences.importModuleSpecifierEnding": "js",
+		"typescript.preferences.importModuleSpecifierEnding": "js"
+	}
+}

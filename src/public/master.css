@@ -1,0 +1,91 @@
+html,
+body {
+	background-color: #333;
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#container {
+	height: 100vh;
+	width: 100vw;
+}
+
+#route-stats * {
+	margin: 0;
+	color: white;
+	font-family: "Roboto", sans-serif;
+}
+
+div#route-stats p {
+	margin: 0;
+}
+
+label {
+	color: white;
+	font-family: "Roboto", sans-serif;
+}
+
+.flow-table {
+	font-family: "Roboto", sans-serif;
+	background-color: #444;
+	color: white;
+	border-radius: 5px;
+	border: #000 1px solid;
+}
+
+.flow-table th {
+	color: white;
+}
+
+.flow-table td {
+	color: white;
+	margin: 2px;
+}
+
+#graph-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 100;
+}
+
+.overlay-inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #333;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+#graph-settings {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+}
+
+.graph-settings-container {
+	flex: 1;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.graph-settings-label {
+	text-align: center;
+	color: white;
+	font-family: "Roboto", sans-serif;
+	display: inline-block;
+	margin: 0;
+}
+
+.graph-settings-input {
+	display: inline-block;
+	margin-top: 5px;
+}

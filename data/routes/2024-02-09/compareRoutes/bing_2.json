@@ -1,0 +1,4009 @@
+{
+  "authenticationResultCode": "ValidCredentials",
+  "brandLogoUri": "https://dev.virtualearth.net/Branding/logo_powered_by.png",
+  "copyright": "Copyright © 2024 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+  "resourceSets": [
+    {
+      "estimatedTotal": 1,
+      "resources": [
+        {
+          "__type": "Route:http://schemas.microsoft.com/search/local/ws/rest/v1",
+          "bbox": [
+            59.283473,
+            18.00622,
+            59.382206,
+            18.088328
+          ],
+          "id": "v70,h-601415307,i0,a0,cen-US,dAAAAAAAAAAA1,y0,s1,m1,o1,t15,wjXTc70akTUDFWZroiBIyQA2~AHZn-kahQyNbAADgAQAAAAAA0~U29ja2VucGxhbg2~270~~~~~~~v12,wGdwWDVOlTUBdlE-OVA4yQA2~AHZn-kbZyCRbAADgAQAAAAAA0~w4RsdmvDpGxsZXbDpGdlbg2~~~~~~~~v12,wXUIOivKlTUAEr4CxZRUyQA2~AHZn-kZRCCNbAADgASQ-dz8A0~NzMgLyBOeW7DpHN2w6RnZW41~~~~~~~~v12,wRGe5rmWnTUBi4Gg6LxMyQA2~AHZn-kYJ3SNbAADgAWh_7j4A0~U8O2ZGVybGVkZW41~~~~~~~~v12,wFJ1lnpapTUDIkkG44hAyQA2~AHZn-kYpdCNbAADgAZieZz8A0~Q2VudHJhbGJyb241~~~~~~~~v12,wQl-_4bqqTUAGVbKP-wwyQA2~AHZn-kYxvBpbAADgAUMrTT4A0~S2xhcmFzdHJhbmRza29wcGxldA2~~~~~~~~v12,w1o2aTAysTUBDSrf9xAYyQA2~AHZn-kaJrhtbAADgAQAAgD8A0~ZTIwIC8gTm9ycmEgbMOkbmtlbg2~~~~~~~~v12,wCxri8TWuTUBFp-WPmA4yQA2~AHZn-kZxSxtbAADgAYkR1TwA0~Um9zbGFnc3R1bm5lbG41~~~~~~~~v12,wBrJnBaWwTUDZWQhwCQgyQA2~AHZn-ka5IR1bAADgAf0zVT8A0~ZTE4IC8gQmVyZ3NoYW1yYXbDpGdlbg2~~~~~~~~v12,wHPmgiumwTUBJ3bA6ZAcyQA2~AHZn-kYJGh1bAADgAQAAAAAA0~SGpvcnRzdGlnZW41~~~~~~~~v12,k1",
+          "distanceUnit": "Kilometer",
+          "durationUnit": "Second",
+          "routeLegs": [
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.291545,
+                  18.056106
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.283519,
+                  18.072444
+                ]
+              },
+              "alternateVias": [],
+              "description": "Sockenvägen, Älvkällevägen",
+              "endTime": "/Date(1707534315596-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 266,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenplan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartStart",
+                    "text": "Depart and head (west)"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.283519,
+                      18.072444
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Sockenvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.013,
+                  "travelDuration": 1,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 285,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        3
+                      ]
+                    }
+                  ],
+                  "exit": "1",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ExitRoundabout",
+                    "text": "Exit the roundabout at the 1st exit, onto Sockenvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.283473,
+                      18.072234
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.938,
+                  "travelDuration": 102,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 346,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Älvkällevägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        9
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Älvkällevägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.28897,
+                      18.060216
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.377,
+                  "travelDuration": 66,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 267,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Älvkällevägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        13
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Sockenvägen"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Älvkällevägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291545,
+                      18.056106
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291545,
+                      18.056106
+                    ],
+                    "description": "Älvkällevägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|217|200|36|91|0|0|224|1|0|0|0|0|0|59.291545,18.056106",
+                    "routePathIndex": 13
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.283519,
+                      18.072444
+                    ],
+                    "description": "Sockenplan",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|161|67|35|91|0|0|224|1|0|0|0|0|0|59.283519,18.072444",
+                    "routePathIndex": 0
+                  },
+                  "travelDistance": 1.328,
+                  "travelDuration": 158
+                }
+              ],
+              "startTime": "/Date(1707534146596-0800)/",
+              "travelDistance": 1.328,
+              "travelDuration": 158,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.296431,
+                  18.083528
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.291545,
+                  18.056106
+                ]
+              },
+              "alternateVias": [],
+              "description": "Söderledstunneln, Centralbron",
+              "endTime": "/Date(1707535096601-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 87,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Älvkällevägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head east on Älvkällevägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291545,
+                      18.056106
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.011,
+                  "travelDuration": 3,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 337,
+                      "endPathIndices": [
+                        4
+                      ],
+                      "maneuverType": "TurnToStayLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Älvkällevägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnToStayLeft",
+                    "text": "Turn left to stay on Älvkällevägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291555,
+                      18.056307
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.025,
+                  "travelDuration": 22,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 70,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        4
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Johanneshovsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291766,
+                      18.056358
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.239,
+                  "travelDuration": 24,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 108,
+                      "endPathIndices": [
+                        10
+                      ],
+                      "maneuverType": "EnterRoundabout",
+                      "mode": "Driving",
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        7
+                      ]
+                    },
+                    {
+                      "compassDegrees": 65,
+                      "endPathIndices": [
+                        25
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        10
+                      ]
+                    }
+                  ],
+                  "exit": "1",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "EnterThenExitRoundabout",
+                    "text": "Pass through 3 roundabouts, staying on Johanneshovsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.293274,
+                      18.059321
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.514,
+                  "travelDuration": 163,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 119,
+                      "endPathIndices": [
+                        29
+                      ],
+                      "maneuverType": "EnterRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsmotet"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        25
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "EnterRoundabout",
+                    "text": "Enter the roundabout"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.299251,
+                      18.08149
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.062,
+                  "travelDuration": 23,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 327,
+                      "endPathIndices": [
+                        33
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        29
+                      ]
+                    }
+                  ],
+                  "exit": "0",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ExitRoundabout",
+                    "text": "Exit the roundabout at Exit 0"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.299474,
+                      18.082032
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Stockholm",
+                    "centre"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.303,
+                  "travelDuration": 19,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 303,
+                      "endPathIndices": [
+                        38
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        33
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Johanneshovsbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.301864,
+                      18.079628
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.554,
+                  "travelDuration": 28,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 334,
+                      "endPathIndices": [
+                        41
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        38
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.306327,
+                      18.075436
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.091,
+                  "travelDuration": 4,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 336,
+                      "endPathIndices": [
+                        44
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderledstunneln"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        41
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderledstunneln"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307131,
+                      18.075096
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.535,
+                  "travelDuration": 82,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 328,
+                      "endPathIndices": [
+                        49
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        44
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Centralbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320516,
+                      18.068559
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.969,
+                  "travelDuration": 55,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 312,
+                      "endPathIndices": [
+                        54
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Herkuleskopplet"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        49
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Herkuleskopplet"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.328009,
+                      18.060637
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.172,
+                  "travelDuration": 28,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 76,
+                      "endPathIndices": [
+                        56
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Herkulesgatan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        54
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Herkulesgatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.329316,
+                      18.061008
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.219,
+                  "travelDuration": 25,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 314,
+                      "endPathIndices": [
+                        59
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Klara Tvärgränd"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        56
+                      ]
+                    },
+                    {
+                      "compassDegrees": 255,
+                      "endPathIndices": [
+                        66
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Vattugatan"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        59
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeftThenTurnLeft",
+                    "text": "Turn left onto Klara Tvärgränd, then immediately turn left onto Vattugatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330166,
+                      18.064475
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.516,
+                  "travelDuration": 98,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 119,
+                      "endPathIndices": [
+                        72
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        66
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Centralbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.327965,
+                      18.060461
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.968,
+                  "travelDuration": 59,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 153,
+                      "endPathIndices": [
+                        75
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderledstunneln"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        72
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderledstunneln"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320494,
+                      18.068405
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.593,
+                  "travelDuration": 86,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 153,
+                      "endPathIndices": [
+                        77
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        75
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30656,
+                      18.075159
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.028,
+                  "travelDuration": 1,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 152,
+                      "endPathIndices": [
+                        83
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        77
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Johanneshovsbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.30631,
+                      18.075288
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.728,
+                  "travelDuration": 38,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 147,
+                      "endPathIndices": [
+                        85
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "73"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        83
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to 73 / Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.300488,
+                      18.080964
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.474,
+                  "travelDuration": 23,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 148,
+                      "endPathIndices": [
+                        85
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "73"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        85
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Vattugatan"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Nynäsvägen, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at 73 / Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296431,
+                      18.083528
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296431,
+                      18.083528
+                    ],
+                    "description": "73 / Nynäsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|81|8|35|91|0|0|224|1|36|62|119|63|0|59.296431,18.083528",
+                    "routePathIndex": 98
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291545,
+                      18.056106
+                    ],
+                    "description": "Älvkällevägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|217|200|36|91|0|0|224|1|0|0|0|0|0|59.291545,18.056106",
+                    "routePathIndex": 13
+                  },
+                  "travelDistance": 10.001,
+                  "travelDuration": 792
+                }
+              ],
+              "startTime": "/Date(1707534304601-0800)/",
+              "travelDistance": 10.001,
+              "travelDuration": 792,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.307752,
+                  18.074867
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.296431,
+                  18.083528
+                ]
+              },
+              "alternateVias": [],
+              "description": "73, Hammarbybacken",
+              "endTime": "/Date(1707535512595-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 148,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "73"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head southeast on 73 / Nynäsvägen toward Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296431,
+                      18.083528
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Nynäsvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.283,
+                  "travelDuration": 16,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "south",
+                  "details": [
+                    {
+                      "compassDegrees": 166,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovsavfarten"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Johanneshovsavfarten"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.293987,
+                      18.08493
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.544,
+                  "travelDuration": 49,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 152,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "BearLeft",
+                      "mode": "Driving",
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearLeft",
+                    "text": "Bear left onto road"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.289227,
+                      18.087123
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.073,
+                  "travelDuration": 37,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southwest",
+                  "details": [
+                    {
+                      "compassDegrees": 226,
+                      "endPathIndices": [
+                        14
+                      ],
+                      "maneuverType": "EnterRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Sofielundsmotet"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        7
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "EnterRoundabout",
+                    "text": "Enter the roundabout"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.288585,
+                      18.087287
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.121,
+                  "travelDuration": 29,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 333,
+                      "endPathIndices": [
+                        17
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        14
+                      ]
+                    }
+                  ],
+                  "exit": "0",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ExitRoundabout",
+                    "text": "Exit the roundabout at Exit 0"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.288722,
+                      18.088135
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.02,
+                  "travelDuration": 1,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 327,
+                      "endPathIndices": [
+                        19
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Johanneshovspåfarten"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        17
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Johanneshovspåfarten"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.288892,
+                      18.088051
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.335,
+                  "travelDuration": 21,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 334,
+                      "endPathIndices": [
+                        21
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "73"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        19
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto 73 / Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291784,
+                      18.086336
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.378,
+                  "travelDuration": 20,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 342,
+                      "endPathIndices": [
+                        26
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Hammarbykopplet"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        21
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Hammarbykopplet"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.295076,
+                      18.084651
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.253,
+                  "travelDuration": 35,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 90,
+                      "endPathIndices": [
+                        27
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Arenavägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        26
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Arenavägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296776,
+                      18.085628
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.014,
+                  "travelDuration": 16,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 85,
+                      "endPathIndices": [
+                        38
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Hammarbybacken"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        27
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Hammarbybacken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296775,
+                      18.085866
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.83,
+                  "travelDuration": 99,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 83,
+                      "endPathIndices": [
+                        41
+                      ],
+                      "maneuverType": "EnterRoundabout",
+                      "mode": "Driving",
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        38
+                      ]
+                    },
+                    {
+                      "compassDegrees": 310,
+                      "endPathIndices": [
+                        44
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Skansbron"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        41
+                      ]
+                    }
+                  ],
+                  "exit": "2",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "EnterThenExitRoundabout",
+                    "text": "At the roundabout, take the 2nd exit for Skansbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.302635,
+                      18.080233
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.19,
+                  "travelDuration": 23,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 325,
+                      "endPathIndices": [
+                        47
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Skansbrogatan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        44
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Skansbrogatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.304129,
+                      18.079372
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.275,
+                  "travelDuration": 45,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 278,
+                      "endPathIndices": [
+                        51
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Skansbropåfarten"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        47
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Skansbropåfarten"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.305988,
+                      18.077088
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.185,
+                  "travelDuration": 15,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 331,
+                      "endPathIndices": [
+                        53
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        51
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Söderleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307144,
+                      18.07519
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.069,
+                  "travelDuration": 3,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 332,
+                      "endPathIndices": [
+                        53
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        53
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Bohusgatan"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Söderleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307752,
+                      18.074867
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307752,
+                      18.074867
+                    ],
+                    "description": "Söderleden",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|9|221|35|91|0|0|224|1|104|127|238|62|0|59.307752,18.074867",
+                    "routePathIndex": 151
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296431,
+                      18.083528
+                    ],
+                    "description": "73 / Nynäsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|81|8|35|91|0|0|224|1|36|62|119|63|0|59.296431,18.083528",
+                    "routePathIndex": 98
+                  },
+                  "travelDistance": 3.57,
+                  "travelDuration": 416
+                }
+              ],
+              "startTime": "/Date(1707535096595-0800)/",
+              "travelDistance": 3.57,
+              "travelDuration": 416,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.324864,
+                  18.065911
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.307752,
+                  18.074867
+                ]
+              },
+              "alternateVias": [],
+              "description": "Söderledstunneln, Centralbron",
+              "endTime": "/Date(1707535621591-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 331,
+                      "endPathIndices": [
+                        3
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head northwest on Söderleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307752,
+                      18.074867
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.047,
+                  "travelDuration": 2,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 335,
+                      "endPathIndices": [
+                        6
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Söderledstunneln"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        3
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Söderledstunneln"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.308165,
+                      18.074649
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.417,
+                  "travelDuration": 76,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 328,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        6
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Centralbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.320516,
+                      18.068559
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.505,
+                  "travelDuration": 30,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 329,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        9
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Riddarfjärdspåfarten"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Vattugatan, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Centralbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.324864,
+                      18.065911
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.324864,
+                      18.065911
+                    ],
+                    "description": "Centralbron",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|41|116|35|91|0|0|224|1|152|158|103|63|0|59.324864,18.065911",
+                    "routePathIndex": 160
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.307752,
+                      18.074867
+                    ],
+                    "description": "Söderleden",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|9|221|35|91|0|0|224|1|104|127|238|62|0|59.307752,18.074867",
+                    "routePathIndex": 151
+                  },
+                  "travelDistance": 1.969,
+                  "travelDuration": 109
+                }
+              ],
+              "startTime": "/Date(1707535512591-0800)/",
+              "travelDistance": 1.969,
+              "travelDuration": 109,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.33381,
+                  18.050693
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.324864,
+                  18.065911
+                ]
+              },
+              "alternateVias": [],
+              "description": "Centralbron, Blekholmstunneln",
+              "endTime": "/Date(1707535761595-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 316,
+                      "endPathIndices": [
+                        10
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Centralbron"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head northwest on Centralbron toward Vattugatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.324864,
+                      18.065911
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Vattugatan",
+                  "transitTerminus": "",
+                  "travelDistance": 0.859,
+                  "travelDuration": 62,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 289,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "KeepLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Klarastrandsleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        10
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepLeft",
+                    "text": "Keep left to get onto Klarastrandsleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.32932,
+                      18.055361
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.105,
+                  "travelDuration": 21,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 328,
+                      "endPathIndices": [
+                        16
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Blekholmsfaret"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        13
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Blekholmsfaret"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.329927,
+                      18.053962
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.111,
+                  "travelDuration": 25,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 314,
+                      "endPathIndices": [
+                        18
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Blekholmstunneln"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        16
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Blekholmstunneln"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.330862,
+                      18.053276
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.226,
+                  "travelDuration": 18,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 308,
+                      "endPathIndices": [
+                        20
+                      ],
+                      "maneuverType": "RoadNameChange",
+                      "mode": "Driving",
+                      "names": [
+                        "Klarastrandsleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        18
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RoadNameChange",
+                    "text": "Road name changes to Klarastrandsleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.332689,
+                      18.051504
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.11,
+                  "travelDuration": 9,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 319,
+                      "endPathIndices": [
+                        21
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Klarastrandskopplet"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        20
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Klarastrandskopplet"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.333616,
+                      18.050859
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.023,
+                  "travelDuration": 3,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 319,
+                      "endPathIndices": [
+                        21
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Klarastrandskopplet"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        21
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Klarastrandsleden"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Klarastrandskopplet"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.33381,
+                      18.050693
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.33381,
+                      18.050693
+                    ],
+                    "description": "Klarastrandskopplet",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|49|188|26|91|0|0|224|1|67|43|77|62|0|59.33381,18.050693",
+                    "routePathIndex": 181
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.324864,
+                      18.065911
+                    ],
+                    "description": "Centralbron",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|41|116|35|91|0|0|224|1|152|158|103|63|0|59.324864,18.065911",
+                    "routePathIndex": 160
+                  },
+                  "travelDistance": 1.434,
+                  "travelDuration": 140
+                }
+              ],
+              "startTime": "/Date(1707535621595-0800)/",
+              "travelDistance": 1.434,
+              "travelDuration": 140,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.34416,
+                  18.026378
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.33381,
+                  18.050693
+                ]
+              },
+              "alternateVias": [],
+              "description": "Klarastrandsleden, Pampaslänken",
+              "endTime": "/Date(1707536365627-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 319,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Klarastrandskopplet"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head northwest on Klarastrandskopplet"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.33381,
+                      18.050693
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.094,
+                  "travelDuration": 6,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 302,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Klarastrandsleden"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Klarastrandsleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.334515,
+                      18.049794
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.238,
+                  "travelDuration": 78,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 290,
+                      "endPathIndices": [
+                        27
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Pampaslänken"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        9
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Pampaslänken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.338784,
+                      18.029905
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.857,
+                  "travelDuration": 130,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 68,
+                      "endPathIndices": [
+                        28
+                      ],
+                      "maneuverType": "EnterRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Ekelundsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        27
+                      ]
+                    },
+                    {
+                      "compassDegrees": 92,
+                      "endPathIndices": [
+                        31
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "Ekelundsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        28
+                      ]
+                    }
+                  ],
+                  "exit": "1",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "EnterThenExitRoundabout",
+                    "text": "At the roundabout, take the 1st exit for Ekelundsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.349419,
+                      18.006397
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.223,
+                  "travelDuration": 21,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 159,
+                      "endPathIndices": [
+                        34
+                      ],
+                      "maneuverType": "EnterRoundabout",
+                      "mode": "Driving",
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        31
+                      ]
+                    },
+                    {
+                      "compassDegrees": 113,
+                      "endPathIndices": [
+                        46
+                      ],
+                      "maneuverType": "ExitRoundabout",
+                      "mode": "Driving",
+                      "names": [
+                        "E4",
+                        "E04",
+                        "e20",
+                        "Karlbergsbron"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "E4"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        34
+                      ]
+                    }
+                  ],
+                  "exit": "2",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "EnterThenExitRoundabout",
+                    "text": "At the roundabout, take the 2nd exit for E4 / E04 / e20 / Karlbergsbron"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.348391,
+                      18.009626
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.228,
+                  "travelDuration": 72,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "south",
+                  "details": [
+                    {
+                      "compassDegrees": 201,
+                      "endPathIndices": [
+                        56
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Kristinebergsavfarten"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        46
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TakeRampRight",
+                    "text": "Take the ramp on the right for Kellgrensgatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.337864,
+                      18.010875
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.588,
+                  "travelDuration": 64,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 296,
+                      "endPathIndices": [
+                        58
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Lindhagensgatan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        56
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Lindhagensgatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.335178,
+                      18.012993
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.095,
+                  "travelDuration": 25,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 116,
+                      "endPathIndices": [
+                        60
+                      ],
+                      "maneuverType": "UTurn",
+                      "mode": "Driving",
+                      "names": [
+                        "Lindhagensgatan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        58
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "UTurn",
+                    "text": "Make a U-turn to stay on Lindhagensgatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.335782,
+                      18.012161
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.084,
+                  "travelDuration": 55,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 257,
+                      "endPathIndices": [
+                        62
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Kellgrensgatan"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        60
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Kellgrensgatan"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.335252,
+                      18.012849
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.082,
+                  "travelDuration": 22,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 268,
+                      "endPathIndices": [
+                        69
+                      ],
+                      "maneuverType": "TakeRampRight",
+                      "mode": "Driving",
+                      "names": [
+                        "e20",
+                        "E04",
+                        "E4",
+                        "Karlbergsbron"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        62
+                      ]
+                    },
+                    {
+                      "compassDegrees": 9,
+                      "endPathIndices": [
+                        83
+                      ],
+                      "maneuverType": "Merge",
+                      "mode": "Driving",
+                      "names": [
+                        "Karlbergsbron"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e20"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        69
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "RampThenHighwayRight",
+                    "text": "Take the ramp on the right for E20 / E4 and head toward Sundsvall"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.335065,
+                      18.011463
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Sundsvall",
+                    "E20",
+                    "E4"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.593,
+                  "travelDuration": 97,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 103,
+                      "endPathIndices": [
+                        88
+                      ],
+                      "maneuverType": "KeepRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Norra länken"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e20"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        83
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepRight",
+                    "text": "Keep right to get onto e20 / Norra länken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.344538,
+                      18.017806
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.508,
+                  "travelDuration": 26,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 78,
+                      "endPathIndices": [
+                        88
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Norra länken"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e20"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        88
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is E4 / E04 / Norra länken"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Klarastrandsleden, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at e20 / Norra länken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.34416,
+                      18.026378
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.34416,
+                      18.026378
+                    ],
+                    "description": "e20 / Norra länken",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|137|174|27|91|0|0|224|1|0|0|128|63|0|59.34416,18.026378",
+                    "routePathIndex": 269
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.33381,
+                      18.050693
+                    ],
+                    "description": "Klarastrandskopplet",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|49|188|26|91|0|0|224|1|67|43|77|62|0|59.33381,18.050693",
+                    "routePathIndex": 181
+                  },
+                  "travelDistance": 7.59,
+                  "travelDuration": 604
+                }
+              ],
+              "startTime": "/Date(1707535761627-0800)/",
+              "travelDistance": 7.59,
+              "travelDuration": 604,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.361004,
+                  18.056976
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.34416,
+                  18.026378
+                ]
+              },
+              "alternateVias": [],
+              "description": "e20, E4",
+              "endTime": "/Date(1707536519653-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "endPathIndices": [
+                        4
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Norra länken"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507969,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e20"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head north on e20 / Norra länken toward Klarastrandsleden"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.34416,
+                      18.026378
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Klarastrandsleden",
+                  "transitTerminus": "",
+                  "travelDistance": 0.807,
+                  "travelDuration": 40,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 72,
+                      "endPathIndices": [
+                        12
+                      ],
+                      "maneuverType": "KeepRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Gärdestunneln"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507967,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e20"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "LimitedAccessHighway",
+                      "startPathIndices": [
+                        4
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepRight",
+                    "text": "Keep right, heading toward Norrtull / Sankt Eriksplan / Ferry"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.349212,
+                      18.036396
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "Norrtull",
+                    "Sankt Eriksplan",
+                    "Ferry",
+                    "277",
+                    "E20"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.952,
+                  "travelDuration": 46,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 77,
+                      "endPathIndices": [
+                        25
+                      ],
+                      "maneuverType": "TakeRampLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Galaxtunneln"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        12
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TakeRampLeft",
+                    "text": "Take the ramp on the left for E18 and head toward Norrtälje"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.352536,
+                      18.051654
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "signs": [
+                    "E18",
+                    "Norrtälje"
+                  ],
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.371,
+                  "travelDuration": 67,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 315,
+                      "endPathIndices": [
+                        25
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Roslagstunneln"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        25
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Planettunneln"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at ramp"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.361004,
+                      18.056976
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.361004,
+                      18.056976
+                    ],
+                    "description": "Roslagstunneln",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|113|75|27|91|0|0|224|1|137|17|213|60|0|59.361004,18.056976",
+                    "routePathIndex": 294
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.34416,
+                      18.026378
+                    ],
+                    "description": "e20 / Norra länken",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|137|174|27|91|0|0|224|1|0|0|128|63|0|59.34416,18.026378",
+                    "routePathIndex": 269
+                  },
+                  "travelDistance": 3.13,
+                  "travelDuration": 154
+                }
+              ],
+              "startTime": "/Date(1707536365653-0800)/",
+              "travelDistance": 3.13,
+              "travelDuration": 154,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.380019,
+                  18.031395
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.361004,
+                  18.056976
+                ]
+              },
+              "alternateVias": [],
+              "description": "Roslagsvägen, e18",
+              "endTime": "/Date(1707536704663-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 314,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Roslagstunneln"
+                      ],
+                      "roadType": "Ramp",
+                      "startPathIndices": [
+                        0
+                      ]
+                    },
+                    {
+                      "compassDegrees": 319,
+                      "endPathIndices": [
+                        13
+                      ],
+                      "maneuverType": "Merge",
+                      "mode": "Driving",
+                      "names": [
+                        "Roslagsvägen"
+                      ],
+                      "roadType": "MajorRoad",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart ramp for Roslagsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.361004,
+                      18.056976
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 2.29,
+                  "travelDuration": 112,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northwest",
+                  "details": [
+                    {
+                      "compassDegrees": 328,
+                      "endPathIndices": [
+                        23
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Bergshamravägen"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        13
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Bergshamravägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.379811,
+                      18.041767
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.376,
+                  "travelDuration": 24,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 264,
+                      "endPathIndices": [
+                        25
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "e18"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e18"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        23
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto e18"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.380068,
+                      18.040261
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.067,
+                  "travelDuration": 19,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 266,
+                      "endPathIndices": [
+                        29
+                      ],
+                      "maneuverType": "KeepToStayRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Bergshamravägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e18"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        25
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepToStayRight",
+                    "text": "Keep right to stay on e18 / Bergshamravägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.379947,
+                      18.039107
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.438,
+                  "travelDuration": 27,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 267,
+                      "endPathIndices": [
+                        29
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Bergshamravägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e18"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        29
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Roslagsvägen"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Ulriksdalsvägen, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at e18 / Bergshamravägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.380019,
+                      18.031395
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.380019,
+                      18.031395
+                    ],
+                    "description": "e18 / Bergshamravägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|185|33|29|91|0|0|224|1|253|51|85|63|0|59.380019,18.031395",
+                    "routePathIndex": 323
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.361004,
+                      18.056976
+                    ],
+                    "description": "Roslagstunneln",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|113|75|27|91|0|0|224|1|137|17|213|60|0|59.361004,18.056976",
+                    "routePathIndex": 294
+                  },
+                  "travelDistance": 3.171,
+                  "travelDuration": 185
+                }
+              ],
+              "startTime": "/Date(1707536519663-0800)/",
+              "travelDistance": 3.171,
+              "travelDuration": 185,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.382206,
+                  18.028909
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.380019,
+                  18.031395
+                ]
+              },
+              "alternateVias": [],
+              "description": "e18, Björnstigen",
+              "endTime": "/Date(1707536790672-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 266,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Bergshamravägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "e18"
+                            ],
+                            "roadShieldType": 1
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Head west on e18 / Bergshamravägen toward Ulriksdalsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.380019,
+                      18.031395
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Ulriksdalsvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 0.107,
+                  "travelDuration": 5,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "west",
+                  "details": [
+                    {
+                      "compassDegrees": 271,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right toward Björnstigen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.379913,
+                      18.029501
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.203,
+                  "travelDuration": 20,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 354,
+                      "endPathIndices": [
+                        11
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Björnstigen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Björnstigen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.380454,
+                      18.026242
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.282,
+                  "travelDuration": 38,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 19,
+                      "endPathIndices": [
+                        12
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Hjortstigen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        11
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Hjortstigen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.382108,
+                      18.028875
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.011,
+                  "travelDuration": 22,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 19,
+                      "endPathIndices": [
+                        12
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Hjortstigen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        12
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Björnstigen"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveFinish",
+                    "text": "Arrive at Hjortstigen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.382206,
+                      18.028909
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.382206,
+                      18.028909
+                    ],
+                    "description": "Hjortstigen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|9|26|29|91|0|0|224|1|0|0|0|0|0|59.382206,18.028909",
+                    "routePathIndex": 335
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.380019,
+                      18.031395
+                    ],
+                    "description": "e18 / Bergshamravägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|118|103|250|70|185|33|29|91|0|0|224|1|253|51|85|63|0|59.380019,18.031395",
+                    "routePathIndex": 323
+                  },
+                  "travelDistance": 0.603,
+                  "travelDuration": 86
+                }
+              ],
+              "startTime": "/Date(1707536704672-0800)/",
+              "travelDistance": 0.603,
+              "travelDuration": 86,
+              "travelMode": "Driving"
+            }
+          ],
+          "trafficCongestion": "None",
+          "trafficDataUsed": "FlowAndClosure",
+          "travelDistance": 32.796,
+          "travelDuration": 2639,
+          "travelDurationTraffic": 2601,
+          "travelMode": "Driving"
+        }
+      ]
+    }
+  ],
+  "statusCode": 200,
+  "statusDescription": "OK",
+  "traceId": "601197ccfeed139382fc42b15ff7fc00|DU00003050|0.0.0.0|DUB000929B, Leg0-DUB0009287, Leg3-DUB001062A, Leg1-DUB000928A, Leg4-DUB0009285, Leg6-DUB001062A, Leg5-DUB0009287, Leg7-DUB000928A, Leg8-DUB000928B, Leg2-DUB0010628"
+}

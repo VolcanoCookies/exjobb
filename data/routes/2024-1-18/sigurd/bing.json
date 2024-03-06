@@ -1,0 +1,1112 @@
+{
+  "authenticationResultCode": "ValidCredentials",
+  "brandLogoUri": "https://dev.virtualearth.net/Branding/logo_powered_by.png",
+  "copyright": "Copyright © 2024 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.",
+  "resourceSets": [
+    {
+      "estimatedTotal": 1,
+      "resources": [
+        {
+          "__type": "Route:http://schemas.microsoft.com/search/local/ws/rest/v1",
+          "bbox": [
+            59.279202,
+            18.084051,
+            59.298419,
+            18.092135
+          ],
+          "id": "v70,h-1459617761,i0,a0,cen-US,dAAAAAAAAAAA1,y0,s1,m1,o1,t15,w65NC6kGlTUDMs40oHhYyQA2~ALLAyLnJVDZbAADgAVn3MD8A0~NzMgLyBOeW7DpHN2w6RnZW41~270~~~~~~~v12,wI0PFDgCmTUBG_3r8DxYyQA2~ALLAyLnZgDZbAADgAf0_TT8A0~SGFtbWFyYnliYWNrZW41~~~~~~~~v12,w9hWTKi6mTUDcipsqwBYyQA2~ALLAyLl5kjZbAADgAUf29T4A0~T2xhdXMgTWFnbnVzIHbDpGc1~~~~~~~~v12,waOg7ERqmTUCpcQfYQRcyQA2~ALLAyLmxkTZbAADgAQAAgD8A0~T2xhdXMgTWFnbnVzIHbDpGc1~~~~~~~~v12,w1L2CNSSmTUAu0HBjaRcyQA2~ALLAyLkpcjZbAADgAdjeHj8A0~cm9hZA2~~~~~~~~v12,k1,qatt:1",
+          "distanceUnit": "Kilometer",
+          "durationUnit": "Second",
+          "routeLegs": [
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.296875,
+                  18.086182
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.291079,
+                  18.086405
+                ]
+              },
+              "alternateVias": [],
+              "description": "73, Nynäsvägen",
+              "endTime": "/Date(1708287900113-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 150,
+                      "endPathIndices": [
+                        4
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "73"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartStart",
+                    "text": "Head southeast on 73 / Nynäsvägen toward Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291079,
+                      18.086405
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "towardsRoadName": "Nynäsvägen",
+                  "transitTerminus": "",
+                  "travelDistance": 1.104,
+                  "travelDuration": 52,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "south",
+                  "details": [
+                    {
+                      "compassDegrees": 173,
+                      "endPathIndices": [
+                        7
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        4
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.281416,
+                      18.090972
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.232,
+                  "travelDuration": 32,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "south",
+                  "details": [
+                    {
+                      "compassDegrees": 162,
+                      "endPathIndices": [
+                        9
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Sockenvägen"
+                      ],
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        7
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Sockenvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279353,
+                      18.091497
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.051,
+                  "travelDuration": 24,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 340,
+                      "endPathIndices": [
+                        12
+                      ],
+                      "maneuverType": "TurnLeft",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        9
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnLeft",
+                    "text": "Turn left onto Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.279258,
+                      18.092135
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.271,
+                  "travelDuration": 72,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 340,
+                      "endPathIndices": [
+                        17
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Nynäsvägen"
+                      ],
+                      "roadShieldRequestParameters": {
+                        "bucket": 1507987,
+                        "shields": [
+                          {
+                            "labels": [
+                              "73"
+                            ],
+                            "roadShieldType": 2
+                          }
+                        ]
+                      },
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        12
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto 73 / Nynäsvägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.281632,
+                      18.091065
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 1.538,
+                  "travelDuration": 80,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "north",
+                  "details": [
+                    {
+                      "compassDegrees": 342,
+                      "endPathIndices": [
+                        22
+                      ],
+                      "maneuverType": "BearRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Hammarbykopplet"
+                      ],
+                      "roadType": "Highway",
+                      "startPathIndices": [
+                        17
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "BearRight",
+                    "text": "Bear right onto Hammarbykopplet"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.295076,
+                      18.084651
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.253,
+                  "travelDuration": 35,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 90,
+                      "endPathIndices": [
+                        23
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Arenavägen"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        22
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Arenavägen"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296776,
+                      18.085628
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.014,
+                  "travelDuration": 16,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 85,
+                      "endPathIndices": [
+                        25
+                      ],
+                      "maneuverType": "KeepStraight",
+                      "mode": "Driving",
+                      "names": [
+                        "Hammarbybacken"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        23
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "KeepStraight",
+                    "text": "Keep straight to get onto Hammarbybacken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296775,
+                      18.085866
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.022,
+                  "travelDuration": 5,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 73,
+                      "endPathIndices": [
+                        25
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Hammarbybacken"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        25
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Arenavägen"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Hammarbybacken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296875,
+                      18.086182
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296875,
+                      18.086182
+                    ],
+                    "description": "Hammarbybacken",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|217|128|54|91|0|0|224|1|253|63|77|63|0|59.296875,18.086182",
+                    "routePathIndex": 25
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.291079,
+                      18.086405
+                    ],
+                    "description": "73 / Nynäsvägen",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|201|84|54|91|0|0|224|1|89|247|48|63|0|59.291079,18.086405",
+                    "routePathIndex": 0
+                  },
+                  "travelDistance": 3.485,
+                  "travelDuration": 288
+                }
+              ],
+              "startTime": "/Date(1708287580113-0800)/",
+              "travelDistance": 3.485,
+              "travelDuration": 288,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.298282,
+                  18.088871
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.296875,
+                  18.086182
+                ]
+              },
+              "alternateVias": [],
+              "description": "Hammarbybacken, Olaus Magnus väg",
+              "endTime": "/Date(1708287934120-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 55,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Hammarbybacken"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head northeast on Hammarbybacken"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296875,
+                      18.086182
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.171,
+                  "travelDuration": 27,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 100,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "TurnRight",
+                      "mode": "Driving",
+                      "names": [
+                        "Olaus Magnus väg"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "TurnRight",
+                    "text": "Turn right onto Olaus Magnus väg"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.298344,
+                      18.086726
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.129,
+                  "travelDuration": 39,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "east",
+                  "details": [
+                    {
+                      "compassDegrees": 81,
+                      "endPathIndices": [
+                        5
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Olaus Magnus väg"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        5
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Palandergatan"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Olaus Magnus väg"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.298282,
+                      18.088871
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.298282,
+                      18.088871
+                    ],
+                    "description": "Olaus Magnus väg",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|121|146|54|91|0|0|224|1|71|246|245|62|0|59.298282,18.088871",
+                    "routePathIndex": 30
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.296875,
+                      18.086182
+                    ],
+                    "description": "Hammarbybacken",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|217|128|54|91|0|0|224|1|253|63|77|63|0|59.296875,18.086182",
+                    "routePathIndex": 25
+                  },
+                  "travelDistance": 0.3,
+                  "travelDuration": 66
+                }
+              ],
+              "startTime": "/Date(1708287868120-0800)/",
+              "travelDistance": 0.3,
+              "travelDuration": 66,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.297669,
+                  18.090857
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.298282,
+                  18.088871
+                ]
+              },
+              "alternateVias": [],
+              "description": "Olaus Magnus väg",
+              "endTime": "/Date(1708287958421-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 64,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "names": [
+                        "Olaus Magnus väg"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head northeast on Olaus Magnus väg"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.298282,
+                      18.088871
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.152,
+                  "travelDuration": 21,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "southeast",
+                  "details": [
+                    {
+                      "compassDegrees": 114,
+                      "endPathIndices": [
+                        2
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "names": [
+                        "Olaus Magnus väg"
+                      ],
+                      "roadType": "Arterial",
+                      "startPathIndices": [
+                        2
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Åkerbladsgatan"
+                    },
+                    {
+                      "hintType": "NextIntersection",
+                      "text": "If you reach Solandergatan, you've gone too far"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveIntermediateStop",
+                    "text": "Arrive at Olaus Magnus väg"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.297669,
+                      18.090857
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.297669,
+                      18.090857
+                    ],
+                    "description": "Olaus Magnus väg",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|177|145|54|91|0|0|224|1|0|0|128|63|0|59.297669,18.090857",
+                    "routePathIndex": 32
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.298282,
+                      18.088871
+                    ],
+                    "description": "Olaus Magnus väg",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|121|146|54|91|0|0|224|1|71|246|245|62|0|59.298282,18.088871",
+                    "routePathIndex": 30
+                  },
+                  "travelDistance": 0.152,
+                  "travelDuration": 21
+                }
+              ],
+              "startTime": "/Date(1708287937421-0800)/",
+              "travelDistance": 0.152,
+              "travelDuration": 21,
+              "travelMode": "Driving"
+            },
+            {
+              "actualEnd": {
+                "type": "Point",
+                "coordinates": [
+                  59.297983,
+                  18.09145
+                ]
+              },
+              "actualStart": {
+                "type": "Point",
+                "coordinates": [
+                  59.297669,
+                  18.090857
+                ]
+              },
+              "alternateVias": [],
+              "description": "",
+              "endTime": "/Date(1708287960121-0800)/",
+              "itineraryItems": [
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 62,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "DepartStart",
+                      "mode": "Driving",
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        0
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "DepartIntermediateStop",
+                    "text": "Depart and head (northeast)"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.297669,
+                      18.090857
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0.048,
+                  "travelDuration": 5,
+                  "travelMode": "Driving"
+                },
+                {
+                  "compassDirection": "northeast",
+                  "details": [
+                    {
+                      "compassDegrees": 62,
+                      "endPathIndices": [
+                        1
+                      ],
+                      "maneuverType": "ArriveFinish",
+                      "mode": "Driving",
+                      "roadType": "Street",
+                      "startPathIndices": [
+                        1
+                      ]
+                    }
+                  ],
+                  "exit": "",
+                  "hints": [
+                    {
+                      "hintType": "PreviousIntersection",
+                      "text": "The last intersection before your destination is Olaus Magnus väg"
+                    }
+                  ],
+                  "iconType": "Auto",
+                  "instruction": {
+                    "formattedText": null,
+                    "maneuverType": "ArriveFinish",
+                    "text": "Arrive at destination"
+                  },
+                  "isRealTimeTransit": false,
+                  "maneuverPoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.297983,
+                      18.09145
+                    ]
+                  },
+                  "realTimeTransitDelay": 0,
+                  "sideOfStreet": "Unknown",
+                  "tollZone": "",
+                  "transitTerminus": "",
+                  "travelDistance": 0,
+                  "travelDuration": 0,
+                  "travelMode": "Driving"
+                }
+              ],
+              "routeRegion": "WWMX",
+              "routeSubLegs": [
+                {
+                  "endWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.297983,
+                      18.09145
+                    ],
+                    "description": "road",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|41|114|54|91|0|0|224|1|216|222|30|63|0|59.297983,18.09145",
+                    "routePathIndex": 33
+                  },
+                  "startWaypoint": {
+                    "type": "Point",
+                    "coordinates": [
+                      59.297669,
+                      18.090857
+                    ],
+                    "description": "road",
+                    "isVia": false,
+                    "locationIdentifier": "0|178|192|200|185|41|114|54|91|0|0|224|1|0|0|0|0|0|59.297669,18.090857",
+                    "routePathIndex": 32
+                  },
+                  "travelDistance": 0.048,
+                  "travelDuration": 5
+                }
+              ],
+              "startTime": "/Date(1708287955121-0800)/",
+              "travelDistance": 0.048,
+              "travelDuration": 5,
+              "travelMode": "Driving"
+            }
+          ],
+          "routePath": {
+            "generalizations": [],
+            "line": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  59.291078,
+                  18.086405
+                ],
+                [
+                  59.289591,
+                  18.087195
+                ],
+                [
+                  59.284191,
+                  18.089799
+                ],
+                [
+                  59.282563,
+                  18.090545
+                ],
+                [
+                  59.281415,
+                  18.090971
+                ],
+                [
+                  59.281144,
+                  18.091005
+                ],
+                [
+                  59.280351,
+                  18.091102
+                ],
+                [
+                  59.279352,
+                  18.091497
+                ],
+                [
+                  59.279202,
+                  18.091543
+                ],
+                [
+                  59.279258,
+                  18.092134
+                ],
+                [
+                  59.279386,
+                  18.092093
+                ],
+                [
+                  59.280053,
+                  18.091861
+                ],
+                [
+                  59.281631,
+                  18.091065
+                ],
+                [
+                  59.282249,
+                  18.090849
+                ],
+                [
+                  59.283424,
+                  18.090368
+                ],
+                [
+                  59.289626,
+                  18.087315
+                ],
+                [
+                  59.293578,
+                  18.085472
+                ],
+                [
+                  59.295075,
+                  18.084651
+                ],
+                [
+                  59.295384,
+                  18.084555
+                ],
+                [
+                  59.29624,
+                  18.084051
+                ],
+                [
+                  59.296406,
+                  18.08412
+                ],
+                [
+                  59.296633,
+                  18.084558
+                ],
+                [
+                  59.296776,
+                  18.085628
+                ],
+                [
+                  59.296775,
+                  18.085866
+                ],
+                [
+                  59.296785,
+                  18.085983
+                ],
+                [
+                  59.296875,
+                  18.086182
+                ],
+                [
+                  59.297587,
+                  18.086759
+                ],
+                [
+                  59.298343,
+                  18.086726
+                ],
+                [
+                  59.298305,
+                  18.086934
+                ],
+                [
+                  59.298159,
+                  18.088607
+                ],
+                [
+                  59.298281,
+                  18.08887
+                ],
+                [
+                  59.298419,
+                  18.089327
+                ],
+                [
+                  59.297669,
+                  18.090856
+                ],
+                [
+                  59.297982,
+                  18.09145
+                ]
+              ]
+            }
+          },
+          "trafficCongestion": "None",
+          "trafficDataUsed": "FlowAndClosure",
+          "travelDistance": 3.985,
+          "travelDuration": 401,
+          "travelDurationTraffic": 378,
+          "travelMode": "Driving"
+        }
+      ]
+    }
+  ],
+  "statusCode": 200,
+  "statusDescription": "OK",
+  "traceId": "bec8b45466e103d87e5b8270ad9bcc68|DU0000305F|0.0.0.0|DUB0009296, Leg1-DUB000928F, Leg0-DUB0009290, Leg3-DUB0009286, Leg2-DUB000928D"
+}
