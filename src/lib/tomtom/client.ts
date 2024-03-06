@@ -27,7 +27,7 @@ export class TomTomClient {
 				params: {
 					routeRepresentation: 'polyline',
 					computeTravelTimeFor: 'all',
-					vehicleHeading: heading,
+					vehicleHeading: heading.toFixed(0),
 					sectionType: ['traffic'],
 					traffic: true,
 					key: this.apiKey,

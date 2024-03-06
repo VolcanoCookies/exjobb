@@ -31,7 +31,7 @@ async function main() {
 	const tomtomClient = new TomTomClient(tomtomKey);
 	const hereClient = new HereClient(hereKey);
 
-	const routes: Point[][] = [
+	const routes: { points: Point[]; heading: number }[] = [
 		[
 			{ latitude: 59.2963961206535, longitude: 18.06193878000687 },
 			{ latitude: 59.296385164428706, longitude: 18.051081197914584 },
@@ -44,7 +44,10 @@ async function main() {
 			{ latitude: 59.31196751124371, longitude: 18.150518351883377 },
 			{ latitude: 59.31186895022427, longitude: 18.14998593339392 },
 		],
-	];
+	].map((points) => ({
+		points,
+		heading: get_bearing(points[0], points[1]),
+	}));
 
 	let bingFrequency = 1 * 60 * 1000;
 	let tomtomFrequency = 5 * 60 * 1000;
@@ -56,31 +59,28 @@ async function main() {
 
 	setInterval(async () => {
 		for (const route of routes) {
-			const res = await bingClient.getRoute(
-				route,
-				get_bearing(route[0], route[1])
-			);
-			await saveRouteResponse(undefined, route, res);
+			const res = await bingClient.getRoute(route.points, route.heading);
+			await saveRouteResponse(undefined, route.points, res);
 		}
 	}, bingFrequency);
 	setInterval(async () => {
 		for (const route of routes) {
 			const res = await tomtomClient.getRoute(
-				route,
-				get_bearing(route[0], route[1])
+				route.points,
+				route.heading
 			);
-			await saveRouteResponse(undefined, route, res);
+			await saveRouteResponse(undefined, route.points, res);
 		}
 	}, tomtomFrequency);
 	setInterval(async () => {
 		for (const route of routes) {
 			const res = await hereClient.getRoute(
-				route[0],
-				route[1],
+				route.points[0],
+				route.points[1],
 				undefined,
-				get_bearing(route[0], route[1])
+				route.heading
 			);
-			await saveRouteResponse(undefined, route, res);
+			await saveRouteResponse(undefined, route.points, res);
 		}
 	}, hereFrequency);
 }

@@ -69,7 +69,7 @@ export class HereClient {
 	) {
 		let origin = `${start.latitude},${start.longitude}`;
 		if (heading !== undefined) {
-			origin += `;course=${heading}`;
+			origin += `;course=${heading.toFixed(0)}`;
 		}
 
 		const response = await this.client.get(

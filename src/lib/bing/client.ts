@@ -31,7 +31,11 @@ export class BingClient {
 		}
 
 		const response = await this.client.get(
-			`http://dev.virtualearth.net/REST/v1/Routes?${wp}&heading=${heading}&distanceUnit=km&key=${this.apiKey}&optimize=timeWithTraffic&routeAttributes=routePath`
+			`http://dev.virtualearth.net/REST/v1/Routes?${wp}&heading=${heading.toFixed(
+				0
+			)}&distanceUnit=km&key=${
+				this.apiKey
+			}&optimize=timeWithTraffic&routeAttributes=routePath`
 		);
 		let data = response.data;
 		postProcess(data);
