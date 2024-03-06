@@ -59,28 +59,43 @@ async function main() {
 
 	setInterval(async () => {
 		for (const route of routes) {
-			const res = await bingClient.getRoute(route.points, route.heading);
-			await saveRouteResponse(undefined, route.points, res);
+			try {
+				const res = await bingClient.getRoute(
+					route.points,
+					route.heading
+				);
+				await saveRouteResponse(undefined, route.points, res);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	}, bingFrequency);
 	setInterval(async () => {
 		for (const route of routes) {
-			const res = await tomtomClient.getRoute(
-				route.points,
-				route.heading
-			);
-			await saveRouteResponse(undefined, route.points, res);
+			try {
+				const res = await tomtomClient.getRoute(
+					route.points,
+					route.heading
+				);
+				await saveRouteResponse(undefined, route.points, res);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	}, tomtomFrequency);
 	setInterval(async () => {
 		for (const route of routes) {
-			const res = await hereClient.getRoute(
-				route.points[0],
-				route.points[1],
-				undefined,
-				route.heading
-			);
-			await saveRouteResponse(undefined, route.points, res);
+			try {
+				const res = await hereClient.getRoute(
+					route.points[0],
+					route.points[1],
+					undefined,
+					route.heading
+				);
+				await saveRouteResponse(undefined, route.points, res);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	}, hereFrequency);
 }
