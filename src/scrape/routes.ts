@@ -70,6 +70,7 @@ async function main() {
 			}
 		}
 	}, bingFrequency);
+	/*
 	setInterval(async () => {
 		for (const route of routes) {
 			try {
@@ -98,6 +99,7 @@ async function main() {
 			}
 		}
 	}, hereFrequency);
+	*/
 }
 
 async function exitDelay(delay: number) {
