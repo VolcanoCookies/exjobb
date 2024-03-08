@@ -7,6 +7,31 @@ import {
 } from '../lib/tomtom/types.js';
 import { HereRouteResponse, isHereRouteResponse } from '../lib/here/types.js';
 
+export interface GeoJsonLineString {
+	type: 'LineString';
+	// Note: [longitude, latitude]
+	coordinates: [number, number][];
+}
+
+export function pointsToLineString(points: Point[]): GeoJsonLineString {
+	return {
+		type: 'LineString',
+		coordinates: points.map((p) => [p.longitude, p.latitude]),
+	};
+}
+
+export const GeoJsonLineStringSchema = new Schema<GeoJsonLineString>({
+	type: {
+		type: String,
+		enum: ['LineString'],
+		required: true,
+	},
+	coordinates: {
+		type: [[Number]],
+		required: true,
+	},
+});
+
 export interface RouteResponseEntry<T> {
 	id: string;
 	batchId: string | undefined;
@@ -21,12 +46,7 @@ export const RouteEntrySchema = new Schema<RouteResponseEntry<any>>({
 		required: false,
 		index: true,
 	},
-	path: [
-		{
-			latitude: Number,
-			longitude: Number,
-		},
-	],
+	path: GeoJsonLineStringSchema,
 	date: {
 		type: Date,
 		required: true,
@@ -36,6 +56,8 @@ export const RouteEntrySchema = new Schema<RouteResponseEntry<any>>({
 		required: true,
 	},
 });
+
+RouteEntrySchema.index({ path: '2dsphere' }, { unique: false });
 
 export const BingRouteEntryModel = model<RouteResponseEntry<BingRouteResponse>>(
 	'BingRouteEntry',
@@ -59,21 +81,21 @@ export async function saveResponse<T>(
 	if (isBingRouteResponse(response)) {
 		await BingRouteEntryModel.create({
 			batchId,
-			path,
+			path: pointsToLineString(path),
 			date: new Date(),
 			response,
 		});
 	} else if (isTomTomRouteResponse(response)) {
 		await TomTomRouteEntryModel.create({
 			batchId,
-			path,
+			path: pointsToLineString(path),
 			date: new Date(),
 			response,
 		});
 	} else if (isHereRouteResponse(response)) {
 		await HereRouteEntryModel.create({
 			batchId,
-			path,
+			path: pointsToLineString(path),
 			date: new Date(),
 			response,
 		});
