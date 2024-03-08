@@ -7,6 +7,7 @@ import {
 	TrafikVerketTrafficFlow,
 	TrafikVerketTrafficFlowResponse,
 } from '../lib/trafikverket/types.js';
+import { BING_COLOR, HERE_COLOR, TOMTOM_COLOR } from './consts.js';
 import { loadGraph, onGraphOpen, showGraph } from './graph.js';
 
 let modeSelect: HTMLSelectElement = document.getElementById(
@@ -241,17 +242,13 @@ async function loadRoutes(files: string[]) {
 
 	const initialPoints = bingRoutes[0].stats.points;
 
-	const bingColor = '#09D343';
-	const hereColor = '#0A99F0';
-	const tomtomColor = '#FF1414';
-
 	bingRoutes.forEach((r) => {
 		const points = r.stats.points.map((c) => {
 			return new Microsoft.Maps.Location(c.latitude, c.longitude);
 		});
 
 		const line = new Microsoft.Maps.Polyline(points, {
-			strokeColor: bingColor,
+			strokeColor: BING_COLOR,
 			strokeThickness: 2,
 		});
 		map.entities.add(line);
@@ -263,7 +260,7 @@ async function loadRoutes(files: string[]) {
 		});
 
 		const line = new Microsoft.Maps.Polyline(points, {
-			strokeColor: hereColor,
+			strokeColor: HERE_COLOR,
 			strokeThickness: 2,
 		});
 		map.entities.add(line);
@@ -275,7 +272,7 @@ async function loadRoutes(files: string[]) {
 		});
 
 		const line = new Microsoft.Maps.Polyline(points, {
-			strokeColor: tomtomColor,
+			strokeColor: TOMTOM_COLOR,
 			strokeThickness: 2,
 		});
 		map.entities.add(line);

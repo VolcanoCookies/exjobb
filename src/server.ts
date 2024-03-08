@@ -11,6 +11,11 @@ import { TrafikVerketClient } from './lib/trafikverket/client.js';
 import { writeFileSync } from 'fs';
 import mongoose from 'mongoose';
 import { TrafikverketFlowEntryModel } from './model/trafikverketFlowModel.js';
+import {
+	BingRouteEntryModel,
+	HereRouteEntryModel,
+	TomTomRouteEntryModel,
+} from './model/routeModel.js';
 
 dotenv.config();
 
@@ -228,6 +233,50 @@ app.get('/flow/trafikverket/vehicleTypes/:siteId', async (req, res) => {
 		.exec();
 
 	return res.json({ types });
+});
+
+interface InRangeRequest {
+	latitude: number;
+	longitude: number;
+	radius: number;
+}
+app.post<InRangeRequest>('/routes/inRange', async (req, res) => {
+	const data = req.body as InRangeRequest;
+	if (data.latitude === undefined || data.longitude === undefined) {
+		return res.status(400).send('Latitude and Longitude are required');
+	} else if (data.radius === undefined) {
+		return res.status(400).send('Radius is required');
+	}
+
+	const query = {
+		path: {
+			$near: {
+				$geometry: {
+					type: 'Point',
+					coordinates: [data.longitude, data.latitude],
+				},
+				$maxDistance: data.radius,
+			},
+		},
+	};
+
+	const bingRoutes = BingRouteEntryModel.find(query).exec();
+	const tomtomRoutes = TomTomRouteEntryModel.find(query).exec();
+	const hereRoutes = HereRouteEntryModel.find(query).exec();
+
+	const [bing, tomtom, here] = await Promise.all([
+		bingRoutes,
+		tomtomRoutes,
+		hereRoutes,
+	]);
+
+	const routes = {
+		bing,
+		tomtom,
+		here,
+	};
+
+	return res.json(routes);
 });
 
 app.listen(port, () => {
