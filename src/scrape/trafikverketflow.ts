@@ -30,11 +30,20 @@ async function main() {
 	let lastChangeId = 0;
 	setInterval(async () => {
 		// All traffic around center of stockholm in a 100km radius
-		const res = await client.getAllTrafficFlow(10000, lastChangeId, {
-			latitude: 59.325484,
-			longitude: 18.0653,
-			radius: 100 * 1000,
-		});
+		const res = await client
+			.getAllTrafficFlow(10000, lastChangeId, {
+				latitude: 59.325484,
+				longitude: 18.0653,
+				radius: 100 * 1000,
+			})
+			.catch((err) => {
+				console.error('Error fetching traffic flow', err);
+			});
+
+		if (!res) {
+			console.log('No new data');
+			return;
+		}
 
 		lastChangeId = res.LastChangeId!;
 
