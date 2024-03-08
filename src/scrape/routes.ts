@@ -7,8 +7,11 @@ import { HereClient } from '../lib/here/client.js';
 import { Point } from '../index.js';
 import { get_bearing } from '../utils.js';
 import { saveResponse as saveRouteResponse } from '../model/routeModel.js';
+import { Logger } from '@pieropatron/tinylogger';
+import { AxiosError } from 'axios';
 
 configDotenv();
+const logger = new Logger('scrape-routes');
 
 async function main() {
 	await connectDb();
@@ -57,6 +60,8 @@ async function main() {
 
 	exitDelay(duration);
 
+	const bingLogger = new Logger('bing');
+
 	setInterval(async () => {
 		for (const route of routes) {
 			try {
@@ -66,7 +71,14 @@ async function main() {
 				);
 				await saveRouteResponse(undefined, route.points, res);
 			} catch (error) {
-				console.error(error);
+				if (error instanceof AxiosError) {
+					bingLogger.warn(
+						`HTTP error while scraping bing, status: ${error.response?.status}, message: ${error.response?.data}`
+					);
+				} else {
+					bingLogger.warn('Request error while scraping bing');
+					bingLogger.error(error);
+				}
 			}
 		}
 	}, bingFrequency);

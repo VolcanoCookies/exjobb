@@ -5,20 +5,15 @@ import { save_flow } from '../utils.js';
 import { sleep } from '../lib/utils.js';
 import mongoose from 'mongoose';
 import { TrafikverketFlowEntryModel } from '../model/trafikverketFlowModel.js';
+import { Logger } from '@pieropatron/tinylogger';
+import { AxiosError } from 'axios';
+import { connectDb } from '../db.js';
 
 configDotenv();
+const logger = new Logger('trafikverketflow');
 
 async function main() {
-	const mongoUrl = process.env.MONGO_URL;
-	if (!mongoUrl) {
-		throw new Error('MONGO_URL not found');
-	}
-
-	await mongoose.connect(mongoUrl, {
-		dbName: 'exjobb',
-	});
-
-	console.log('Connected to MongoDB');
+	await connectDb();
 
 	const trafikverketKey = process.env.TRAFIKVERKET_API_KEY;
 	if (!trafikverketKey) {
@@ -37,11 +32,17 @@ async function main() {
 				radius: 100 * 1000,
 			})
 			.catch((err) => {
-				console.error('Error fetching traffic flow', err);
+				if (err instanceof AxiosError) {
+					logger.warn(
+						`Error fetching traffic flow, status: ${err.response?.status}, message: ${err.response?.data}`
+					);
+				} else {
+					logger.error('Error fetching traffic flow, ', err);
+				}
 			});
 
 		if (!res) {
-			console.log('No new data');
+			logger.info('No new data');
 			return;
 		}
 
@@ -66,7 +67,7 @@ async function main() {
 			});
 		});
 
-		console.log('Saved', res.TrafficFlow.length, 'entries');
+		logger.info('Saved', res.TrafficFlow.length, 'entries');
 	}, 60 * 1000);
 }
 
