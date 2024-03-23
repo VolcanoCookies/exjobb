@@ -63,7 +63,7 @@ async function main() {
         VehicleFlowRate: flow.VehicleFlowRate,
         AverageVehicleSpeed: flow.AverageVehicleSpeed,
         location: {
-          point: "Point",
+          type: "Point",
           coordinates: [
             flow.Geometry.Point.longitude,
             flow.Geometry.Point.latitude,

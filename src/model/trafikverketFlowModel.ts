@@ -83,9 +83,6 @@ export const trafikverketSiteEntrySchema = new Schema<TrafikverketSiteEntry>({
       required: true,
     },
   },
-  RegionId: Number,
-  MeasurementSide: String,
-  SpecificLane: String,
 });
 
 trafikverketSiteEntrySchema.index({ location: "2dsphere" }, { unique: false });
