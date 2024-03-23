@@ -1,13 +1,13 @@
 import { configDotenv } from "dotenv";
 import { TrafikVerketClient } from "../lib/trafikverket/client.js";
-import { readFile, readFileSync, readdirSync, writeFileSync } from "fs";
-import { save_flow } from "../utils.js";
-import { sleep } from "../lib/utils.js";
-import mongoose from "mongoose";
-import { TrafikverketFlowEntryModel } from "../model/trafikverketFlowModel.js";
+import {
+  TrafikverketFlowEntryModel,
+  TrafikverketSiteEntryModel,
+} from "../model/trafikverketFlowModel.js";
 import { Logger } from "@pieropatron/tinylogger";
 import { AxiosError } from "axios";
 import { connectDb } from "../db.js";
+import { Point } from "../index.js";
 
 configDotenv();
 const logger = new Logger("trafikverketflow");
@@ -48,7 +48,13 @@ async function main() {
 
     lastChangeId = res.LastChangeId!;
 
+    const sites = new Map<number, Point>();
     res.TrafficFlow.forEach((flow) => {
+      sites.set(flow.SiteId, {
+        latitude: flow.Geometry.Point.latitude,
+        longitude: flow.Geometry.Point.longitude,
+      });
+
       TrafikverketFlowEntryModel.create({
         SiteId: flow.SiteId,
         MeasurementTime: flow.MeasurementTime,
@@ -67,6 +73,22 @@ async function main() {
         SpecificLane: flow.SpecificLane,
         MeasurementSide: flow.MeasurementSide,
       });
+    });
+
+    sites.forEach((point, siteId) => {
+      TrafikverketSiteEntryModel.updateOne(
+        { SiteId: siteId },
+        {
+          $setOnInsert: {
+            SiteId: siteId,
+            location: {
+              type: "Point",
+              coordinates: [point.longitude, point.latitude],
+            },
+          },
+        },
+        { upsert: true }
+      );
     });
 
     logger.info("Saved", res.TrafficFlow.length, "entries");

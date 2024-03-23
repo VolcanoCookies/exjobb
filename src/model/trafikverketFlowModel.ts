@@ -1,4 +1,4 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 export interface TrafikverketFlowEntry {
   SiteId: number;
@@ -50,5 +50,47 @@ trafikverketFlowEntrySchema.index({ location: "2dsphere" }, { unique: false });
 
 export const TrafikverketFlowEntryModel = model<TrafikverketFlowEntry>(
   "TrafikverketFlowEntry",
-  trafikverketFlowEntrySchema
+  trafikverketFlowEntrySchema,
+  "trafikverketflowentries_v2"
+);
+
+export interface TrafikverketSiteEntry {
+  SiteId: number;
+  location: {
+    type: "Point";
+    coordinates: [number, number];
+  };
+  RegionId: number;
+  MeasurementSide: string;
+  SpecificLane: string;
+}
+
+export const trafikverketSiteEntrySchema = new Schema<TrafikverketSiteEntry>({
+  SiteId: {
+    type: Number,
+    required: true,
+    unique: false,
+    index: true,
+  },
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
+  RegionId: Number,
+  MeasurementSide: String,
+  SpecificLane: String,
+});
+
+trafikverketSiteEntrySchema.index({ location: "2dsphere" }, { unique: false });
+
+export const TrafikverketSiteEntryModel = model<TrafikverketSiteEntry>(
+  "TrafikverketSiteEntry",
+  trafikverketSiteEntrySchema
 );
