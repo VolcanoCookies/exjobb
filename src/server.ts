@@ -1,36 +1,39 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import { readDirRecursiveSync } from './lib/utils.js';
-import { Point } from './index.js';
-import { BingClient } from './lib/bing/client.js';
-import { HereClient } from './lib/here/client.js';
-import { TomTomClient } from './lib/tomtom/client.js';
-import { get_bearing, save_route } from './utils.js';
-import bodyParser from 'body-parser';
-import { TrafikVerketClient } from './lib/trafikverket/client.js';
-import { writeFileSync } from 'fs';
-import mongoose from 'mongoose';
-import { TrafikverketFlowEntryModel } from './model/trafikverketFlowModel.js';
+import express from "express";
+import dotenv from "dotenv";
+import { readDirRecursiveSync } from "./lib/utils.js";
+import { Point } from "./index.js";
+import { BingClient } from "./lib/bing/client.js";
+import { HereClient } from "./lib/here/client.js";
+import { TomTomClient } from "./lib/tomtom/client.js";
+import { get_bearing, save_route } from "./utils.js";
+import bodyParser from "body-parser";
+import { TrafikVerketClient } from "./lib/trafikverket/client.js";
+import { writeFileSync } from "fs";
+import mongoose from "mongoose";
 import {
-	BingRouteEntryModel,
-	HereRouteEntryModel,
-	TomTomRouteEntryModel,
-} from './model/routeModel.js';
+  TrafikverketFlowEntryModel,
+  TrafikverketSiteEntryModel,
+} from "./model/trafikverketFlowModel.js";
+import {
+  BingRouteEntryModel,
+  HereRouteEntryModel,
+  TomTomRouteEntryModel,
+} from "./model/routeModel.js";
 
 dotenv.config();
 
 const mongoUrl = process.env.MONGO_URL!;
 if (!mongoUrl) {
-	throw new Error('MONGO_URL not found');
+  throw new Error("MONGO_URL not found");
 }
 
 mongoose
-	.connect(mongoUrl, {
-		dbName: 'exjobb',
-	})
-	.then(() => {
-		console.log('Connected to MongoDB');
-	});
+  .connect(mongoUrl, {
+    dbName: "exjobb",
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  });
 
 const bindApiKey = process.env.BING_API_KEY!;
 const hereApiKey = process.env.HERE_API_KEY!;
@@ -48,14 +51,14 @@ const app = express();
 app.use(bodyParser.json());
 const port = 3000;
 
-app.use('/', express.static(__dirname + '/public'));
-app.use('/lib', express.static(__dirname + '/lib'));
+app.use("/", express.static(__dirname + "/public"));
+app.use("/lib", express.static(__dirname + "/lib"));
 
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + './public/index.html');
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "./public/index.html");
 });
 
-app.use('/data', express.static(__dirname + '/../data'));
+app.use("/data", express.static(__dirname + "/../data"));
 
 /*
 app.get('/data', (req, res) => {
@@ -125,160 +128,204 @@ app.get('/data', (req, res) => {
 });
 */
 
-app.get('/routes/list', (req, res) => {
-	const parent = __dirname + '/../data/routes/';
-	const files = readDirRecursiveSync(parent);
+app.get("/routes/list", (req, res) => {
+  const parent = __dirname + "/../data/routes/";
+  const files = readDirRecursiveSync(parent);
 
-	return res.json({
-		files: files.map((f) => 'routes/' + f.replace(parent, '')),
-	});
+  return res.json({
+    files: files.map((f) => "routes/" + f.replace(parent, "")),
+  });
 });
 
 interface CompareRequest {
-	points: Point[];
-	name: string;
-	times: number | undefined;
+  points: Point[];
+  name: string;
+  times: number | undefined;
 }
-app.post<CompareRequest>('/routes/compare', async (req, res) => {
-	const data = req.body as CompareRequest;
-	if (data.points === undefined || data.points.length < 2) {
-		return res.status(400).send('At least two points are required');
-	} else if (data.points.length > 25) {
-		return res.status(400).send('Maximum 25 points are allowed');
-	} else if (data.name === undefined || data.name.trim() === '') {
-		return res.status(400).send('Name is required');
-	}
+app.post<CompareRequest>("/routes/compare", async (req, res) => {
+  const data = req.body as CompareRequest;
+  if (data.points === undefined || data.points.length < 2) {
+    return res.status(400).send("At least two points are required");
+  } else if (data.points.length > 25) {
+    return res.status(400).send("Maximum 25 points are allowed");
+  } else if (data.name === undefined || data.name.trim() === "") {
+    return res.status(400).send("Name is required");
+  }
 
-	const bearing = Math.round(get_bearing(data.points[0], data.points[1]));
+  const bearing = Math.round(get_bearing(data.points[0], data.points[1]));
 
-	const now = Math.round(new Date().getTime() / 1000);
-	const bingRoute = bingClient
-		.getRoute(data.points, bearing)
-		.then((route) => save_route(route, `${data.name}/${now}-bing.json`));
-	const hereRoute = hereClient
-		.getRoute(
-			data.points[0],
-			data.points[data.points.length - 1],
-			data.points.slice(1, -1),
-			bearing
-		)
-		.then((route) => save_route(route, `${data.name}/${now}-here.json`));
-	const tomtomRoute = tomtomClient
-		.getRoute(data.points, bearing)
-		.then((route) => save_route(route, `${data.name}/${now}-tomtom.json`));
+  const now = Math.round(new Date().getTime() / 1000);
+  const bingRoute = bingClient
+    .getRoute(data.points, bearing)
+    .then((route) => save_route(route, `${data.name}/${now}-bing.json`));
+  const hereRoute = hereClient
+    .getRoute(
+      data.points[0],
+      data.points[data.points.length - 1],
+      data.points.slice(1, -1),
+      bearing
+    )
+    .then((route) => save_route(route, `${data.name}/${now}-here.json`));
+  const tomtomRoute = tomtomClient
+    .getRoute(data.points, bearing)
+    .then((route) => save_route(route, `${data.name}/${now}-tomtom.json`));
 
-	const [bing, here, tomtom] = await Promise.all([
-		bingRoute,
-		hereRoute,
-		tomtomRoute,
-	]);
+  const [bing, here, tomtom] = await Promise.all([
+    bingRoute,
+    hereRoute,
+    tomtomRoute,
+  ]);
 
-	return res.json({
-		bing,
-		here,
-		tomtom,
-	});
+  return res.json({
+    bing,
+    here,
+    tomtom,
+  });
 });
 
-app.get('/flow/trafikverket', async (req, res) => {
-	const data = await trafikverketClient
-		.getAllTrafficFlow(10000, undefined, {
-			latitude: 59.325484,
-			longitude: 18.0653,
-			radius: 100 * 1000,
-		})
-		.catch((e) => {
-			writeFileSync('error.json', JSON.stringify(e, null, 2));
-			throw e;
-		});
-	return res.json(data);
+app.get("/flow/trafikverket", async (req, res) => {
+  const data = await trafikverketClient
+    .getAllTrafficFlow(10000, undefined, {
+      latitude: 59.325484,
+      longitude: 18.0653,
+      radius: 100 * 1000,
+    })
+    .catch((e) => {
+      writeFileSync("error.json", JSON.stringify(e, null, 2));
+      throw e;
+    });
+  return res.json(data);
 });
 
 interface FlowRequest {
-	SiteId: number;
-	Before: Date;
-	After: Date;
-	VehicleType: string | undefined;
+  Point: Point;
+  Radius: number;
+  Before: Date;
+  After: Date;
+  VehicleType: string | undefined;
 }
-app.post<FlowRequest>('/flow/trafikverket/historic', async (req, res) => {
-	const data = req.body as FlowRequest;
-	if (data.Before === undefined || data.After === undefined) {
-		return res.status(400).send('Before and After are required');
-	} else if (data.SiteId === undefined) {
-		return res.status(400).send('SiteId is required');
-	}
+app.post<FlowRequest>("/flow/trafikverket/historic", async (req, res) => {
+  const data = req.body as FlowRequest;
+  if (data.Before === undefined || data.After === undefined) {
+    return res.status(400).send("Before and After are required");
+  } else if (data.Point === undefined) {
+    return res.status(400).send("Point is required");
+  } else if (data.Radius === undefined) {
+    return res.status(400).send("Radius is required");
+  }
 
-	const query = {
-		SiteId: data.SiteId,
-		MeasurementTime: {
-			$gte: data.After,
-			$lte: data.Before,
-		},
-	};
-	if (data.VehicleType) {
-		// @ts-ignore
-		query['VehicleType'] = data.VehicleType;
-	}
+  const siteIdQuery = {
+    location: {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [data.Point.longitude, data.Point.latitude],
+        },
+        $maxDistance: data.Radius,
+      },
+    },
+  };
 
-	const flows = await TrafikverketFlowEntryModel.find(query).exec();
-	return res.json({ flows });
+  const sites = await TrafikverketSiteEntryModel.find(siteIdQuery).exec();
+
+  const dataQuery = {
+    SiteId: {
+      $in: sites.map((s) => s.SiteId),
+    },
+    MeasurementTime: {
+      $gte: data.After,
+      $lte: data.Before,
+    },
+  };
+
+  console.log(dataQuery);
+
+  if (data.VehicleType) {
+    // @ts-ignore
+    dataQuery["VehicleType"] = data.VehicleType;
+  }
+
+  const flows = await TrafikverketFlowEntryModel.find(dataQuery).exec();
+
+  return res.json({ flows });
 });
 
-app.get('/flow/trafikverket/vehicleTypes/:siteId', async (req, res) => {
-	const siteId = req.params.siteId;
-	const types = await TrafikverketFlowEntryModel.find({
-		SiteId: siteId,
-	})
-		.distinct('VehicleType')
-		.exec();
+app.get(
+  "/flow/trafikverket/vehicleTypes/:latitude/:longitude",
+  async (req, res) => {
+    const latitude = parseFloat(req.params.latitude);
+    const longitude = parseFloat(req.params.longitude);
 
-	return res.json({ types });
-});
+    const siteIdQuery = {
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [longitude, latitude],
+          },
+          $maxDistance: 10,
+        },
+      },
+    };
+
+    const sites = await TrafikverketSiteEntryModel.find(siteIdQuery).exec();
+
+    const types = await TrafikverketFlowEntryModel.find({
+      SiteId: {
+        $in: sites.map((s) => s.SiteId),
+      },
+    })
+      .distinct("VehicleType")
+      .exec();
+
+    return res.json({ types });
+  }
+);
 
 interface InRangeRequest {
-	latitude: number;
-	longitude: number;
-	radius: number;
+  latitude: number;
+  longitude: number;
+  radius: number;
 }
-app.post<InRangeRequest>('/routes/inRange', async (req, res) => {
-	const data = req.body as InRangeRequest;
-	if (data.latitude === undefined || data.longitude === undefined) {
-		return res.status(400).send('Latitude and Longitude are required');
-	} else if (data.radius === undefined) {
-		return res.status(400).send('Radius is required');
-	}
+app.post<InRangeRequest>("/routes/inRange", async (req, res) => {
+  const data = req.body as InRangeRequest;
+  if (data.latitude === undefined || data.longitude === undefined) {
+    return res.status(400).send("Latitude and Longitude are required");
+  } else if (data.radius === undefined) {
+    return res.status(400).send("Radius is required");
+  }
 
-	const query = {
-		path: {
-			$near: {
-				$geometry: {
-					type: 'Point',
-					coordinates: [data.longitude, data.latitude],
-				},
-				$maxDistance: data.radius,
-			},
-		},
-	};
+  const query = {
+    path: {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [data.longitude, data.latitude],
+        },
+        $maxDistance: data.radius,
+      },
+    },
+  };
 
-	const bingRoutes = BingRouteEntryModel.find(query).exec();
-	const tomtomRoutes = TomTomRouteEntryModel.find(query).exec();
-	const hereRoutes = HereRouteEntryModel.find(query).exec();
+  const bingRoutes = BingRouteEntryModel.find(query).exec();
+  const tomtomRoutes = TomTomRouteEntryModel.find(query).exec();
+  const hereRoutes = HereRouteEntryModel.find(query).exec();
 
-	const [bing, tomtom, here] = await Promise.all([
-		bingRoutes,
-		tomtomRoutes,
-		hereRoutes,
-	]);
+  const [bing, tomtom, here] = await Promise.all([
+    bingRoutes,
+    tomtomRoutes,
+    hereRoutes,
+  ]);
 
-	const routes = {
-		bing,
-		tomtom,
-		here,
-	};
+  const routes = {
+    bing,
+    tomtom,
+    here,
+  };
 
-	return res.json(routes);
+  return res.json(routes);
 });
 
 app.listen(port, () => {
-	console.log(`Server listening on http://localhost:${port}`);
+  console.log(`Server listening on http://localhost:${port}`);
 });
