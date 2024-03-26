@@ -54,12 +54,12 @@ export async function onGraphOpen(location: Point, radius: number) {
   const start = new Date(startDate.value);
   const end = new Date(endDate.value);
   const range = Number(routeRange.value);
-  await loadGraph(location, radius, "car", start, end, range);
+  await loadGraph(location, radius, "anyVehicle", start, end, range);
   showGraph();
 }
 
 function onSettingsChange() {
-  const type = typeSelect.value || "car";
+  const type = typeSelect.value || "anyVehicle";
   loadGraph(
     currentLocation,
     currentRadius,
@@ -135,6 +135,11 @@ export async function loadGraph(
     return;
   }
 
+  const flows = flowData.flows.map((flow) => ({
+    date: flow.MeasurementTime,
+    value: flow.AverageVehicleSpeed,
+  }));
+
   // Clear previous graph
   d3.select("#graph > svg").remove();
 
@@ -160,16 +165,11 @@ export async function loadGraph(
     .call(d3.axisBottom(x))
     .attr("stroke", "white");
 
+  const maxValue = d3.max(flows, (d) => d.value) as number;
+
   const y = d3
     .scaleLinear()
-    .domain([
-      0,
-      (d3.max(
-        flowData.flows,
-        (d) => d.AverageVehicleSpeed
-        //(d) => d.VehicleFlowRate / d.MeasurementOrCalculationPeriod
-      ) as number) * 1.1,
-    ])
+    .domain([0, maxValue * 1.1])
     .range([height - 100, 0]);
   const yAxis = svg.append("g").call(d3.axisLeft(y)).attr("stroke", "white");
 
@@ -226,6 +226,34 @@ export async function loadGraph(
       0
     ),
   }));
+
+  function normalize(
+    value: number,
+    sourceRange: [number, number],
+    targetRange: [number, number]
+  ) {
+    const [sourceMin, sourceMax] = sourceRange;
+    const [targetMin, targetMax] = targetRange;
+    return (
+      ((value - sourceMin) / (sourceMax - sourceMin)) *
+        (targetMax - targetMin) +
+      targetMin
+    );
+  }
+
+  // Normalize
+  const bingRange = d3.extent(bingData, (d) => d.value) as [number, number];
+  bingData.forEach((d) => {
+    d.value = normalize(d.value, bingRange, [0, maxValue]);
+  });
+  const tomtomRange = d3.extent(tomtomData, (d) => d.value) as [number, number];
+  tomtomData.forEach((d) => {
+    d.value = normalize(d.value, tomtomRange, [0, maxValue]);
+  });
+  const hereRange = d3.extent(hereData, (d) => d.value) as [number, number];
+  hereData.forEach((d) => {
+    d.value = normalize(d.value, hereRange, [0, maxValue]);
+  });
 
   function createDots(
     elemClass: string,

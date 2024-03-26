@@ -47,6 +47,8 @@ export const trafikverketFlowEntrySchema = new Schema<TrafikverketFlowEntry>({
 });
 
 trafikverketFlowEntrySchema.index({ location: "2dsphere" }, { unique: false });
+trafikverketFlowEntrySchema.index({ SiteId: 1 }, { unique: false });
+trafikverketFlowEntrySchema.index({ MeasurementTime: 1 }, { unique: false });
 
 export const TrafikverketFlowEntryModel = model<TrafikverketFlowEntry>(
   "TrafikverketFlowEntry",
@@ -86,8 +88,12 @@ export const trafikverketSiteEntrySchema = new Schema<TrafikverketSiteEntry>({
 });
 
 trafikverketSiteEntrySchema.index({ location: "2dsphere" }, { unique: false });
+trafikverketSiteEntrySchema.index({ SiteId: 1 }, { unique: false });
 
 export const TrafikverketSiteEntryModel = model<TrafikverketSiteEntry>(
   "TrafikverketSiteEntry",
   trafikverketSiteEntrySchema
 );
+
+TrafikverketFlowEntryModel.ensureIndexes();
+TrafikverketSiteEntryModel.ensureIndexes();

@@ -58,6 +58,7 @@ export const RouteEntrySchema = new Schema<RouteResponseEntry<any>>({
 });
 
 RouteEntrySchema.index({ path: "2dsphere" }, { unique: false });
+RouteEntrySchema.index({ date: 1 }, { unique: false });
 
 export const BingRouteEntryModel = model<RouteResponseEntry<BingRouteResponse>>(
   "BingRouteEntry",
@@ -72,6 +73,10 @@ export const HereRouteEntryModel = model<RouteResponseEntry<HereRouteResponse>>(
   "HereRouteEntry",
   RouteEntrySchema
 );
+
+BingRouteEntryModel.ensureIndexes();
+TomTomRouteEntryModel.ensureIndexes();
+HereRouteEntryModel.ensureIndexes();
 
 export async function saveResponse<T>(
   batchId: string | undefined,

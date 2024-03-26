@@ -9,7 +9,6 @@ import { get_bearing, save_route } from "./utils.js";
 import bodyParser from "body-parser";
 import { TrafikVerketClient } from "./lib/trafikverket/client.js";
 import { writeFileSync } from "fs";
-import mongoose from "mongoose";
 import {
   TrafikverketFlowEntryModel,
   TrafikverketSiteEntryModel,
@@ -19,6 +18,7 @@ import {
   HereRouteEntryModel,
   TomTomRouteEntryModel,
 } from "./model/routeModel.js";
+import { connectDb } from "./db.js";
 
 dotenv.config();
 
@@ -27,13 +27,7 @@ if (!mongoUrl) {
   throw new Error("MONGO_URL not found");
 }
 
-mongoose
-  .connect(mongoUrl, {
-    dbName: "exjobb",
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  });
+connectDb();
 
 const bindApiKey = process.env.BING_API_KEY!;
 const hereApiKey = process.env.HERE_API_KEY!;
@@ -226,7 +220,9 @@ app.post<FlowRequest>("/flow/trafikverket/historic", async (req, res) => {
     },
   };
 
-  const sites = await TrafikverketSiteEntryModel.find(siteIdQuery).exec();
+  const sitesOp = TrafikverketSiteEntryModel.find(siteIdQuery);
+  sitesOp.projection({ SiteId: 1 });
+  const sites = await sitesOp.exec();
 
   const dataQuery = {
     SiteId: {
@@ -245,7 +241,18 @@ app.post<FlowRequest>("/flow/trafikverket/historic", async (req, res) => {
     dataQuery["VehicleType"] = data.VehicleType;
   }
 
-  const flows = await TrafikverketFlowEntryModel.find(dataQuery).exec();
+  const dataOp = TrafikverketFlowEntryModel.find(dataQuery);
+  dataOp.sort({ MeasurementTime: 1 });
+  dataOp.projection({
+    SiteId: 1,
+    MeasurementOrCalculationPeriod: 1,
+    MeasurementTime: 1,
+    VehicleType: 1,
+    VehicleFlowRate: 1,
+    AverageVehicleSpeed: 1,
+  });
+
+  const flows = await dataOp.exec();
 
   return res.json({ flows });
 });
@@ -307,14 +314,34 @@ app.post<InRangeRequest>("/routes/inRange", async (req, res) => {
     },
   };
 
-  const bingRoutes = BingRouteEntryModel.find(query).exec();
-  const tomtomRoutes = TomTomRouteEntryModel.find(query).exec();
-  const hereRoutes = HereRouteEntryModel.find(query).exec();
+  console.log(query);
+
+  const bingProjection = {
+    date: 1,
+    "response.resourceSets.resources.travelDuration": 1,
+    "response.resourceSets.resources.travelDurationTraffic": 1,
+  };
+  const tomtomProjection = {
+    date: 1,
+    "response.routes.summary.travelTimeInSeconds": 1,
+  };
+  const hereProjection = {
+    date: 1,
+    "response.routes.sections.summary.duration": 1,
+  };
+
+  const bingOp = BingRouteEntryModel.find(query);
+  const tomtomOp = TomTomRouteEntryModel.find(query);
+  const hereOp = HereRouteEntryModel.find(query);
+
+  bingOp.projection(bingProjection);
+  tomtomOp.projection(tomtomProjection);
+  hereOp.projection(hereProjection);
 
   const [bing, tomtom, here] = await Promise.all([
-    bingRoutes,
-    tomtomRoutes,
-    hereRoutes,
+    bingOp.exec(),
+    tomtomOp.exec(),
+    hereOp.exec(),
   ]);
 
   const routes = {
