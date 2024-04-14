@@ -7,9 +7,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon",
-		"clean": "rm -rf dist/public",
-		"copy": "cp -r src/public dist/public",
-		"build": "npm run clean && npm run copy && tsc",
+		"copy": "node copy.js",
+		"build": "npm run copy && tsc",
 		"compare": "tsc && node dist/compareRoutes.js",
 		"scrape": "tsc && node dist/scrape.js"
 	},
@@ -25,9 +24,11 @@
 		"dotenv": "^16.4.1",
 		"express": "^4.18.2",
 		"fs": "^0.0.1-security",
+		"geo-nearby": "^2.0.1",
 		"mongoose": "^8.2.0",
 		"nodemon": "^3.0.3",
 		"openlr-js": "^3.0.6",
+		"pureimage": "^0.4.13",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3"
 	},

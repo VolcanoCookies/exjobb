@@ -1,9 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 import {
 	TrafikVerketResponseRaw,
+	TrafikVerketRoadGeometry,
+	TrafikVerketRoadGeometryReponse,
 	TrafikVerketTrafficFlow,
 	TrafikVerketTrafficFlowResponse,
 } from './types';
+import { Point } from '../..';
 
 function getInnerResult<T>(response: TrafikVerketResponseRaw<T>): T[] {
 	return response.RESPONSE.RESULT;
@@ -107,5 +110,63 @@ export class TrafikVerketClient {
 			TrafficFlow: data,
 			LastChangeId: res.LastChangeId,
 		};
+	}
+
+	async getRoadGeometry(
+		location: Point,
+		radius: number,
+		limit: number = 10,
+		skip: number = 0
+	): Promise<TrafikVerketRoadGeometry[]> {
+		const filter = `<FILTER><NEAR name="Geometry.WGS843D" value="${location.longitude} ${location.latitude}" mindistance="0" maxdistance="${radius}m"/></FILTER>`;
+
+		const request = `<REQUEST>
+  <LOGIN authenticationkey="${this.apiKey}"/>
+  <QUERY objecttype="RoadGeometry" schemaversion="1" limit="${limit}" skip="${skip}">
+		${filter}
+  </QUERY>
+</REQUEST>`;
+
+		const response = await this.client.post(
+			`https://api.trafikinfo.trafikverket.se/v2/data.json`,
+			request,
+			{
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+			}
+		);
+
+		const data = getInnerResult<TrafikVerketRoadGeometryReponse>(
+			response.data
+		)[0];
+
+		return data.RoadGeometry.map((raw) => {
+			const inner = raw.Geometry.WGS843D.replace(
+				'LINESTRING (',
+				''
+			).replace(')', '');
+			const coords = inner
+				.split(',')
+				.map((s) => s.trim().split(' '))
+				.map((s) => ({
+					latitude: parseFloat(s[1]),
+					longitude: parseFloat(s[0]),
+				}));
+
+			return {
+				County: raw.County,
+				Deleted: raw.Deleted,
+				Direction: raw.Direction,
+				Geometry: {
+					Coordinates: coords,
+				},
+				Length: raw.Length,
+				ModifiedTime: new Date(raw.ModifiedTime),
+				RoadMainNumber: raw.RoadMainNumber,
+				RoadSubNumber: raw.RoadSubNumber,
+				TimeStamp: new Date(raw.TimeStamp),
+			} as TrafikVerketRoadGeometry;
+		});
 	}
 }

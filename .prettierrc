@@ -1,0 +1,8 @@
+{
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "tabWidth": 4,
+    "plotWidth": 120,
+    "arrowParens": "always",
+    "useTabs": true
+}

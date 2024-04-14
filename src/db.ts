@@ -1,18 +1,18 @@
-import { Logger } from "@pieropatron/tinylogger";
-import mongoose from "mongoose";
+import { Logger } from '@pieropatron/tinylogger';
+import mongoose from 'mongoose';
 
-const logger = new Logger("db");
+const logger = new Logger('db');
 
 export async function connectDb() {
-  const mongoUrl = process.env.MONGO_URL;
-  if (!mongoUrl) {
-    logger.error("MONGO_URL not found");
-    process.exit(1);
-  }
+	const mongoUrl = process.env.MONGO_URL;
+	if (!mongoUrl) {
+		logger.error('MONGO_URL not found');
+		process.exit(1);
+	}
 
-  await mongoose.connect(mongoUrl, {
-    dbName: "exjobb_demo",
-  });
+	await mongoose.connect(mongoUrl, {
+		dbName: 'exjobb',
+	});
 
-  logger.info("Connected to MongoDB");
+	logger.info('Connected to MongoDB');
 }
