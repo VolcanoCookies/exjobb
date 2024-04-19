@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use fixedbitset::FixedBitSet;
 use petgraph::{graph::NodeIndex, stable_graph::StableDiGraph, visit::VisitMap};
 
@@ -15,7 +13,7 @@ const COLORS: [&str; 25] = [
     "#ee82ee",
 ];
 
-pub fn draw_disjoint_graph(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
+pub fn draw_disjoint(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
     let mut canvas = Canvas::from_graph(4000, &graph);
 
     let mut sets: Vec<FixedBitSet> = Vec::new();

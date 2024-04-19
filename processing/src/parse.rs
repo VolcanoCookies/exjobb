@@ -1,9 +1,9 @@
 use std::io::Read;
 
 use longitude::Location;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, Clone, Copy, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq)]
 pub struct Point {
     pub latitude: f32,
     pub longitude: f32,
@@ -15,7 +15,7 @@ impl Into<Location> for Point {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum RoadDirection {
     Forward,
     Backward,
@@ -38,7 +38,7 @@ impl From<&str> for RoadDirection {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Direction {
     North,
     South,
@@ -110,7 +110,7 @@ struct SensorGeometry {
     pub point: Point,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct SensorData {
     pub site_id: i32,
     pub flow_rate: f32,

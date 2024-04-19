@@ -1,7 +1,8 @@
+use petgraph::stable_graph::StableDiGraph;
+
 use crate::{
-    math::extents,
     output::{Canvas, DrawOptions},
-    parse::RoadData,
+    processing::{EdgeData, NodeData},
 };
 
 const COLORS: [&str; 25] = [
@@ -11,36 +12,37 @@ const COLORS: [&str; 25] = [
     "#ee82ee",
 ];
 
-pub fn draw_roads(road_data: Vec<RoadData>, unique_ids: Vec<i32>) -> Canvas {
+pub fn draw_roads(graph: StableDiGraph<NodeData, EdgeData>, unique_ids: Vec<i32>) -> Canvas {
     if unique_ids.is_empty() {
         panic!("No unique ids provided");
     } else if unique_ids.len() > COLORS.len() {
         panic!("Too many unique ids provided");
     }
 
-    let extent = road_data
-        .iter()
-        .flat_map(|r| r.coordinates.iter())
-        .cloned()
-        .collect::<Vec<_>>();
-    let extent = extents(&extent);
+    let mut canvas = Canvas::from_graph(4000, &graph);
 
-    let mut canvas = Canvas::from_extents(4000, extent);
-
-    let mut i = 0;
-    for road in road_data {
-        if unique_ids.contains(&road.unique_id) {
-            canvas.draw_polyline(
-                road.coordinates,
-                DrawOptions {
-                    color: COLORS[i],
-                    stroke: 1.0,
-                    stroke_dasharray: "2,2",
-                    ..Default::default()
-                },
-            );
+    for edge in graph.edge_indices() {
+        let data = graph.edge_weight(edge).unwrap();
+        if data.polyline.is_empty() {
+            continue;
         }
-        i += 1;
+
+        let mut color = None;
+        for (idx, id) in unique_ids.iter().enumerate() {
+            if data.original_road_id == *id {
+                color = Some(COLORS[idx]);
+                break;
+            }
+        }
+        let color = color.unwrap();
+        canvas.draw_polyline(
+            data.polyline.clone(),
+            DrawOptions {
+                color,
+                stroke: 1.0,
+                ..Default::default()
+            },
+        );
     }
 
     return canvas;

@@ -9,6 +9,7 @@ mod visitor;
 use std::ops::Range;
 
 use clap::{Parser, Subcommand, ValueEnum};
+use human_bytes::human_bytes;
 use processing::NodeCollapse;
 
 use crate::parse::{read_roads, read_sensors};
@@ -21,12 +22,6 @@ use crate::parse::{read_roads, read_sensors};
     about = "A traffic simulator"
 )]
 struct Cli {
-    #[clap(short, long, default_value = "../roadData.json")]
-    road_data: String,
-    #[clap(short, long, default_value = "../sensorData.json")]
-    sensor_data: String,
-    #[clap(short, long, default_value = "output.svg")]
-    output: String,
     #[command(subcommand)]
     commands: Commands,
 }
@@ -34,10 +29,34 @@ struct Cli {
 #[derive(Debug, Subcommand)]
 enum Commands {
     DrawRoad {
+        #[clap(short, long, default_value = "graph.bin")]
+        input: String,
+        #[clap(short, long, default_value = "graph.svg")]
+        output: String,
         #[clap(short, long)]
         unique_ids: Vec<i32>,
     },
     ShortestPath {
+        #[clap(short, long, default_value = "graph.bin")]
+        input: String,
+        #[clap(short, long, default_value = "graph.svg")]
+        output: String,
+        #[clap(short, long, default_value = "false", default_missing_value = "true")]
+        print_path_roads: bool,
+    },
+    DrawDisjoint {
+        #[clap(short, long, default_value = "graph.bin")]
+        input: String,
+        #[clap(short, long, default_value = "graph.svg")]
+        output: String,
+    },
+    Process {
+        #[clap(short, long, default_value = "../roadData.json")]
+        road_data: String,
+        #[clap(short, long, default_value = "../sensorData.json")]
+        sensor_data: String,
+        #[clap(short, long, default_value = "graph.bin")]
+        output: String,
         #[clap(short, long, default_value = "false", default_missing_value = "true")]
         dedup_road_data: bool,
         #[clap(short, long)]
@@ -55,8 +74,6 @@ enum Commands {
             default_missing_value = "true"
         )]
         dedup_edges: bool,
-        #[clap(short, long, default_value = "false", default_missing_value = "true")]
-        print_path_roads: bool,
     },
 }
 
@@ -69,25 +86,40 @@ enum Mode {
 fn main() {
     let args: Cli = Cli::parse();
 
-    let road_data = read_roads(&args.road_data);
-    let sensor_data = read_sensors(&args.sensor_data);
-
-    println!("Number of roads: {}", road_data.len());
-    println!("Number of sensors: {}", sensor_data.len());
-
     match args.commands {
-        Commands::DrawRoad { unique_ids } => {
-            let canvas = modes::draw_roads(road_data.clone(), unique_ids);
-            canvas.save(&args.output);
+        Commands::DrawRoad {
+            input,
+            output,
+            unique_ids,
+        } => {
+            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
+            let canvas = modes::draw_roads(graph, unique_ids);
+            canvas.save(&output);
         }
         Commands::ShortestPath {
+            input,
+            output,
+            print_path_roads,
+        } => {
+            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
+            let canvas = modes::shortest_path(graph, print_path_roads);
+            svg::save(&output, &canvas).unwrap();
+        }
+        Commands::DrawDisjoint { input, output } => {
+            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
+            let canvas = modes::draw_disjoint(graph);
+            canvas.save(&output);
+        }
+        Commands::Process {
+            road_data,
+            sensor_data,
+            output,
             dedup_road_data,
             max_distance,
             merge_overlapping_distance,
             collapse_nodes,
             remove_disjoint_nodes,
             dedup_edges,
-            print_path_roads,
         } => {
             let opts = processing::GraphProcessingOptions {
                 dedup_road_data,
@@ -98,13 +130,14 @@ fn main() {
                 dedup_edges,
             };
 
-            let document = modes::shortest_path(
-                road_data.clone(),
-                sensor_data.clone(),
-                opts,
-                print_path_roads,
-            );
-            svg::save(&args.output, &document).unwrap();
+            let road_data = read_roads(&road_data);
+            let sensor_data = read_sensors(&sensor_data);
+
+            let graph = processing::parse_data(road_data, sensor_data, opts);
+            let data = bitcode::serialize(&graph).unwrap();
+            std::fs::write(output.clone(), data).unwrap();
+            let size = std::fs::metadata(output).unwrap().len();
+            println!("Graph size: {} bytes", human_bytes(size as f64));
         }
     }
 }

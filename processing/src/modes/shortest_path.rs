@@ -1,24 +1,13 @@
-use geo::point;
+use petgraph::stable_graph::StableDiGraph;
 use svg::Document;
 
 use crate::{
     output,
-    parse::{RoadData, SensorData},
-    processing::{
-        build_node_acceleration_structure, closest_node, parse_data, GraphProcessingOptions,
-    },
-    visitor::{self, Path},
-    PointQuery,
+    processing::{build_node_acceleration_structure, closest_node, EdgeData, NodeData},
+    visitor, PointQuery,
 };
 
-pub fn shortest_path(
-    road_data: Vec<RoadData>,
-    sensor_data: Vec<SensorData>,
-    opts: GraphProcessingOptions,
-    print_path_roads: bool,
-) -> Document {
-    let graph = parse_data(road_data, sensor_data, opts);
-
+pub fn shortest_path(graph: StableDiGraph<NodeData, EdgeData>, print_path_roads: bool) -> Document {
     let desired_path = vec![
         PointQuery::new(59.241836, 17.837475, f32::INFINITY, 0.0..180.0),
         //PointQuery::new(59.325564, 18.003914, f32::INFINITY, -20.0..120.0),

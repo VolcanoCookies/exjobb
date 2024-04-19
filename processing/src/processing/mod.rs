@@ -9,13 +9,13 @@ use std::collections::{HashMap, HashSet};
 use clap::ValueEnum;
 use kdtree::{distance::squared_euclidean, KdTree};
 use petgraph::{
-    data::Build,
     graph::NodeIndex,
     prelude::EdgeIndex,
     stable_graph::{StableDiGraph, StableGraph},
     visit::{Bfs, EdgeRef, IntoEdgeReferences, IntoNodeReferences, VisitMap},
     Direction::{Incoming, Outgoing},
 };
+use serde::{Deserialize, Serialize};
 
 use crate::{
     math::{angle_average, angle_diff, dist, line_heading, point_line_dist_approx},
@@ -25,7 +25,7 @@ use crate::{
 
 pub mod collapse;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct NodeData {
     pub point: Point,
     pub direction: RoadDirection,
@@ -42,7 +42,7 @@ impl Positionable for NodeData {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EdgeData {
     pub distance: f32,
     pub main_number: i32,
