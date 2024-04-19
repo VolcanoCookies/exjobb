@@ -1,14 +1,21 @@
 use std::io::Read;
 
+use longitude::Location;
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize, Clone, Copy)]
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq)]
 pub struct Point {
     pub latitude: f32,
     pub longitude: f32,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+impl Into<Location> for Point {
+    fn into(self) -> Location {
+        Location::from(self.latitude as f64, self.longitude as f64)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum RoadDirection {
     Forward,
     Backward,
@@ -103,7 +110,7 @@ struct SensorGeometry {
     pub point: Point,
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct SensorData {
     pub site_id: i32,
     pub flow_rate: f32,
@@ -174,16 +181,19 @@ pub struct RoadData {
     pub sub_number: i32,
     pub coordinates: Vec<Point>,
     pub length: f32,
+    pub unique_id: i32,
 }
 
 fn parse_road_data(raw: Vec<RawRoadData>) -> Vec<RoadData> {
     raw.into_iter()
-        .map(|raw| RoadData {
+        .enumerate()
+        .map(|(unique_id, raw)| RoadData {
             direction: raw.direction.value.as_str().into(),
             main_number: raw.road_main_number,
             sub_number: raw.road_sub_number,
             coordinates: raw.geometry.coordinates,
             length: raw.length,
+            unique_id: unique_id as i32,
         })
         .collect()
 }

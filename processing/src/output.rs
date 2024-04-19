@@ -1,127 +1,196 @@
 use petgraph::{
-    visit::{EdgeRef, IntoNodeReferences},
-    Direction::{Incoming, Outgoing},
-    Graph,
+    stable_graph::StableGraph,
+    visit::{EdgeRef, IntoEdgeReferences, IntoNodeReferences},
 };
-use svg::{node::element::path::Data, Document};
+use svg::{node::element::path::Data, Document, Node};
 
 use crate::{
-    graph::{EdgeData, NodeData},
+    math::lerp,
     parse::Point,
+    processing::{EdgeData, NodeData},
+    visitor::Path,
 };
 
-pub fn render(width: u32, graph: &Graph<NodeData, EdgeData>) -> Document {
+#[derive(Debug, Clone, Copy, Default)]
+pub struct RenderOptions {
+    pub show_sensors: bool,
+    pub show_sensor_connections: bool,
+    pub show_road_caps: bool,
+    pub show_road_connections: bool,
+    pub show_graph_edges: bool,
+    pub show_graph_nodes: bool,
+    pub show_original_edges: bool,
+    pub show_path: bool,
+}
+
+pub fn render(
+    width: u32,
+    graph: &StableGraph<NodeData, EdgeData>,
+    path: Option<Path>,
+    opts: RenderOptions,
+) -> Document {
     let size = calc_canvas_size(width, &graph);
-
-    let mut document = Document::new()
-        .set("viewBox", (0, 0, size.width, size.height))
-        .add(
-            svg::node::element::Rectangle::new()
-                .set("width", size.width)
-                .set("height", size.height)
-                .set("fill", "#1f1f1f"),
-        );
-
-    let gradient_id = "gradient";
-
-    let gradient = svg::node::element::LinearGradient::new()
-        .set("id", gradient_id)
-        .set("gradientUnits", "userSpaceOnUse")
-        .add(
-            svg::node::element::Stop::new()
-                .set("offset", "0%")
-                .set("stop-color", "red"),
-        )
-        .add(
-            svg::node::element::Stop::new()
-                .set("offset", "100%")
-                .set("stop-color", "blue"),
-        );
-
-    document = document.add(gradient);
-
+    let mut canvas = Canvas::new(size);
     println!("Number of edges: {}", graph.edge_count());
-    for edge in graph.edge_references() {
-        let idx = edge.id();
-        let weight = edge.weight();
-        let endpoints = graph.edge_endpoints(idx).unwrap();
-        let source = endpoints.0;
-        let target = endpoints.1;
-        let source_pos = graph.node_weight(source).unwrap().point;
-        let target_pos = graph.node_weight(target).unwrap().point;
 
-        let path = Data::new()
-            .move_to(convert_point(source_pos, size))
-            .line_to(convert_point(target_pos, size));
-
-        document = document.add(
-            svg::node::element::Path::new()
-                .set("fill", "none")
-                .set("stroke", "blue")
-                .set("stroke-width", 2)
-                .set("d", path),
-        );
-
-        let mut path = Data::new();
-        path = path.move_to(convert_point(weight.polyline[0], size));
-        for point in weight.polyline.iter() {
-            path = path.line_to(convert_point(*point, size));
+    if opts.show_original_edges {
+        for edge in graph.edge_references() {
+            let data = edge.weight();
+            canvas.draw_polyline(
+                data.polyline.clone(),
+                DrawOptions {
+                    color: "purple",
+                    stroke: 0.75,
+                    ..Default::default()
+                },
+            );
         }
-        document = document.add(
-            svg::node::element::Path::new()
-                .set("fill", "none")
-                .set("stroke", "purple")
-                .set("stroke-width", 1)
-                .set("d", path),
-        );
+    }
+
+    if opts.show_graph_edges {
+        for edge in graph.edge_references() {
+            let data = edge.weight();
+            if data.is_connector {
+                continue;
+            }
+
+            let endpoints = graph.edge_endpoints(edge.id()).unwrap();
+            let source = graph.node_weight(endpoints.0).unwrap().point;
+            let target = graph.node_weight(endpoints.1).unwrap().point;
+
+            canvas.draw_line(
+                source,
+                target,
+                DrawOptions {
+                    color: "blue",
+                    stroke: 0.5,
+                    ..Default::default()
+                },
+            );
+        }
+    }
+
+    if opts.show_road_connections {
+        for edge in graph.edge_references() {
+            let data = edge.weight();
+            if !data.is_connector {
+                continue;
+            }
+
+            let endpoints = graph.edge_endpoints(edge.id()).unwrap();
+            let source = graph.node_weight(endpoints.0).unwrap().point;
+            let target = graph.node_weight(endpoints.1).unwrap().point;
+
+            canvas.draw_line(
+                source,
+                target,
+                DrawOptions {
+                    color: "yellow",
+                    stroke: 0.55,
+                    ..Default::default()
+                },
+            );
+        }
     }
 
     println!("Number of nodes: {}", graph.node_count());
-    let mut count = 0;
-    for (idx, data) in graph.node_references() {
+    for (_, data) in graph.node_references() {
         if let Some(sensor) = data.sensor {
-            let (x, y) = convert_point(sensor.point, size);
-            document = document.add(
-                svg::node::element::Circle::new()
-                    .set("cx", x)
-                    .set("cy", y)
-                    .set("r", 4)
-                    .set("fill", "green"),
-            );
+            if opts.show_sensors {
+                canvas.draw_circle(sensor.point, "green", 4.0);
+            }
 
-            let path = Data::new()
-                .move_to((x, y))
-                .line_to(convert_point(data.point, size));
-            document = document.add(
-                svg::node::element::Path::new()
-                    .set("fill", "none")
-                    .set("stroke", "yellow")
-                    .set("stroke-width", 2)
-                    .set("d", path),
-            );
+            if opts.show_sensor_connections {
+                canvas.draw_line(
+                    sensor.point,
+                    data.point,
+                    DrawOptions {
+                        color: "teal",
+                        stroke: 1.0,
+                        ..Default::default()
+                    },
+                )
+            }
         }
 
-        let out_edges = graph.edges_directed(idx, Outgoing);
-        let in_edges = graph.edges_directed(idx, Incoming);
-        if out_edges.count() + in_edges.count() > 1 {
-            continue;
+        if opts.show_graph_edges {
+            canvas.draw_circle(data.point, "red", 0.5);
         }
-
-        count += 1;
-        let (x, y) = convert_point(data.point, size);
-
-        document = document.add(
-            svg::node::element::Circle::new()
-                .set("cx", x)
-                .set("cy", y)
-                .set("r", 2)
-                .set("fill", "red"),
-        );
     }
 
-    println!("Number of dead ends: {}", count);
+    if opts.show_path {
+        if let Some(path) = path {
+            let len = path.nodes.len();
+            let mut iter = path.nodes.iter();
+            let prev = iter.next().unwrap();
+            let mut prev_data = graph.node_weight(*prev).unwrap();
 
-    document
+            let from_color = (255, 0, 0);
+            let to_color = (0, 255, 0);
+
+            for (i, node) in iter.enumerate() {
+                let prog = i as f32 / len as f32;
+                let color = (
+                    lerp(from_color.0 as f32, to_color.0 as f32, prog).round() as u8,
+                    lerp(from_color.1 as f32, to_color.1 as f32, prog).round() as u8,
+                    lerp(from_color.2 as f32, to_color.2 as f32, prog).round() as u8,
+                );
+
+                let data = graph.node_weight(*node).unwrap();
+                canvas.draw_line(
+                    prev_data.point,
+                    data.point,
+                    DrawOptions {
+                        color: &format!("rgb({}, {}, {})", color.0, color.1, color.2),
+                        stroke: 0.3,
+                        ..Default::default()
+                    },
+                );
+
+                prev_data = data;
+            }
+        }
+    }
+
+    canvas.document
+}
+
+pub fn render_polyline(width: u32, polyline: Vec<Point>) -> Document {
+    let lon_extent = polyline
+        .iter()
+        .map(|p| p.longitude)
+        .fold((f32::INFINITY, f32::NEG_INFINITY), |(min, max), lon| {
+            (min.min(lon), max.max(lon))
+        });
+    let lat_extent = polyline
+        .iter()
+        .map(|p| p.latitude)
+        .fold((f32::INFINITY, f32::NEG_INFINITY), |(min, max), lat| {
+            (min.min(lat), max.max(lat))
+        });
+
+    let size = CanvasSize {
+        width,
+        height: (width as f32 * (lat_extent.1 - lat_extent.0) / (lon_extent.1 - lon_extent.0))
+            as u32,
+        min_lat: lat_extent.0,
+        max_lat: lat_extent.1,
+        min_lon: lon_extent.0,
+        max_lon: lon_extent.1,
+    };
+
+    let mut canvas = Canvas::new(size);
+
+    canvas.draw_polyline(
+        polyline,
+        DrawOptions {
+            color: "red",
+            stroke: 0.5,
+            ..Default::default()
+        },
+    );
+
+    canvas.document
 }
 
 fn convert_point(point: Point, canvas_size: CanvasSize) -> (f32, f32) {
@@ -137,7 +206,7 @@ fn convert_point(point: Point, canvas_size: CanvasSize) -> (f32, f32) {
     (x, y)
 }
 
-pub fn calc_canvas_size(width: u32, points: &Graph<NodeData, EdgeData>) -> CanvasSize {
+pub fn calc_canvas_size(width: u32, points: &StableGraph<NodeData, EdgeData>) -> CanvasSize {
     let points = points.node_weights().collect::<Vec<_>>();
 
     let min_lat = points
@@ -179,4 +248,107 @@ pub struct CanvasSize {
     max_lat: f32,
     min_lon: f32,
     max_lon: f32,
+}
+
+pub struct Canvas {
+    pub size: CanvasSize,
+    pub document: Document,
+}
+
+pub struct DrawOptions<'a> {
+    pub color: &'a str,
+    pub stroke: f32,
+    pub stroke_linecap: &'a str,
+    pub stroke_linejoin: &'a str,
+    pub stroke_dasharray: &'a str,
+}
+
+impl<'a> Default for DrawOptions<'a> {
+    fn default() -> Self {
+        DrawOptions {
+            color: "black",
+            stroke: 1.0,
+            stroke_linecap: "butt",
+            stroke_linejoin: "miter",
+            stroke_dasharray: "",
+        }
+    }
+}
+
+impl Canvas {
+    pub fn new(size: CanvasSize) -> Self {
+        let document = Document::new()
+            .set("viewBox", (0, 0, size.width, size.height))
+            .add(
+                svg::node::element::Rectangle::new()
+                    .set("width", size.width)
+                    .set("height", size.height)
+                    .set("fill", "#1f1f1f"),
+            );
+
+        Canvas { size, document }
+    }
+
+    pub fn from_extents(width: usize, extents: ((f32, f32), (f32, f32))) -> Self {
+        let lat_extent = extents.0;
+        let lon_extent = extents.1;
+        let height =
+            (width as f32 * (lat_extent.1 - lat_extent.0) / (lon_extent.1 - lon_extent.0)) as u32;
+        let size = CanvasSize {
+            width: width as u32,
+            height,
+            min_lat: lat_extent.0,
+            max_lat: lat_extent.1,
+            min_lon: lon_extent.0,
+            max_lon: lon_extent.1,
+        };
+        Canvas::new(size)
+    }
+
+    pub fn draw_circle(&mut self, point: Point, color: &str, size: f32) {
+        let (x, y) = convert_point(point, self.size);
+        self.document.append(
+            svg::node::element::Circle::new()
+                .set("cx", x)
+                .set("cy", y)
+                .set("r", size)
+                .set("fill", color),
+        );
+    }
+    pub fn draw_circles(&mut self, points: Vec<Point>, color: &str, size: f32) {
+        for point in points.iter() {
+            self.draw_circle(*point, color, size);
+        }
+    }
+
+    pub fn draw_line(&mut self, start: Point, end: Point, opts: DrawOptions) {
+        self.draw_polyline(vec![start, end], opts);
+    }
+
+    pub fn draw_polyline(&mut self, points: Vec<Point>, opts: DrawOptions) {
+        if points.len() < 2 {
+            return;
+        }
+        let mut path = Data::new();
+        let mut iter = points.iter();
+        let point = iter.next().unwrap();
+        path = path.move_to(convert_point(*point, self.size));
+        for point in iter {
+            path = path.line_to(convert_point(*point, self.size));
+        }
+        self.document.append(
+            svg::node::element::Path::new()
+                .set("fill", "none")
+                .set("stroke", opts.color)
+                .set("stroke-width", opts.stroke)
+                .set("stroke-linecap", opts.stroke_linecap)
+                .set("stroke-linejoin", opts.stroke_linejoin)
+                .set("stroke-dasharray", opts.stroke_dasharray)
+                .set("d", path),
+        );
+    }
+
+    pub fn save(&self, path: &str) {
+        svg::save(path, &self.document).unwrap();
+    }
 }
