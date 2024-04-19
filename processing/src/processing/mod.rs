@@ -4,11 +4,12 @@ use crate::{
     parse::{Point, RoadDirection, SensorData},
 };
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use clap::ValueEnum;
 use kdtree::{distance::squared_euclidean, KdTree};
 use petgraph::{
+    data::Build,
     graph::NodeIndex,
     prelude::EdgeIndex,
     stable_graph::{StableDiGraph, StableGraph},
@@ -242,13 +243,13 @@ pub fn parse_data(
             opts.merge_overlap_distance
         );
         let node_tree = build_node_acceleration_structure(&graph);
-        let mut to_remove = Vec::new();
-        let mut edges_to_add = Vec::new();
-        for node in graph.node_indices() {
-            let data = graph.node_weight(node).unwrap();
-            if to_remove.contains(&node) {
+        let mut removed = HashSet::new();
+        let indices = graph.node_indices().collect::<Vec<_>>();
+        for node in indices {
+            if removed.contains(&node) {
                 continue;
             }
+            let data = graph.node_weight(node).unwrap().clone();
 
             let borrowed = [data.point.latitude, data.point.longitude];
             let mut close_iter = node_tree
@@ -262,14 +263,24 @@ pub fn parse_data(
 
                 let d = dist(data.point, other_data.point);
                 if d <= opts.merge_overlap_distance {
-                    to_remove.push(*other);
+                    let mut edges = Vec::new();
                     let in_edges = graph.edges_directed(*other, Incoming);
                     for edge in in_edges {
-                        edges_to_add.push((edge.source(), node, edge.weight().clone()));
+                        if !are_neighbours(&graph, edge.source(), node) {
+                            edges.push((edge.source(), node, edge.weight().clone()));
+                        }
                     }
                     let out_edges = graph.edges_directed(*other, Outgoing);
                     for edge in out_edges {
-                        edges_to_add.push((node, edge.target(), edge.weight().clone()));
+                        if !are_neighbours(&graph, node, edge.target()) {
+                            edges.push((node, edge.target(), edge.weight().clone()));
+                        }
+                    }
+
+                    graph.remove_node(*other);
+                    removed.insert(*other);
+                    for (from, to, data) in edges {
+                        graph.add_edge(from, to, data);
                     }
                 }
 
@@ -278,13 +289,7 @@ pub fn parse_data(
                 }
             }
         }
-        println!("Removed {} nodes", to_remove.len());
-        for (source, target, data) in edges_to_add {
-            graph.add_edge(source, target, data);
-        }
-        for node in to_remove {
-            graph.remove_node(node);
-        }
+        println!("Removed {} nodes", removed.len());
     }
 
     println!("Assigning sensors to nodes");
@@ -463,22 +468,6 @@ pub fn parse_data(
     }
     println!("Connected {} roads and skipped {}", connected, skipped);
 
-    match opts.collapse_nodes {
-        NodeCollapse::Naive => {
-            println!("Collapsing nodes: naive");
-            let nodes = graph.node_count();
-            collapse::naive(&mut graph);
-            println!("Collapsed {} nodes", nodes - graph.node_count());
-        }
-        NodeCollapse::ForwardOnly => {
-            println!("Collapsing nodes: forward only");
-            let nodes = graph.node_count();
-            collapse::forward_only(&mut graph);
-            println!("Collapsed {} nodes", nodes - graph.node_count());
-        }
-        NodeCollapse::None => {}
-    }
-
     if opts.remove_disjoint_nodes {
         println!("Removing disjointed nodes");
         let (some_sensor_idx, _) = graph
@@ -552,6 +541,22 @@ pub fn parse_data(
         for edge in edges_to_remove {
             graph.remove_edge(edge);
         }
+    }
+
+    match opts.collapse_nodes {
+        NodeCollapse::Naive => {
+            println!("Collapsing nodes: naive");
+            let nodes = graph.node_count();
+            collapse::naive(&mut graph);
+            println!("Collapsed {} nodes", nodes - graph.node_count());
+        }
+        NodeCollapse::ForwardOnly => {
+            println!("Collapsing nodes: forward only");
+            let nodes = graph.node_count();
+            collapse::forward_only(&mut graph);
+            println!("Collapsed {} nodes", nodes - graph.node_count());
+        }
+        NodeCollapse::None => {}
     }
 
     println!(

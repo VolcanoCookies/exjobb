@@ -33,6 +33,14 @@ pub fn render(
     let mut canvas = Canvas::new(size);
     println!("Number of edges: {}", graph.edge_count());
 
+    if opts.show_sensors {
+        for (_, data) in graph.node_references() {
+            if let Some(sensor) = data.sensor {
+                canvas.draw_circle(sensor.point, "green", 4.0);
+            }
+        }
+    }
+
     if opts.show_original_edges {
         for edge in graph.edge_references() {
             let data = edge.weight();
@@ -96,10 +104,6 @@ pub fn render(
     println!("Number of nodes: {}", graph.node_count());
     for (_, data) in graph.node_references() {
         if let Some(sensor) = data.sensor {
-            if opts.show_sensors {
-                canvas.draw_circle(sensor.point, "green", 4.0);
-            }
-
             if opts.show_sensor_connections {
                 canvas.draw_line(
                     sensor.point,
@@ -113,9 +117,14 @@ pub fn render(
             }
         }
 
-        if opts.show_graph_edges {
+        if opts.show_graph_nodes {
             canvas.draw_circle(data.point, "red", 0.5);
         }
+    }
+
+    for (node, data) in graph.node_references() {
+        let edge_count = graph.neighbors_undirected(node).count();
+        canvas.text(data.point, &format!("{}", edge_count));
     }
 
     if opts.show_path {
@@ -206,8 +215,8 @@ fn convert_point(point: Point, canvas_size: CanvasSize) -> (f32, f32) {
     (x, y)
 }
 
-pub fn calc_canvas_size(width: u32, points: &StableGraph<NodeData, EdgeData>) -> CanvasSize {
-    let points = points.node_weights().collect::<Vec<_>>();
+pub fn calc_canvas_size(width: u32, graph: &StableGraph<NodeData, EdgeData>) -> CanvasSize {
+    let points = graph.node_weights().collect::<Vec<_>>();
 
     let min_lat = points
         .iter()
@@ -289,6 +298,11 @@ impl Canvas {
         Canvas { size, document }
     }
 
+    pub fn from_graph(width: u32, graph: &StableGraph<NodeData, EdgeData>) -> Self {
+        let size = calc_canvas_size(width, graph);
+        Canvas::new(size)
+    }
+
     pub fn from_extents(width: usize, extents: ((f32, f32), (f32, f32))) -> Self {
         let lat_extent = extents.0;
         let lon_extent = extents.1;
@@ -345,6 +359,18 @@ impl Canvas {
                 .set("stroke-linejoin", opts.stroke_linejoin)
                 .set("stroke-dasharray", opts.stroke_dasharray)
                 .set("d", path),
+        );
+    }
+
+    pub fn text(&mut self, point: Point, text: &str) {
+        let (x, y) = convert_point(point, self.size);
+
+        self.document.append(
+            svg::node::element::Text::new(text)
+                .set("x", x)
+                .set("y", y)
+                .set("font-size", 1)
+                .set("fill", "white"),
         );
     }
 

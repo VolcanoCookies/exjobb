@@ -1,3 +1,4 @@
+mod disjoint;
 mod draw_road;
 mod shortest_path;
 

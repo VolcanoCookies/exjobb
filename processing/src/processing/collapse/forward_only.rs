@@ -93,28 +93,18 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, edge: EdgeIndex)
 }
 
 fn is_nucleation_point(graph: &StableDiGraph<NodeData, EdgeData>, node: NodeIndex) -> bool {
-    // Only allow collapse if we have more than one incoming edge or its a connector
-    let edges_in = graph.edges_directed(node, Incoming);
-    let mut non_connectors = 0;
-    for edge in edges_in {
-        let edge_data = edge.weight();
-        if !edge_data.is_connector {
-            non_connectors += 1;
-        }
-    }
-    if non_connectors == 1 {
-        return false;
-    }
+    let data = graph.node_weight(node).unwrap();
 
-    // Only allow collapse if there exists a non-connector edge out
-    let edges_out = graph.edges_directed(node, Outgoing);
-    let mut non_connectors = 0;
-    for edge in edges_out {
-        let edge_data = edge.weight();
-        if !edge_data.is_connector {
-            non_connectors += 1;
-        }
-    }
+    let has_sensor = data.sensor.is_some();
+    let non_connectors_in = graph
+        .edges_directed(node, Incoming)
+        .filter(|edge| !edge.weight().is_connector)
+        .count();
+    let non_connectors_out = graph
+        .edges_directed(node, Outgoing)
+        .filter(|edge| !edge.weight().is_connector)
+        .count();
 
-    non_connectors > 0
+    // Only start nucleation if we have at least one non-connector out, and are either a sensor or do not have exactly one non-connector in
+    non_connectors_out > 0 && (has_sensor || non_connectors_in != 1)
 }
