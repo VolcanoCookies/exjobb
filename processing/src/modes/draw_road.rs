@@ -13,9 +13,9 @@ const COLORS: [&str; 25] = [
 ];
 
 pub fn draw_roads(graph: StableDiGraph<NodeData, EdgeData>, unique_ids: Vec<i32>) -> Canvas {
-    if unique_ids.is_empty() {
-        panic!("No unique ids provided");
-    } else if unique_ids.len() > COLORS.len() {
+    let draw_all = unique_ids.is_empty();
+
+    if unique_ids.len() > COLORS.len() {
         panic!("Too many unique ids provided");
     }
 
@@ -27,22 +27,56 @@ pub fn draw_roads(graph: StableDiGraph<NodeData, EdgeData>, unique_ids: Vec<i32>
             continue;
         }
 
-        let mut color = None;
-        for (idx, id) in unique_ids.iter().enumerate() {
-            if data.original_road_id == *id {
-                color = Some(COLORS[idx]);
-                break;
+        let color = if draw_all {
+            if data.is_connector {
+                "teal"
+            } else {
+                COLORS[0]
             }
+        } else {
+            let mut color = None;
+            for (idx, id) in unique_ids.iter().enumerate() {
+                if data.original_road_id == *id {
+                    color = Some(COLORS[idx]);
+                    break;
+                }
+            }
+            if let Some(color) = color {
+                color
+            } else {
+                continue;
+            }
+        };
+        if data.is_connector {
+            let endpoints = graph.edge_endpoints(edge).unwrap();
+            let start = graph.node_weight(endpoints.0).unwrap();
+            let end = graph.node_weight(endpoints.1).unwrap();
+            canvas.draw_line(
+                start.point,
+                end.point,
+                DrawOptions {
+                    color,
+                    stroke: 0.25,
+                    ..Default::default()
+                },
+            );
+        } else {
+            canvas.draw_polyline(
+                data.polyline.clone(),
+                DrawOptions {
+                    color,
+                    stroke: 0.25,
+                    ..Default::default()
+                },
+            );
         }
-        let color = color.unwrap();
-        canvas.draw_polyline(
-            data.polyline.clone(),
-            DrawOptions {
-                color,
-                stroke: 1.0,
-                ..Default::default()
-            },
-        );
+    }
+
+    if draw_all {
+        for node in graph.node_indices() {
+            let data = graph.node_weight(node).unwrap();
+            canvas.draw_triangle(data.point, "lime", 0.75, data.heading);
+        }
     }
 
     return canvas;

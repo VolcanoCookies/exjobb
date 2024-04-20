@@ -1,5 +1,9 @@
 use fixedbitset::FixedBitSet;
-use petgraph::{graph::NodeIndex, stable_graph::StableDiGraph, visit::VisitMap};
+use petgraph::{
+    graph::NodeIndex,
+    stable_graph::StableDiGraph,
+    visit::{VisitMap, Visitable},
+};
 
 use crate::{
     output::{Canvas, DrawOptions},
@@ -17,25 +21,24 @@ pub fn draw_disjoint(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
     let mut canvas = Canvas::from_graph(4000, &graph);
 
     let mut sets: Vec<FixedBitSet> = Vec::new();
-    for node in graph.node_indices() {
+    'outer: for node in graph.node_indices() {
         for set in sets.iter() {
             if set.is_visited(&node) {
-                continue;
+                continue 'outer;
             }
         }
-        let mut visited = FixedBitSet::with_capacity(graph.node_count());
+        let mut visited = graph.visit_map();
         visit(&graph, node, &mut visited);
         sets.push(visited);
     }
 
     for edge in graph.edge_indices() {
-        let data = graph.edge_weight(edge).unwrap();
         let start = graph.edge_endpoints(edge).unwrap().0;
         let end = graph.edge_endpoints(edge).unwrap().1;
         let mut color = None;
         for (idx, set) in sets.iter().enumerate() {
             if set.is_visited(&start) && set.is_visited(&end) {
-                color = Some(COLORS[idx]);
+                color = Some(COLORS[idx % COLORS.len()]);
                 break;
             }
         }
@@ -56,7 +59,7 @@ pub fn draw_disjoint(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
         let mut color = None;
         for (idx, set) in sets.iter().enumerate() {
             if set.is_visited(&node) {
-                color = Some(COLORS[idx]);
+                color = Some(COLORS[idx % COLORS.len()]);
                 break;
             }
         }

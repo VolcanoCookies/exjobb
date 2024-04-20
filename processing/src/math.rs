@@ -1,4 +1,5 @@
 use longitude::Location;
+use num_traits::Float;
 
 use crate::parse::Point;
 
@@ -121,4 +122,19 @@ pub fn extents(vec: &Vec<Point>) -> ((f32, f32), (f32, f32)) {
         .fold(f32::NEG_INFINITY, f32::max);
 
     ((min_lat, max_lat), (min_lon, max_lon))
+}
+
+pub fn geo_distance(a: &[f32], b: &[f32]) -> f32 {
+    if a.len() != 2 || b.len() != 2 {
+        panic!("Invalid input");
+    }
+    let a = Point {
+        latitude: a[0],
+        longitude: a[1],
+    };
+    let b = Point {
+        latitude: b[0],
+        longitude: b[1],
+    };
+    dist(a, b)
 }

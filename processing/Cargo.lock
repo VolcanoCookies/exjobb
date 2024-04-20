@@ -1002,6 +1002,7 @@ dependencies = [
  "imageproc",
  "kdtree",
  "longitude",
+ "num-traits",
  "petgraph",
  "rand",
  "serde",

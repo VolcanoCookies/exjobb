@@ -1,13 +1,13 @@
 use crate::{
     custom_bfs::Positionable,
-    math::midpoint,
+    math::{geo_distance, midpoint},
     parse::{Point, RoadDirection, SensorData},
 };
 
 use std::collections::{HashMap, HashSet};
 
 use clap::ValueEnum;
-use kdtree::{distance::squared_euclidean, KdTree};
+use kdtree::KdTree;
 use petgraph::{
     graph::NodeIndex,
     prelude::EdgeIndex,
@@ -91,6 +91,7 @@ pub struct GraphProcessingOptions {
     pub collapse_nodes: NodeCollapse,
     pub remove_disjoint_nodes: bool,
     pub dedup_edges: bool,
+    pub connect_distance: f32,
 }
 
 #[derive(Debug, Clone, ValueEnum)]
@@ -109,6 +110,7 @@ impl Default for GraphProcessingOptions {
             collapse_nodes: NodeCollapse::None,
             remove_disjoint_nodes: false,
             dedup_edges: false,
+            connect_distance: 20.0,
         }
     }
 }
@@ -252,9 +254,7 @@ pub fn parse_data(
             let data = graph.node_weight(node).unwrap().clone();
 
             let borrowed = [data.point.latitude, data.point.longitude];
-            let mut close_iter = node_tree
-                .iter_nearest(&borrowed, &squared_euclidean)
-                .unwrap();
+            let mut close_iter = node_tree.iter_nearest(&borrowed, &geo_distance).unwrap();
 
             while let Some((_, (other, other_data))) = close_iter.next() {
                 if node == *other {
@@ -370,7 +370,7 @@ pub fn parse_data(
             &graph,
             &edge_tree,
             data.point,
-            20.0,
+            opts.connect_distance,
             longest_road_segment,
             |(_, data)| data.original_road_id,
         );
@@ -393,7 +393,7 @@ pub fn parse_data(
             if !is_cap {
                 // Only allow to connect to roads with the same heading if its not a road cap
                 let heading = line_heading(start.point, end.point);
-                if angle_diff(heading, data.heading).abs() > 10.0 {
+                if angle_diff(heading, data.heading).abs() > 45.0 {
                     continue;
                 }
 
@@ -516,7 +516,7 @@ pub fn parse_data(
 
             let borrowed = [data.midpoint.latitude, data.midpoint.longitude];
             let (_, (closest_idx, _)) = *edge_tree
-                .nearest(&borrowed, 2, &squared_euclidean)
+                .nearest(&borrowed, 2, &geo_distance)
                 .unwrap()
                 .iter()
                 .filter(|e| e.1 .0 != edge.id())
@@ -591,7 +591,7 @@ fn find_closest_sensor(
     point: Point,
 ) -> (f32, SensorData) {
     let (_, data) = *kdtree
-        .nearest(&[point.latitude, point.longitude], 1, &squared_euclidean)
+        .nearest(&[point.latitude, point.longitude], 1, &geo_distance)
         .unwrap()
         .first()
         .unwrap();
@@ -654,7 +654,7 @@ pub fn find_closest_node(
     point: Point,
 ) -> (f32, NodeIndex) {
     let (_, idx_data) = *kdtree
-        .nearest(&[point.latitude, point.longitude], 1, &squared_euclidean)
+        .nearest(&[point.latitude, point.longitude], 1, &geo_distance)
         .unwrap()
         .first()
         .unwrap();
@@ -674,7 +674,7 @@ where
     G: PartialEq + Eq + std::hash::Hash + Clone,
 {
     let binding = [point.latitude, point.longitude];
-    let iter = kdtree.iter_nearest(&binding, &squared_euclidean).unwrap();
+    let iter = kdtree.iter_nearest(&binding, &geo_distance).unwrap();
 
     let mut nodes: HashMap<G, (f32, NodeIndex)> = HashMap::new();
 
@@ -705,7 +705,7 @@ where
     G: PartialEq + Eq + std::hash::Hash + Clone,
 {
     let binding = [point.latitude, point.longitude];
-    let iter = kdtree.iter_nearest(&binding, &squared_euclidean).unwrap();
+    let iter = kdtree.iter_nearest(&binding, &geo_distance).unwrap();
 
     let mut edges: HashMap<G, (f32, EdgeIndex)> = HashMap::new();
     let limit = max_dist + longest_road / 2.0;
@@ -747,7 +747,7 @@ pub fn closest_node(
     query: PointQuery,
 ) -> Option<NodeIndex> {
     let point_arr = [query.point.latitude, query.point.longitude];
-    let closest_iter = tree.iter_nearest(&point_arr, &squared_euclidean).unwrap();
+    let closest_iter = tree.iter_nearest(&point_arr, &geo_distance).unwrap();
 
     for (_, (idx, data)) in closest_iter {
         if dist(data.point, query.point) > query.radius {

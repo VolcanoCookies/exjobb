@@ -362,6 +362,33 @@ impl Canvas {
         );
     }
 
+    pub fn draw_triangle(&mut self, center: Point, color: &str, size: f32, angle: f32) {
+        let mut path = Data::new();
+        let (x, y) = convert_point(center, self.size);
+        let angle = (angle + 150.0).to_radians();
+        let (x1, y1) = (x + angle.cos() * size, y + angle.sin() * size);
+        let (x2, y2) = (
+            x + (angle + 2.0 * std::f32::consts::PI / 3.0).cos() * size,
+            y + (angle + 2.0 * std::f32::consts::PI / 3.0).sin() * size,
+        );
+        let (x3, y3) = (
+            x + (angle + 4.0 * std::f32::consts::PI / 3.0).cos() * size,
+            y + (angle + 4.0 * std::f32::consts::PI / 3.0).sin() * size,
+        );
+
+        path = path
+            .move_to((x, y))
+            .line_to((x1, y1))
+            .line_to((x2, y2))
+            .line_to((x3, y3))
+            .close();
+        self.document.append(
+            svg::node::element::Path::new()
+                .set("fill", color)
+                .set("d", path),
+        );
+    }
+
     pub fn text(&mut self, point: Point, text: &str) {
         let (x, y) = convert_point(point, self.size);
 

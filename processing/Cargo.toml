@@ -14,6 +14,7 @@ human_bytes = "0.4.3"
 imageproc = "0.24.0"
 kdtree = "0.7.0"
 longitude = "0.2.1"
+num-traits = "0.2.18"
 petgraph = { version = "0.6.4", features = ["serde-1"] }
 rand = "0.8.5"
 serde = { version = "1.0.197", features = ["derive"] }

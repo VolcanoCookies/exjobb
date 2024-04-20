@@ -10,6 +10,7 @@ use std::ops::Range;
 
 use clap::{Parser, Subcommand, ValueEnum};
 use human_bytes::human_bytes;
+use petgraph::visit::Visitable;
 use processing::NodeCollapse;
 
 use crate::parse::{read_roads, read_sensors};
@@ -29,33 +30,47 @@ struct Cli {
 #[derive(Debug, Subcommand)]
 enum Commands {
     DrawRoad {
-        #[clap(short, long, default_value = "graph.bin")]
+        #[clap(long, default_value = "graph.bin")]
         input: String,
-        #[clap(short, long, default_value = "graph.svg")]
+        #[clap(long, default_value = "graph.svg")]
         output: String,
         #[clap(short, long)]
         unique_ids: Vec<i32>,
     },
     ShortestPath {
-        #[clap(short, long, default_value = "graph.bin")]
+        #[clap(long, default_value = "graph.bin")]
         input: String,
-        #[clap(short, long, default_value = "graph.svg")]
+        #[clap(long, default_value = "graph.svg")]
         output: String,
         #[clap(short, long, default_value = "false", default_missing_value = "true")]
         print_path_roads: bool,
     },
     DrawDisjoint {
-        #[clap(short, long, default_value = "graph.bin")]
+        #[clap(long, default_value = "graph.bin")]
         input: String,
-        #[clap(short, long, default_value = "graph.svg")]
+        #[clap(long, default_value = "graph.svg")]
         output: String,
     },
+    DrawReachable {
+        #[clap(long, default_value = "graph.bin")]
+        input: String,
+        #[clap(long, default_value = "graph.svg")]
+        output: String,
+        #[clap(short = 'a', long = "lat")]
+        latitude: f32,
+        #[clap(short = 'o', long = "lon")]
+        longitude: f32,
+        #[clap(short, long)]
+        range: f32,
+        #[clap(short, long, default_value = "false", default_missing_value = "true")]
+        inverse: bool,
+    },
     Process {
-        #[clap(short, long, default_value = "../roadData.json")]
+        #[clap(long, default_value = "../roadData.json")]
         road_data: String,
-        #[clap(short, long, default_value = "../sensorData.json")]
+        #[clap(long, default_value = "../sensorData.json")]
         sensor_data: String,
-        #[clap(short, long, default_value = "graph.bin")]
+        #[clap(long, default_value = "graph.bin")]
         output: String,
         #[clap(short, long, default_value = "false", default_missing_value = "true")]
         dedup_road_data: bool,
@@ -74,6 +89,8 @@ enum Commands {
             default_missing_value = "true"
         )]
         dedup_edges: bool,
+        #[clap(short = 'v', long, default_value = "20.0")]
+        connect_distance: f32,
     },
 }
 
@@ -110,6 +127,22 @@ fn main() {
             let canvas = modes::draw_disjoint(graph);
             canvas.save(&output);
         }
+        Commands::DrawReachable {
+            input,
+            output,
+            latitude,
+            longitude,
+            range,
+            inverse,
+        } => {
+            let point = parse::Point {
+                latitude,
+                longitude,
+            };
+            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
+            let canvas = modes::draw_reachable(graph, point, range, inverse);
+            canvas.save(&output);
+        }
         Commands::Process {
             road_data,
             sensor_data,
@@ -120,6 +153,7 @@ fn main() {
             collapse_nodes,
             remove_disjoint_nodes,
             dedup_edges,
+            connect_distance,
         } => {
             let opts = processing::GraphProcessingOptions {
                 dedup_road_data,
@@ -128,6 +162,7 @@ fn main() {
                 collapse_nodes,
                 remove_disjoint_nodes,
                 dedup_edges,
+                connect_distance,
             };
 
             let road_data = read_roads(&road_data);
