@@ -1,0 +1,24 @@
+[
+    {
+        "point": {
+            "latitude": 59.2765,
+            "longitude": 17.91581
+        },
+        "radius": null,
+        "heading": {
+            "start": 0.0,
+            "end": 180.0
+        }
+    },
+    {
+        "point": {
+            "latitude": 59.36728,
+            "longitude": 18.02093
+        },
+        "radius": null,
+        "heading": {
+            "start": -80.0,
+            "end": 80.0
+        }
+    }
+]

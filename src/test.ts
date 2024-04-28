@@ -12,7 +12,7 @@ async function main() {
 		100000
 	);
 
-	writeFileSync('roadData.json', JSON.stringify(roadData, null, 2));
+	writeFileSync('rawRoadData.json', JSON.stringify(roadData, null, 2));
 
 	const sensorData = await client.getAllTrafficFlow(10000, undefined, {
 		latitude,
@@ -21,7 +21,7 @@ async function main() {
 	});
 
 	writeFileSync(
-		'sensorData.json',
+		'rawSensorData.json',
 		JSON.stringify(sensorData.TrafficFlow, null, 2)
 	);
 }

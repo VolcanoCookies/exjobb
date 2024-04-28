@@ -1,0 +1,33 @@
+{
+    "paths": [
+        {
+            "File": "./queries/query1.json"
+        },
+        {
+            "File": "./queries/query2.json"
+        }
+    ],
+    "metric": "Time",
+    "sensors": [
+        {
+            "site_id": 2678
+        },
+        {
+            "site_id": 2682
+        },
+        {
+            "site_id": 2686
+        },
+        {
+            "site_id": 1293
+        }
+    ],
+    "sensor_mode": {
+        "SetSpeed": {
+            "speeds": [
+                20,
+                90
+            ]
+        }
+    }
+}

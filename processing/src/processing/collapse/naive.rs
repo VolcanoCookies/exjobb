@@ -28,6 +28,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
 
     // Walk forwards until we hit a node we cannot collapse
     let mut distance_forwards = 0.0;
+    let mut speed_limit_forwards = 0.0;
     let mut current = node;
     let mut prev_edge;
     loop {
@@ -43,6 +44,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
         }
 
         distance_forwards += edge_data.distance;
+        speed_limit_forwards += edge_data.speed_limit.unwrap_or(0.0) * edge_data.distance;
         forwards.extend(edge_data.polyline.iter().skip(1));
         to_remove.push(current);
         current = next;
@@ -55,6 +57,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
 
     // Walk backwards until we hit a node we cannot collapse
     let mut distance_backwards = 0.0;
+    let mut speed_limit_backwards = 0.0;
     let mut current = node;
     loop {
         let edge = graph.edges_directed(current, Incoming).next().unwrap();
@@ -67,6 +70,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
         }
 
         distance_backwards += edge_data.distance;
+        speed_limit_backwards += edge_data.speed_limit.unwrap_or(0.0) * edge_data.distance;
         backwards.extend(edge_data.polyline.iter().rev().skip(1));
         to_remove.push(current);
         current = next;
@@ -82,6 +86,10 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
     let start_data = graph.node_weight(start).unwrap();
     let end_data = graph.node_weight(end).unwrap();
 
+    let speed_limit_forwards = speed_limit_forwards / distance_forwards;
+    let speed_limit_backwards = speed_limit_backwards / distance_backwards;
+    let speed_limit = (speed_limit_forwards + speed_limit_backwards) / 2.0;
+
     let edge_data = EdgeData {
         distance: distance_forwards + distance_backwards,
         main_number: prev_edge_data.main_number,
@@ -91,6 +99,8 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
         midpoint: midpoint(start_data.point, end_data.point),
         direction: direction_from_data(*start_data, *end_data),
         original_road_id: -1,
+        speed_limit: Some(speed_limit),
+        metadata: Default::default(),
     };
 
     graph.add_edge(start, end, edge_data);

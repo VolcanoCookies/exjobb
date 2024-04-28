@@ -38,6 +38,9 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, edge: EdgeIndex)
 
     let mut edges_data = vec![data.clone()];
     let mut nodes = Vec::new();
+    let speed_limit = data
+        .speed_limit
+        .expect("Speed limit not set for nucleation point");
 
     let mut head = end;
     loop {
@@ -58,7 +61,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, edge: EdgeIndex)
         let data = graph.edge_weight(edge.id()).unwrap();
 
         // Do not try to collapse a connector
-        if data.is_connector {
+        if data.is_connector || data.speed_limit != Some(speed_limit) {
             break;
         }
 

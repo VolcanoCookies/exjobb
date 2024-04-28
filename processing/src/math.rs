@@ -1,13 +1,12 @@
 use longitude::Location;
-use num_traits::Float;
 
 use crate::parse::Point;
 
-pub fn dist(a: Point, b: Point) -> f32 {
+pub fn dist(a: Point, b: Point) -> f64 {
     let a: Location = a.into();
     let b: Location = b.into();
 
-    a.distance(&b).meters() as f32
+    a.distance(&b).meters()
 }
 
 pub fn extent<T>(vec: Vec<T>, func: fn(&T) -> f32) -> (f32, f32) {
@@ -23,7 +22,7 @@ pub fn midpoint(a: Point, b: Point) -> Point {
     }
 }
 
-pub fn point_line_dist(point: Point, line_start: Point, line_end: Point) -> f32 {
+pub fn point_line_dist(point: Point, line_start: Point, line_end: Point) -> f64 {
     let lat1 = line_start.latitude.to_radians();
     let lon1 = line_start.longitude.to_radians();
     let lat2 = line_end.latitude.to_radians();
@@ -49,7 +48,7 @@ pub fn point_line_dist(point: Point, line_start: Point, line_end: Point) -> f32 
     min_distance
 }
 
-pub fn point_line_dist_approx(point: Point, line_start: Point, line_end: Point) -> f32 {
+pub fn point_line_dist_approx(point: Point, line_start: Point, line_end: Point) -> f64 {
     let a = dist(point, line_start);
     let b = dist(point, line_end);
 
@@ -62,7 +61,7 @@ pub fn point_line_dist_approx(point: Point, line_start: Point, line_end: Point) 
     a.min(b).min(c)
 }
 
-pub fn line_heading(start: Point, end: Point) -> f32 {
+pub fn line_heading(start: Point, end: Point) -> f64 {
     let lat1 = start.latitude.to_radians();
     let lon1 = start.longitude.to_radians();
     let lat2 = end.latitude.to_radians();
@@ -76,17 +75,14 @@ pub fn line_heading(start: Point, end: Point) -> f32 {
     y.atan2(x).to_degrees()
 }
 
-pub fn lerp<T>(a: T, b: T, t: f32) -> T
+pub fn lerp<T, F>(a: T, b: T, t: F) -> T
 where
-    T: std::ops::Add<Output = T>
-        + std::ops::Sub<Output = T>
-        + std::ops::Mul<f32, Output = T>
-        + Copy,
+    T: std::ops::Add<Output = T> + std::ops::Sub<Output = T> + std::ops::Mul<F, Output = T> + Copy,
 {
     a + (b - a) * t
 }
 
-pub fn angle_average(angles: &Vec<f32>) -> f32 {
+pub fn angle_average(angles: &Vec<f64>) -> f64 {
     let mut x = 0.0;
     let mut y = 0.0;
     for angle in angles {
@@ -97,7 +93,7 @@ pub fn angle_average(angles: &Vec<f32>) -> f32 {
     y.atan2(x).to_degrees()
 }
 
-pub fn angle_diff(a: f32, b: f32) -> f32 {
+pub fn angle_diff(a: f64, b: f64) -> f64 {
     let diff = (a - b + 180.0) % 360.0 - 180.0;
     if diff < -180.0 {
         diff + 360.0
@@ -107,24 +103,27 @@ pub fn angle_diff(a: f32, b: f32) -> f32 {
 }
 
 pub fn extents(vec: &Vec<Point>) -> ((f32, f32), (f32, f32)) {
-    let min_lat = vec.iter().map(|x| x.latitude).fold(f32::INFINITY, f32::min);
+    let min_lat = vec.iter().map(|x| x.latitude).fold(f64::INFINITY, f64::min);
     let max_lat = vec
         .iter()
         .map(|x| x.latitude)
-        .fold(f32::NEG_INFINITY, f32::max);
+        .fold(f64::NEG_INFINITY, f64::max);
     let min_lon = vec
         .iter()
         .map(|x| x.longitude)
-        .fold(f32::INFINITY, f32::min);
+        .fold(f64::INFINITY, f64::min);
     let max_lon = vec
         .iter()
         .map(|x| x.longitude)
-        .fold(f32::NEG_INFINITY, f32::max);
+        .fold(f64::NEG_INFINITY, f64::max);
 
-    ((min_lat, max_lat), (min_lon, max_lon))
+    (
+        (min_lat as f32, max_lat as f32),
+        (min_lon as f32, max_lon as f32),
+    )
 }
 
-pub fn geo_distance(a: &[f32], b: &[f32]) -> f32 {
+pub fn geo_distance(a: &[f64], b: &[f64]) -> f64 {
     if a.len() != 2 || b.len() != 2 {
         panic!("Invalid input");
     }

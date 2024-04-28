@@ -15,7 +15,7 @@ use crate::{
 pub fn draw_reachable(
     graph: StableDiGraph<NodeData, EdgeData>,
     point: Point,
-    range: f32,
+    range: f64,
     inverse: bool,
 ) -> Canvas {
     let mut canvas = Canvas::from_graph(4000, &graph);
@@ -51,7 +51,7 @@ pub fn draw_reachable(
                 start.point,
                 end.point,
                 DrawOptions {
-                    color: edge_connector_color,
+                    color: edge_connector_color.into(),
                     stroke: 0.25,
                     ..Default::default()
                 },
@@ -60,7 +60,7 @@ pub fn draw_reachable(
             canvas.draw_polyline(
                 data.polyline.clone(),
                 DrawOptions {
-                    color: edge_color,
+                    color: edge_color.into(),
                     stroke: 0.25,
                     ..Default::default()
                 },

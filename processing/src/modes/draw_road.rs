@@ -30,6 +30,8 @@ pub fn draw_roads(graph: StableDiGraph<NodeData, EdgeData>, unique_ids: Vec<i32>
         let color = if draw_all {
             if data.is_connector {
                 "teal"
+            } else if data.speed_limit.is_none() {
+                COLORS[1]
             } else {
                 COLORS[0]
             }
@@ -55,7 +57,7 @@ pub fn draw_roads(graph: StableDiGraph<NodeData, EdgeData>, unique_ids: Vec<i32>
                 start.point,
                 end.point,
                 DrawOptions {
-                    color,
+                    color: color.into(),
                     stroke: 0.25,
                     ..Default::default()
                 },
@@ -64,7 +66,7 @@ pub fn draw_roads(graph: StableDiGraph<NodeData, EdgeData>, unique_ids: Vec<i32>
             canvas.draw_polyline(
                 data.polyline.clone(),
                 DrawOptions {
-                    color,
+                    color: color.into(),
                     stroke: 0.25,
                     ..Default::default()
                 },

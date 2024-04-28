@@ -1,3 +1,4 @@
+use console::style;
 use fixedbitset::FixedBitSet;
 use petgraph::{
     graph::NodeIndex,
@@ -10,7 +11,7 @@ use crate::{
     processing::{EdgeData, NodeData},
 };
 
-const COLORS: [&str; 25] = [
+pub const COLORS: [&str; 25] = [
     "#006400", "#808000", "#483d8b", "#b22222", "#008080", "#000080", "#9acd32", "#8fbc8f",
     "#8b008b", "#ff0000", "#ff8c00", "#ffff00", "#00ff00", "#00fa9a", "#8a2be2", "#00ffff",
     "#0000ff", "#ff00ff", "#1e90ff", "#db7093", "#f0e68c", "#87ceeb", "#ff1493", "#ffa07a",
@@ -18,20 +19,37 @@ const COLORS: [&str; 25] = [
 ];
 
 pub fn draw_disjoint(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
+    let start_draw = std::time::Instant::now();
+
     let mut canvas = Canvas::from_graph(4000, &graph);
+
+    println!("{} Find disjoint sets", style("[1/3]").bold().dim());
+    let start = std::time::Instant::now();
+    let pb = indicatif::ProgressBar::new(graph.node_count() as u64);
 
     let mut sets: Vec<FixedBitSet> = Vec::new();
     'outer: for node in graph.node_indices() {
         for set in sets.iter() {
             if set.is_visited(&node) {
+                pb.inc(1);
                 continue 'outer;
             }
         }
         let mut visited = graph.visit_map();
         visit(&graph, node, &mut visited);
         sets.push(visited);
+        pb.inc(1);
     }
+    pb.finish();
+    println!(
+        "{:?} Found {} disjoint sets",
+        style(start.elapsed()).bold().dim().yellow(),
+        sets.len()
+    );
 
+    println!("{} Drawing disjoint edges", style("[2/3]").bold().dim());
+    let start = std::time::Instant::now();
+    let pb = indicatif::ProgressBar::new(graph.edge_count() as u64);
     for edge in graph.edge_indices() {
         let start = graph.edge_endpoints(edge).unwrap().0;
         let end = graph.edge_endpoints(edge).unwrap().1;
@@ -47,13 +65,23 @@ pub fn draw_disjoint(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
             graph.node_weight(start).unwrap().point,
             graph.node_weight(end).unwrap().point,
             DrawOptions {
-                color,
+                color: color.into(),
                 stroke: 1.0,
                 ..Default::default()
             },
         );
+        pb.inc(1);
     }
+    pb.finish();
+    println!(
+        "{:?} Drew {} disjoint edges",
+        style(start.elapsed()).bold().dim().yellow(),
+        graph.edge_count()
+    );
 
+    println!("{} Drawing disjoint nodes", style("[3/3]").bold().dim());
+    let start = std::time::Instant::now();
+    let pb = indicatif::ProgressBar::new(graph.node_count() as u64);
     for node in graph.node_indices() {
         let data = graph.node_weight(node).unwrap();
         let mut color = None;
@@ -64,8 +92,20 @@ pub fn draw_disjoint(graph: StableDiGraph<NodeData, EdgeData>) -> Canvas {
             }
         }
         let color = color.unwrap();
-        canvas.draw_circle(data.point, color, 1.0);
+        canvas.draw_triangle(data.point, color, 1.0, data.heading);
+        pb.inc(1);
     }
+    pb.finish();
+    println!(
+        "{:?} Drew {} disjoint nodes",
+        style(start.elapsed()).bold().dim().yellow(),
+        graph.node_count()
+    );
+
+    println!(
+        "{:?} Finished drawing disjoint sets",
+        style(start_draw.elapsed()).bold().dim().yellow()
+    );
 
     return canvas;
 }

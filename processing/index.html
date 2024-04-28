@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #111111;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <svg id="graph-svg">
+        <g id="graph-group">
+            <image xlink:href="graph.svg" width="100%" height="100%" />
+        </g>
+    </svg>
+
+    <script>
+        const svg = document.getElementById('graph-svg');
+        const graphGroup = document.getElementById('graph-group');
+
+        let isDragging = false;
+        let startX, startY, translateX = 0, translateY = 0, scale = 1;
+
+        svg.addEventListener('mousedown', startDrag);
+        svg.addEventListener('mousemove', drag);
+        svg.addEventListener('mouseup', endDrag);
+        svg.addEventListener('mouseleave', endDrag);
+        svg.addEventListener('wheel', zoom);
+
+        function startDrag(event) {
+            isDragging = true;
+            startX = event.clientX;
+            startY = event.clientY;
+        }
+        function drag(event) {
+            if (!isDragging) return;
+
+            const dx = event.clientX - startX;
+            const dy = event.clientY - startY;
+
+            translateX += dx;
+            translateY += dy;
+
+            graphGroup.setAttribute('transform', `translate(${translateX}, ${translateY}) scale(${scale})`);
+
+            startX = event.clientX;
+            startY = event.clientY;
+        }
+
+        function endDrag() {
+            isDragging = false;
+        }
+
+        function zoom(event) {
+            event.preventDefault();
+
+            const scaleFactor = event.deltaY > 0 ? 0.9 : 1.1; // Determine the scale factor based on the direction of the scroll
+
+            const mouseX = event.clientX - svg.getBoundingClientRect().left; // Calculate the mouse X position relative to the SVG element
+            const mouseY = event.clientY - svg.getBoundingClientRect().top; // Calculate the mouse Y position relative to the SVG element
+
+            const graphGroupRect = graphGroup.getBoundingClientRect(); // Get the bounding rectangle of the graph group
+
+            const graphGroupX = (mouseX - graphGroupRect.left) / scale; // Calculate the X position of the graph group relative to the mouse position
+            const graphGroupY = (mouseY - graphGroupRect.top) / scale; // Calculate the Y position of the graph group relative to the mouse position
+
+            scale *= scaleFactor; // Accumulate the scale factor
+
+            translateX = mouseX - (graphGroupX * scale); // Calculate the new X translation
+            translateY = mouseY - (graphGroupY * scale); // Calculate the new Y translation
+
+            graphGroup.setAttribute('transform', `translate(${translateX}, ${translateY}) scale(${scale})`);
+        }
+    </script>
+</body>
+</html>

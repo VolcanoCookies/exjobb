@@ -1,0 +1,57 @@
+[
+    {
+        "point": {
+            "latitude": 59.29805203689625,
+            "longitude": 18.007184793223985
+        },
+        "radius": null,
+        "heading": {
+            "start": -180.0,
+            "end": 180.0
+        }
+    },
+    {
+        "point": {
+            "latitude": 59.309014,
+            "longitude": 18.008692
+        },
+        "radius": null,
+        "heading": {
+            "start": -180.0,
+            "end": 180.0
+        }
+    },
+    {
+        "point": {
+            "latitude": 59.324155672336026,
+            "longitude": 18.000309750783238
+        },
+        "radius": null,
+        "heading": {
+            "start": -180.0,
+            "end": 180.0
+        }
+    },
+    {
+        "point": {
+            "latitude": 59.3446365237858,
+            "longitude": 18.01743349901637
+        },
+        "radius": null,
+        "heading": {
+            "start": -180.0,
+            "end": 180.0
+        }
+    },
+    {
+        "point": {
+            "latitude": 59.3542864442657,
+            "longitude": 18.037123565610884
+        },
+        "radius": null,
+        "heading": {
+            "start": -180.0,
+            "end": 180.0
+        }
+    }
+]
