@@ -120,15 +120,21 @@ fn distance_time(_from: &NodeData, _to: &NodeData, edge: &EdgeData) -> f64 {
     distance / speed
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct TravelTime {
+    pub time: f64,
+    pub speeds: Vec<(NodeIndex, f64)>,
+}
+
 pub fn calculate_travel_time(graph: &StableDiGraph<NodeData, EdgeData>, path: &Path) -> f64 {
     let mut travel_time = 0.0;
-    let mut previous_speed_limit = convert_speed(50.0);
+    let mut previous_speed_limit = convert_ms_to_kmh(50.0);
 
     for nodes in path.nodes.windows(2) {
         let edge = graph.edges_connecting(nodes[0], nodes[1]).next().unwrap();
         let data = edge.weight();
         let speed_limit = if let Some(speed_limit) = data.speed_limit {
-            convert_speed(speed_limit)
+            convert_ms_to_kmh(speed_limit)
         } else {
             previous_speed_limit
         };
@@ -145,9 +151,15 @@ pub fn calculate_travel_time(graph: &StableDiGraph<NodeData, EdgeData>, path: &P
 pub fn calculate_travel_time_sensors(
     graph: &StableDiGraph<NodeData, EdgeData>,
     path: &Path,
-) -> f64 {
+) -> TravelTime {
     let mut distance = 0.0;
     let mut sensors = Vec::new();
+    let mut speeds = Vec::new();
+
+    let first_edge = graph
+        .edges_connecting(path.nodes[0], path.nodes[1])
+        .next()
+        .unwrap();
 
     path.nodes.windows(2).for_each(|nodes| {
         let edge = graph.edges_connecting(nodes[0], nodes[1]).next().unwrap();
@@ -158,6 +170,7 @@ pub fn calculate_travel_time_sensors(
         distance += data.distance;
         if let Some(sensor) = &end_data.sensor {
             sensors.push((*sensor, distance));
+            speeds.push((nodes[1], convert_ms_to_kmh(sensor.average_speed)));
         }
     });
     let total_distance = distance;
@@ -166,24 +179,31 @@ pub fn calculate_travel_time_sensors(
     let mut prev = iter.next().unwrap();
 
     let (sensor, distance) = prev;
-    let mut travel_time = distance / convert_speed(sensor.average_speed);
+    let mut travel_time = distance / convert_ms_to_kmh(sensor.average_speed);
 
     while let Some(curr) = iter.next() {
         let (sensor, distance) = curr;
         let distance = distance - prev.1;
         let time = 2.0 * distance
-            / (convert_speed(prev.0.average_speed) + convert_speed(sensor.average_speed));
+            / (convert_ms_to_kmh(prev.0.average_speed) + convert_ms_to_kmh(sensor.average_speed));
         travel_time += time;
         prev = curr;
     }
 
     let distance = total_distance - prev.1;
-    travel_time += distance / convert_speed(prev.0.average_speed);
+    travel_time += distance / convert_ms_to_kmh(prev.0.average_speed);
 
-    travel_time
+    TravelTime {
+        time: travel_time,
+        speeds,
+    }
 }
 
-pub fn convert_speed(speed: f64) -> f64 {
+pub fn convert_ms_to_kmh(speed: f64) -> f64 {
+    speed * 1000.0 / 3600.0
+}
+
+pub fn convert_kmh_to_ms(speed: f64) -> f64 {
     speed * 1000.0 / 3600.0
 }
 

@@ -2,6 +2,7 @@ use std::ops::RangeInclusive;
 
 use clap::Args;
 use console::style;
+use num_traits::real;
 use petgraph::{
     graph::NodeIndex,
     stable_graph::StableDiGraph,
@@ -16,7 +17,10 @@ use crate::{
     processing::{build_node_acceleration_structure, EdgeData, NodeData},
     progress::Progress,
     util::{find_point, PointQuery},
-    visitor::{self, calculate_travel_distance, calculate_travel_time_sensors, DistanceMetric},
+    visitor::{
+        self, calculate_travel_distance, calculate_travel_time_sensors, convert_ms_to_kmh,
+        DistanceMetric, TravelTime,
+    },
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -85,7 +89,7 @@ impl SensorModification {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-enum SimulationPathQuery {
+pub enum SimulationPathQuery {
     Raw(Vec<PointQuery>),
     File(String),
 }
@@ -96,6 +100,7 @@ pub struct SimulationSetup {
     pub metric: DistanceMetric,
     pub sensors: Vec<SensorSetup>,
     pub sensor_mode: SensorMode,
+    pub fake_data_speed: f64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -113,7 +118,7 @@ pub struct SimulationOptions {
 pub struct SimulatedPath {
     pub nodes: Vec<NodeIndex>,
     pub length: f64,
-    pub travel_time: f64,
+    pub travel_time: TravelTime,
     pub path_index: usize,
     pub modification: SensorModification,
 }
@@ -139,9 +144,9 @@ pub fn simulate(
 
     progress.step_sized(setup.paths.len(), "Finding node waypoints");
     let mut paths = Vec::new();
-    for path in setup.paths {
+    for path in &setup.paths {
         let path = match path {
-            SimulationPathQuery::Raw(path) => path,
+            SimulationPathQuery::Raw(path) => path.clone(),
             SimulationPathQuery::File(path) => {
                 serde_json::from_str(&std::fs::read_to_string(path).expect("Failed to read file"))
                     .expect("Failed to parse file")
@@ -234,7 +239,8 @@ pub fn simulate(
                 .cloned()
                 .zip(modifications)
                 .collect::<Vec<_>>();
-            let travel_time = simulate_modifications(&stripped_graph, &path, &input);
+            let travel_time =
+                simulate_modifications(&stripped_graph, &setup.clone(), &path, &input);
             let result = SimulatedPath {
                 nodes: path.nodes.clone(),
                 length: *length,
@@ -313,20 +319,38 @@ pub fn simulate(
     }
     progress.finish(format!("Drew {} paths", style(paths.len()).bold()));
 
-    canvas.save("output.svg");
+    canvas.save("./out/output.svg");
 }
 
 fn simulate_modifications(
     graph: &StableDiGraph<NodeData, EdgeData>,
+    setup: &SimulationSetup,
     path: &visitor::Path,
     sensors: &Vec<(i32, SensorModification)>,
-) -> f64 {
+) -> TravelTime {
     let mut graph = graph.clone();
     for node in &path.nodes {
         if let Some(sensor) = graph[*node].sensor {
             for (site_id, modification) in sensors {
                 if *site_id == sensor.site_id {
+                    let real_speed = sensor.average_speed;
                     let sensor = modification.apply(sensor);
+                    let fake_speed = sensor.average_speed;
+
+                    let real_vehicle_count = sensor.flow_rate;
+
+                    let fake_vehicle_count = real_vehicle_count * (fake_speed - real_speed)
+                        / (setup.fake_data_speed - fake_speed);
+
+                    println!(
+                        "{} Count: {:.2} -> {:.2} \t Speed: {:.2} -> {:.2}",
+                        sensor.site_id,
+                        real_vehicle_count,
+                        fake_vehicle_count,
+                        real_speed,
+                        fake_speed
+                    );
+
                     graph[*node].sensor = Some(sensor);
                 }
             }
@@ -352,7 +376,7 @@ pub fn save_as_csv(result: SimulationResult, file_path: &str) {
             .write_record(&[
                 path.path_index.to_string(),
                 path.length.to_string(),
-                path.travel_time.to_string(),
+                path.travel_time.time.to_string(),
                 match path.modification {
                     SensorModification::Deviation { modifier } => modifier.to_string(),
                     SensorModification::SetSpeed { speed } => speed.to_string(),
