@@ -319,7 +319,7 @@ pub fn simulate(
     }
     progress.finish(format!("Drew {} paths", style(paths.len()).bold()));
 
-    canvas.save("./out/output.svg");
+    canvas.save("./out/graph.svg");
 }
 
 fn simulate_modifications(
