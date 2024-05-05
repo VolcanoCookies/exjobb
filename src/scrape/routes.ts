@@ -66,8 +66,26 @@ async function main() {
 		heading: get_bearing(points[0], points[1]),
 	}));
 
+	const desiredStartDate = Date.parse('2024-05-06T05:00:00');
+	const now = Date.now();
+	const delay = desiredStartDate - now;
+	if (delay < 0) {
+		logger.error('Desired start date is in the past');
+		process.exit(1);
+	} else {
+		let seconds = Math.floor(delay / 1000);
+		let minutes = Math.floor(seconds / 60);
+		let hours = Math.floor(minutes / 60);
+		seconds = seconds % 60;
+		minutes = minutes % 60;
+		logger.info(
+			`Waiting ${hours}:${minutes}:${seconds} until desired start date`
+		);
+		await sleep(delay);
+	}
+
 	const frequency = 60 * 1000;
-	let duration = 1 * 60 * 60 * 1000;
+	let duration = 8 * 3600 * 1000;
 
 	exitDelay(duration);
 
@@ -130,7 +148,7 @@ async function main() {
 		}
 	}
 
-	const batchId = 'first-batch';
+	const batchId = 'second-batch';
 
 	let i = 0;
 	setInterval(async () => {
