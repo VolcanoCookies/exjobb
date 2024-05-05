@@ -5,18 +5,19 @@ use std::time::Instant;
 use console::style;
 use geo::CoordsIter;
 use proj4rs::Proj;
-use smol::stream::StreamExt;
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use sqlx::{sqlite::SqlitePoolOptions, Pool, Sqlite};
 
 use crate::{
     gpkg::model::RawRoadRow,
     parse::{Point, RoadData},
-    processing::{DriveDirection, Metadata},
+    processing::Metadata,
     progress::eta_bar,
 };
 
 pub fn read_database(path: &str, query: Option<String>) -> Vec<RoadData> {
-    smol::block_on(async {
+    let runtime = tokio::runtime::Runtime::new().unwrap();
+    runtime.block_on(async {
         let pool = create_connection_pool(path).await;
         fetch_all_roads(&pool, query).await
     })
@@ -57,90 +58,90 @@ pub async fn fetch_all_roads(pool: &Pool<Sqlite>, query: Option<String>) -> Vec<
     let pb = eta_bar(road_count.0 as usize);
 
     let query = format!("SELECT * FROM SverigepaketTP {}", filter);
-    let mut roads_stream = sqlx::query_as::<_, RawRoadRow>(&query).fetch(pool);
-    let mut road_data = Vec::with_capacity(road_count.0 as usize);
+    let mut roads_stream = sqlx::query_as::<_, RawRoadRow>(&query)
+        .fetch_all(pool)
+        .await;
 
-    let mut dropped = 0;
-
-    while let Some(Ok(road)) = roads_stream.next().await {
-        if let Some(road_type) = road.road_type {
-            if road_type != "bilnät" {
-                dropped += 1;
-                pb.inc(1);
-                continue;
+    let road_data = roads_stream
+        .unwrap()
+        .into_par_iter()
+        .filter_map(|road| {
+            if let Some(road_type) = road.road_type {
+                if road_type != "bilnät" {
+                    pb.inc(1);
+                    return None;
+                }
             }
-        }
 
-        let mut coords = road
-            .geom
-            .geometry
-            .unwrap()
-            .coords_iter()
-            .map(|coord| (coord.x, coord.y))
-            .collect::<Vec<_>>();
-        proj4rs::transform::transform(&from, &to, coords.as_mut_slice()).unwrap();
+            let mut coords = road
+                .geom
+                .geometry
+                .unwrap()
+                .coords_iter()
+                .map(|coord| (coord.x, coord.y))
+                .collect::<Vec<_>>();
+            proj4rs::transform::transform(&from, &to, coords.as_mut_slice()).unwrap();
 
-        let polyline = coords
-            .iter()
-            .map(|(x, y)| Point {
-                latitude: y.to_degrees() as f64,
-                longitude: x.to_degrees() as f64,
+            let polyline = coords
+                .iter()
+                .map(|(x, y)| Point {
+                    latitude: y.to_degrees() as f64,
+                    longitude: x.to_degrees() as f64,
+                })
+                .collect::<Vec<_>>();
+
+            let speed_limit_f = road
+                .speed_limit_f
+                .map(|speed_limit| speed_limit.parse().unwrap_or_default());
+            let speed_limit_b = road
+                .speed_limit_b
+                .map(|speed_limit| speed_limit.parse().unwrap_or_default());
+
+            let speed_limit = match (speed_limit_f, speed_limit_b) {
+                (Some(f), Some(b)) => (f + b) / 2.0,
+                (Some(f), None) => f,
+                (None, Some(b)) => b,
+                (None, None) => 0.0,
+            };
+
+            let fdf = if let Some(fdf) = road.forbidden_direction_f {
+                fdf.parse::<i32>().unwrap() == -1
+            } else {
+                false
+            };
+            let fdb = if let Some(fdb) = road.forbidden_direction_b {
+                fdb.parse::<i32>().unwrap() == -1
+            } else {
+                false
+            };
+            let direction = match (fdf, fdb) {
+                (true, true) => crate::parse::RoadDirection::None,
+                (true, false) => crate::parse::RoadDirection::Backward,
+                (false, true) => crate::parse::RoadDirection::Forward,
+                (false, false) => crate::parse::RoadDirection::Both,
+            };
+
+            let metadata = Metadata {};
+            pb.inc(1);
+
+            Some(RoadData {
+                main_number: road.main_number,
+                sub_number: road.sub_number,
+                length: road.length,
+                unique_id: road.unique_id,
+                coordinates: polyline,
+                direction,
+                speed_limit,
+                metadata,
             })
-            .collect::<Vec<_>>();
-
-        let speed_limit_f = road
-            .speed_limit_f
-            .map(|speed_limit| speed_limit.parse().unwrap_or_default());
-        let speed_limit_b = road
-            .speed_limit_b
-            .map(|speed_limit| speed_limit.parse().unwrap_or_default());
-
-        let speed_limit = match (speed_limit_f, speed_limit_b) {
-            (Some(f), Some(b)) => (f + b) / 2.0,
-            (Some(f), None) => f,
-            (None, Some(b)) => b,
-            (None, None) => 0.0,
-        };
-
-        let fdf = if let Some(fdf) = road.forbidden_direction_f {
-            fdf.parse::<i32>().unwrap() == -1
-        } else {
-            false
-        };
-        let fdb = if let Some(fdb) = road.forbidden_direction_b {
-            fdb.parse::<i32>().unwrap() == -1
-        } else {
-            false
-        };
-        let direction = match (fdf, fdb) {
-            (true, true) => crate::parse::RoadDirection::None,
-            (true, false) => crate::parse::RoadDirection::Backward,
-            (false, true) => crate::parse::RoadDirection::Forward,
-            (false, false) => crate::parse::RoadDirection::Both,
-        };
-
-        let metadata = Metadata {};
-
-        road_data.push(RoadData {
-            main_number: road.main_number,
-            sub_number: road.sub_number,
-            length: road.length,
-            unique_id: road.unique_id,
-            coordinates: polyline,
-            direction,
-            speed_limit,
-            metadata,
-        });
-
-        pb.inc(1);
-    }
+        })
+        .collect::<Vec<_>>();
     pb.finish_and_clear();
 
     println!(
-        "{:?} Parsed {} roads and dropped {}",
+        "{:?} Parsed {} roads",
         style(start.elapsed()).bold().dim().yellow(),
         style(road_data.len()).bold(),
-        style(dropped).bold()
     );
 
     road_data

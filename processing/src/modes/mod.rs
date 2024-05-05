@@ -1,3 +1,4 @@
+mod aggregate;
 mod draw_disjoint;
 mod draw_distance;
 mod draw_reachable;
@@ -5,7 +6,10 @@ mod draw_road;
 mod inspect;
 mod shortest_path;
 mod simulate;
+mod test_period_division;
 
+pub use aggregate::aggregate;
+pub use aggregate::AggregateOptions;
 pub use draw_disjoint::draw_disjoint;
 pub use draw_distance::draw_distance;
 pub use draw_reachable::draw_reachable;
@@ -16,3 +20,5 @@ pub use shortest_path::shortest_path;
 pub use simulate::simulate;
 pub use simulate::SimulationOptions;
 pub use simulate::SimulationSetup;
+pub use test_period_division::test_period_division;
+pub use test_period_division::TestPeriodDivisionOptions;

@@ -1,0 +1,177 @@
+use std::{
+    collections::HashMap,
+    sync::{Arc, RwLock},
+};
+
+use clap::Args;
+use indicatif::ProgressBar;
+use mongodb::{
+    bson::{doc, oid::ObjectId},
+    options::FindOptions,
+    Client, IndexModel,
+};
+
+use crate::progress::Progress;
+
+use self::model::{DataPoint, MeasurementSide, Sensor, SensorData};
+
+pub mod model;
+
+#[derive(Debug, Args)]
+pub struct AggregateOptions {
+    #[clap(short, long)]
+    connection_url: String,
+    #[clap(short = 'D', long)]
+    database: String,
+    #[clap(short, long)]
+    input_collection: String,
+    #[clap(short, long, help = "Output collection for sensor data")]
+    sensor_collection: String,
+    #[clap(
+        short,
+        long,
+        help = "Output collection for invididual measurement points"
+    )]
+    data_collection: String,
+}
+
+pub async fn aggregate(options: AggregateOptions) {
+    let mut progress = Progress::new();
+
+    progress.step_unsized("Connecting to MongoDB");
+    let client = Client::with_uri_str(options.connection_url).await;
+    let client = client.unwrap();
+    progress.finish("Connected to MongoDB");
+
+    let db = client.database(&options.database);
+    let input_collection = db.collection::<SensorData>(&options.input_collection);
+    let sensor_collection = db.collection::<Sensor>(&options.sensor_collection);
+    let data_collection = db.collection::<DataPoint>(&options.data_collection);
+
+    progress.step_unsized("Creating indexes");
+    let sensor_geo_index = IndexModel::builder()
+        .keys(doc! {
+            "location": "2dsphere",
+        })
+        .build();
+    let sensor_index = IndexModel::builder()
+        .keys(doc! {
+            "site_id": 1,
+            "measurement_side": 1,
+            "specific_lane": 1,
+        })
+        .build();
+    let sensor_id_index = IndexModel::builder()
+        .keys(doc! {
+            "_id": 1,
+        })
+        .build();
+
+    sensor_collection
+        .create_index(sensor_geo_index, None)
+        .await
+        .unwrap();
+    sensor_collection
+        .create_index(sensor_index, None)
+        .await
+        .unwrap();
+    sensor_collection
+        .create_index(sensor_id_index, None)
+        .await
+        .unwrap();
+
+    let data_sensor_index = IndexModel::builder()
+        .keys(doc! {
+            "sensor_id": 1,
+            "time": 1,
+        })
+        .build();
+    data_collection
+        .create_index(data_sensor_index, None)
+        .await
+        .unwrap();
+    progress.finish("Indexes created");
+
+    progress.step_unsized("Counting documents");
+    let total = input_collection
+        .estimated_document_count(None)
+        .await
+        .unwrap();
+    progress.finish(format!("{} documents to process", total));
+
+    progress.step_sized(total as usize, "Processing documents");
+
+    let sensor_id_cache = HashMap::<(i32, MeasurementSide, i32), ObjectId>::new();
+    let sensor_id_cache = Arc::new(RwLock::new(sensor_id_cache));
+
+    let options = FindOptions::builder().batch_size(10000).build();
+    let mut cursor = input_collection.find(None, options).await.unwrap();
+
+    let runtime = tokio::runtime::Runtime::new().unwrap();
+
+    async fn process(
+        data: SensorData,
+        progress: ProgressBar,
+        sensor_collection: mongodb::Collection<Sensor>,
+        data_collection: mongodb::Collection<DataPoint>,
+        sensor_id_cache: Arc<RwLock<HashMap<(i32, MeasurementSide, i32), ObjectId>>>,
+    ) {
+        let key = (
+            data.site_id,
+            data.get_measurement_side(),
+            data.get_lane_i32(),
+        );
+
+        let existing_sensor_id = {
+            let sensor_id_cache = sensor_id_cache.read().unwrap();
+            sensor_id_cache.get(&key).cloned()
+        };
+
+        let sensor_id = match existing_sensor_id {
+            Some(sensor_id) => sensor_id,
+            None => {
+                let find_one = sensor_collection.find_one(data.filter(), None);
+                let existing = find_one.await.unwrap();
+
+                match existing {
+                    Some(existing) => existing.mongo_id.unwrap(),
+                    None => {
+                        let sensor_id = sensor_collection
+                            .insert_one(&data.clone().into(), None)
+                            .await
+                            .unwrap()
+                            .inserted_id
+                            .as_object_id()
+                            .unwrap();
+                        let mut write_cache = sensor_id_cache.write().unwrap();
+                        write_cache.insert(key, sensor_id.clone());
+                        sensor_id
+                    }
+                }
+            }
+        };
+
+        let mut data_point: DataPoint = data.into();
+        data_point.sensor_id = sensor_id;
+
+        let _ = data_collection.insert_one(&data_point, None).await;
+        progress.inc(1);
+    }
+
+    let pb = progress.get_pb().clone();
+
+    while cursor.advance().await.is_ok() {
+        let data = cursor.deserialize_current().unwrap();
+
+        let future = process(
+            data,
+            pb.clone(),
+            sensor_collection.clone(),
+            data_collection.clone(),
+            sensor_id_cache.clone(),
+        );
+
+        runtime.spawn(future);
+    }
+    progress.finish("Documents processed");
+}

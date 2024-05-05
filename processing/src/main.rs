@@ -12,13 +12,14 @@ mod visitor;
 use clap::{Parser, Subcommand};
 use console::style;
 use human_bytes::human_bytes;
-use modes::InspectOptions;
+use modes::{AggregateOptions, InspectOptions, TestPeriodDivisionOptions};
 use parse::{parse_road_data, parse_sensor_data};
 use processing::NodeCollapse;
+use tokio::runtime::Runtime;
 use visitor::DistanceMetric;
 
 use crate::{
-    modes::{SimulationOptions, SimulationSetup},
+    modes::{test_period_division, SimulationOptions, SimulationSetup},
     parse::{read_roads, read_sensors},
     util::PointQuery,
 };
@@ -160,6 +161,14 @@ enum Commands {
         setup: String,
         #[clap(flatten)]
         options: SimulationOptions,
+    },
+    AggregateSensorData {
+        #[clap(flatten)]
+        options: AggregateOptions,
+    },
+    TestPeriodDivision {
+        #[clap(flatten)]
+        options: TestPeriodDivisionOptions,
     },
 }
 
@@ -337,6 +346,18 @@ fn main() {
                 style(human_bytes(bytes as f64)).green(),
                 output
             );
+        }
+        Commands::AggregateSensorData { options } => {
+            let runtime = Runtime::new().unwrap();
+            runtime.block_on(async {
+                modes::aggregate(options).await;
+            });
+        }
+        Commands::TestPeriodDivision { options } => {
+            let runtime = Runtime::new().unwrap();
+            runtime.block_on(async {
+                test_period_division(options).await;
+            });
         }
     }
 

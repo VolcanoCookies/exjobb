@@ -2,7 +2,6 @@ use std::ops::RangeInclusive;
 
 use clap::Args;
 use console::style;
-use num_traits::real;
 use petgraph::{
     graph::NodeIndex,
     stable_graph::StableDiGraph,
@@ -18,8 +17,7 @@ use crate::{
     progress::Progress,
     util::{find_point, PointQuery},
     visitor::{
-        self, calculate_travel_distance, calculate_travel_time_sensors, convert_ms_to_kmh,
-        DistanceMetric, TravelTime,
+        self, calculate_travel_distance, calculate_travel_time_sensors, DistanceMetric, TravelTime,
     },
 };
 
@@ -112,6 +110,8 @@ pub struct SensorSetup {
 pub struct SimulationOptions {
     #[clap(short, long, default_value = "false", default_missing_value = "true")]
     pub ignore_missing_sensors: bool,
+    #[clap(short, long, default_value = "999999999")]
+    pub cull_distance: f64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -137,7 +137,7 @@ pub struct ExtendedPath {
 pub fn simulate(
     graph: &mut StableDiGraph<NodeData, EdgeData>,
     setup: SimulationSetup,
-    options: SimulationOptions,
+    mut options: SimulationOptions,
     output_path: &str,
 ) {
     let mut progress = Progress::new();
@@ -259,22 +259,30 @@ pub fn simulate(
         sensor_mode: setup.sensor_mode,
     };
 
-    save_as_csv(result, output_path);
+    save_as_csv(result.clone(), output_path);
     progress.step_single(format!(
         "Simulation results saved to {}",
         style(output_path).bold()
     ));
 
-    let mut canvas = Canvas::from_graph(4000, &graph);
-
+    progress.step_sized(
+        graph.node_count(),
+        format!("Culling graph to {}m", options.cull_distance),
+    );
     let tree = build_node_acceleration_structure(&stripped_graph);
     graph.retain_nodes(|frozen, node| {
         let data = frozen.node_weight(node).unwrap();
         let p = [data.point.latitude, data.point.longitude];
         let mut iter = tree.iter_nearest(&p, &geo_distance).unwrap();
         let (dist, _) = iter.next().unwrap();
-        dist < 500.0
+        dist <= options.cull_distance
     });
+    progress.finish(format!(
+        "Graph culled to {} nodes",
+        style(graph.node_count()).bold()
+    ));
+
+    let mut canvas = Canvas::from_graph(4000, &graph);
 
     progress.step_sized(graph.edge_count(), "Drawing edges");
     for edge in graph.edge_references() {
@@ -291,6 +299,8 @@ pub fn simulate(
     }
     progress.finish(format!("Drew {} edges", style(graph.edge_count()).bold()));
 
+    let mut path_canvas = canvas.clone();
+
     progress.step_sized(paths.len(), "Drawing paths");
     for path in paths.iter() {
         let path = &path.path;
@@ -304,11 +314,78 @@ pub fn simulate(
         path.nodes.windows(2).for_each(|nodes| {
             let edge = graph.find_edge(nodes[0], nodes[1]).unwrap();
             let data = &graph[edge];
-            canvas.draw_polyline(data.polyline.clone(), opts.clone());
+            path_canvas.draw_polyline(data.polyline.clone(), opts.clone());
         });
 
         let start = path.nodes.first().unwrap();
         let end = path.nodes.last().unwrap();
+        let start_data = graph.node_weight(*start).unwrap();
+        let end_data = graph.node_weight(*end).unwrap();
+
+        path_canvas.draw_circle(start_data.point, "green", 5.0);
+        path_canvas.draw_circle(end_data.point, "red", 5.0);
+
+        progress.tick();
+    }
+    progress.finish(format!("Drew {} paths", style(paths.len()).bold()));
+
+    path_canvas.save("./out/graph.svg");
+
+    /*
+    progress.step_sized(result.paths.len(), "Drawing individual sims");
+    for path in result.paths.iter() {
+        let mut canvas = canvas.clone();
+
+        let mut prev_speed;
+
+        let first_node = path.nodes.first().unwrap();
+        let data = graph.node_weight(*first_node).unwrap();
+
+        if let Some(sensor) = data.sensor {
+            prev_speed = (first_node, sensor.average_speed);
+        } else {
+            let second_node = path.nodes.get(1).unwrap();
+            let edge = graph.find_edge(*first_node, *second_node).unwrap();
+            let data = graph.edge_weight(edge).unwrap();
+            prev_speed = (first_node, data.speed_limit.unwrap_or(50.0));
+        }
+
+        let mut speed_iter = path.nodes.iter().skip(1).filter_map(|node| {
+            let data = graph.node_weight(*node).unwrap();
+            if let Some(sensor) = data.sensor {
+                return Some((node, sensor.average_speed));
+            }
+
+            None
+        });
+
+        let next_speed = speed_iter.next().unwrap_or(prev_speed);
+
+        let mut sub_path = Vec::new();
+        for pair in path.nodes.windows(2) {
+            let (start, end) = (pair[0], pair[1]);
+            let edge = graph.find_edge(start, end).unwrap();
+            let data = graph.edge_weight(edge).unwrap();
+            sub_path.push(edge.polyline.clone());
+
+            prev_speed = next_speed;
+            next_speed = speed_iter.next().unwrap_or((end, next_speed.1));
+        }
+
+        let opts = DrawOptions {
+            color: "purple".into(),
+            stroke: 1.0,
+            ..Default::default()
+        };
+
+        augmented_path.windows(2).for_each(|nodes| {
+            let edge = graph.find_edge(nodes[0], nodes[1]).unwrap();
+            let data = &graph[edge];
+            canvas.draw_polyline(data.polyline.clone(), opts.clone());
+        });
+
+        let start = augmented_path.first().unwrap();
+        let end = augmented_path.last().unwrap();
         let start_data = graph.node_weight(*start).unwrap();
         let end_data = graph.node_weight(*end).unwrap();
 
@@ -317,9 +394,7 @@ pub fn simulate(
 
         progress.tick();
     }
-    progress.finish(format!("Drew {} paths", style(paths.len()).bold()));
-
-    canvas.save("./out/graph.svg");
+     */
 }
 
 fn simulate_modifications(

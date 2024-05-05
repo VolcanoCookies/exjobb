@@ -75,6 +75,7 @@ pub struct CanvasSize {
     max_lon: f64,
 }
 
+#[derive(Debug, Clone)]
 pub struct Canvas {
     pub size: CanvasSize,
     pub document: Document,
