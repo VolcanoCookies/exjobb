@@ -66,7 +66,7 @@ async function main() {
 		heading: get_bearing(points[0], points[1]),
 	}));
 
-	const desiredStartDate = Date.parse('2024-05-06T05:00:00');
+	const desiredStartDate = Date.parse('2024-05-06T05:00:00+02:00');
 	const now = Date.now();
 	const delay = desiredStartDate - now;
 	if (delay < 0) {
