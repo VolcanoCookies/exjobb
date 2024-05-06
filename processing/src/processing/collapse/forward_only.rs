@@ -73,7 +73,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, edge: EdgeIndex)
 
         let head_data = graph.node_weight(head).unwrap();
         // Do not push past a sensor
-        if head_data.sensor.is_some() {
+        if head_data.has_sensor {
             break;
         }
     }
@@ -98,7 +98,7 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, edge: EdgeIndex)
 fn is_nucleation_point(graph: &StableDiGraph<NodeData, EdgeData>, node: NodeIndex) -> bool {
     let data = graph.node_weight(node).unwrap();
 
-    let has_sensor = data.sensor.is_some();
+    let has_sensor = data.has_sensor;
     let non_connectors_in = graph
         .edges_directed(node, Incoming)
         .filter(|edge| !edge.weight().is_connector)

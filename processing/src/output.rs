@@ -121,22 +121,6 @@ impl Canvas {
         Canvas::new(size)
     }
 
-    pub fn from_extents(width: usize, extents: ((f64, f64), (f64, f64))) -> Self {
-        let lat_extent = extents.0;
-        let lon_extent = extents.1;
-        let height =
-            (width as f64 * (lat_extent.1 - lat_extent.0) / (lon_extent.1 - lon_extent.0)) as u32;
-        let size = CanvasSize {
-            width: width as u32,
-            height,
-            min_lat: lat_extent.0,
-            max_lat: lat_extent.1,
-            min_lon: lon_extent.0,
-            max_lon: lon_extent.1,
-        };
-        Canvas::new(size)
-    }
-
     pub fn draw_circle(&mut self, point: Point, color: &str, size: f32) {
         let (x, y) = convert_point(point, self.size);
         self.document.append(
@@ -146,11 +130,6 @@ impl Canvas {
                 .set("r", size)
                 .set("fill", color),
         );
-    }
-    pub fn draw_circles(&mut self, points: Vec<Point>, color: &str, size: f32) {
-        for point in points.iter() {
-            self.draw_circle(*point, color, size);
-        }
     }
 
     pub fn draw_line(&mut self, start: Point, end: Point, opts: DrawOptions) {

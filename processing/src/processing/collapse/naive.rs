@@ -100,7 +100,6 @@ fn collapse_node(graph: &mut StableDiGraph<NodeData, EdgeData>, node: NodeIndex)
         direction: direction_from_data(*start_data, *end_data),
         original_road_id: -1,
         speed_limit: Some(speed_limit),
-        metadata: Default::default(),
     };
 
     graph.add_edge(start, end, edge_data);
@@ -122,7 +121,7 @@ fn find_node_to_collapse(graph: &StableDiGraph<NodeData, EdgeData>) -> Option<No
 
 fn can_collapse_node(graph: &StableDiGraph<NodeData, EdgeData>, node: NodeIndex) -> bool {
     let data = graph.node_weight(node).unwrap();
-    if data.sensor.is_some() || data.original_road_id == -1 {
+    if data.has_sensor || data.original_road_id == -1 {
         return false;
     }
 

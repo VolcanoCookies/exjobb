@@ -9,12 +9,6 @@ pub fn dist(a: Point, b: Point) -> f64 {
     a.distance(&b).meters()
 }
 
-pub fn extent<T>(vec: Vec<T>, func: fn(&T) -> f32) -> (f32, f32) {
-    let min = vec.iter().map(func).fold(f32::INFINITY, f32::min);
-    let max = vec.iter().map(func).fold(f32::NEG_INFINITY, f32::max);
-    (min, max)
-}
-
 pub fn midpoint(a: Point, b: Point) -> Point {
     Point {
         latitude: (a.latitude + b.latitude) / 2.0,
@@ -100,27 +94,6 @@ pub fn angle_diff(a: f64, b: f64) -> f64 {
     } else {
         diff
     }
-}
-
-pub fn extents(vec: &Vec<Point>) -> ((f32, f32), (f32, f32)) {
-    let min_lat = vec.iter().map(|x| x.latitude).fold(f64::INFINITY, f64::min);
-    let max_lat = vec
-        .iter()
-        .map(|x| x.latitude)
-        .fold(f64::NEG_INFINITY, f64::max);
-    let min_lon = vec
-        .iter()
-        .map(|x| x.longitude)
-        .fold(f64::INFINITY, f64::min);
-    let max_lon = vec
-        .iter()
-        .map(|x| x.longitude)
-        .fold(f64::NEG_INFINITY, f64::max);
-
-    (
-        (min_lat as f32, max_lat as f32),
-        (min_lon as f32, max_lon as f32),
-    )
 }
 
 pub fn geo_distance(a: &[f64], b: &[f64]) -> f64 {

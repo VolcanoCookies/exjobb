@@ -11,7 +11,6 @@ use sqlx::{sqlite::SqlitePoolOptions, Pool, Sqlite};
 use crate::{
     gpkg::model::RawRoadRow,
     parse::{Point, RoadData},
-    processing::Metadata,
     progress::eta_bar,
 };
 
@@ -58,7 +57,7 @@ pub async fn fetch_all_roads(pool: &Pool<Sqlite>, query: Option<String>) -> Vec<
     let pb = eta_bar(road_count.0 as usize);
 
     let query = format!("SELECT * FROM SverigepaketTP {}", filter);
-    let mut roads_stream = sqlx::query_as::<_, RawRoadRow>(&query)
+    let roads_stream = sqlx::query_as::<_, RawRoadRow>(&query)
         .fetch_all(pool)
         .await;
 
@@ -121,7 +120,6 @@ pub async fn fetch_all_roads(pool: &Pool<Sqlite>, query: Option<String>) -> Vec<
                 (false, false) => crate::parse::RoadDirection::Both,
             };
 
-            let metadata = Metadata {};
             pb.inc(1);
 
             Some(RoadData {
@@ -132,7 +130,6 @@ pub async fn fetch_all_roads(pool: &Pool<Sqlite>, query: Option<String>) -> Vec<
                 coordinates: polyline,
                 direction,
                 speed_limit,
-                metadata,
             })
         })
         .collect::<Vec<_>>();

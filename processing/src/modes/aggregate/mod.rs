@@ -7,15 +7,13 @@ use clap::Args;
 use indicatif::ProgressBar;
 use mongodb::{
     bson::{doc, oid::ObjectId},
-    options::FindOptions,
+    options::{CreateCollectionOptions, FindOptions, IndexOptions, TimeseriesOptions},
     Client, IndexModel,
 };
 
 use crate::progress::Progress;
 
-use self::model::{DataPoint, MeasurementSide, Sensor, SensorData};
-
-pub mod model;
+use crate::mongo::model::{DataPoint, MeasurementSide, RawSensorData, SensorMetadata};
 
 #[derive(Debug, Args)]
 pub struct AggregateOptions {
@@ -44,9 +42,23 @@ pub async fn aggregate(options: AggregateOptions) {
     progress.finish("Connected to MongoDB");
 
     let db = client.database(&options.database);
-    let input_collection = db.collection::<SensorData>(&options.input_collection);
-    let sensor_collection = db.collection::<Sensor>(&options.sensor_collection);
+    let input_collection = db.collection::<RawSensorData>(&options.input_collection);
+    let sensor_collection = db.collection::<SensorMetadata>(&options.sensor_collection);
     let data_collection = db.collection::<DataPoint>(&options.data_collection);
+
+    let _ = db
+        .create_collection(
+            &options.data_collection,
+            CreateCollectionOptions::builder()
+                .timeseries(
+                    TimeseriesOptions::builder()
+                        .time_field("Time".into())
+                        .meta_field(Some("SensorId".into()))
+                        .build(),
+                )
+                .build(),
+        )
+        .await;
 
     progress.step_unsized("Creating indexes");
     let sensor_geo_index = IndexModel::builder()
@@ -55,10 +67,9 @@ pub async fn aggregate(options: AggregateOptions) {
         })
         .build();
     let sensor_index = IndexModel::builder()
+        .options(IndexOptions::builder().unique(true).build())
         .keys(doc! {
-            "site_id": 1,
-            "measurement_side": 1,
-            "specific_lane": 1,
+            "SiteId": 1,
         })
         .build();
     let sensor_id_index = IndexModel::builder()
@@ -82,8 +93,8 @@ pub async fn aggregate(options: AggregateOptions) {
 
     let data_sensor_index = IndexModel::builder()
         .keys(doc! {
-            "sensor_id": 1,
-            "time": 1,
+            "SensorId": 1,
+            "Time": 1,
         })
         .build();
     data_collection
@@ -110,9 +121,9 @@ pub async fn aggregate(options: AggregateOptions) {
     let runtime = tokio::runtime::Runtime::new().unwrap();
 
     async fn process(
-        data: SensorData,
+        data: RawSensorData,
         progress: ProgressBar,
-        sensor_collection: mongodb::Collection<Sensor>,
+        sensor_collection: mongodb::Collection<SensorMetadata>,
         data_collection: mongodb::Collection<DataPoint>,
         sensor_id_cache: Arc<RwLock<HashMap<(i32, MeasurementSide, i32), ObjectId>>>,
     ) {
@@ -136,16 +147,28 @@ pub async fn aggregate(options: AggregateOptions) {
                 match existing {
                     Some(existing) => existing.mongo_id.unwrap(),
                     None => {
-                        let sensor_id = sensor_collection
+                        // Acquite write lock before inserting new sensor to prevent duplicates
+
+                        let insert = sensor_collection
                             .insert_one(&data.clone().into(), None)
-                            .await
-                            .unwrap()
-                            .inserted_id
-                            .as_object_id()
-                            .unwrap();
-                        let mut write_cache = sensor_id_cache.write().unwrap();
-                        write_cache.insert(key, sensor_id.clone());
-                        sensor_id
+                            .await;
+
+                        match insert {
+                            Ok(inserted) => {
+                                {
+                                    let mut write_cache = sensor_id_cache.write().unwrap();
+                                    write_cache
+                                        .insert(key, inserted.inserted_id.as_object_id().unwrap());
+                                }
+
+                                inserted.inserted_id.as_object_id().unwrap()
+                            }
+                            Err(_) => {
+                                let find_one = sensor_collection.find_one(data.filter(), None);
+                                let existing = find_one.await.unwrap();
+                                existing.unwrap().mongo_id.unwrap()
+                            }
+                        }
                     }
                 }
             }

@@ -2,7 +2,7 @@ use clap::Args;
 use indicatif::ProgressBar;
 use mongodb::options::FindOptions;
 
-use crate::{modes::aggregate::model::DataPoint, progress::Progress};
+use crate::{mongo::model::DataPoint, progress::Progress};
 
 #[derive(Debug, Args)]
 pub struct TestPeriodDivisionOptions {
@@ -45,9 +45,7 @@ pub async fn test_period_division(options: TestPeriodDivisionOptions) {
         if data.flow_rate as usize % period != 0 {
             println!(
                 "Datapoint {} does not match period, {} % {} != 0",
-                data.mongo_id.unwrap(),
-                data.flow_rate,
-                period
+                data.mongo_id, data.flow_rate, period
             );
         }
 

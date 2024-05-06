@@ -89,14 +89,6 @@ impl Progress {
         }
     }
 
-    pub fn ticks(&mut self, ticks: u64) {
-        if let Some(step) = &mut self.current_step {
-            step.progress_bar.inc(ticks);
-        } else {
-            panic!("No current step");
-        }
-    }
-
     pub fn get_pb(&mut self) -> &mut ProgressBar {
         if let Some(step) = &mut self.current_step {
             &mut step.progress_bar

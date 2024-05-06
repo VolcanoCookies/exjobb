@@ -17,7 +17,7 @@ use crate::{
         inspect::{find_closest_node_to, InspectOptions},
     },
     output::Canvas,
-    processing::{EdgeData, Metadata, NodeData},
+    processing::{EdgeData, NodeData},
     progress::Progress,
     visitor::DistanceMetric,
 };

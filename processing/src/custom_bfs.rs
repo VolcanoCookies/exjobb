@@ -14,17 +14,15 @@ use crate::parse::Point;
 pub struct StackNode<N> {
     idx: NodeIndex,
     distance: f64,
-    point: Point,
     data: N,
     path: Vec<NodeIndex>,
 }
 
 impl<N> StackNode<N> {
-    fn new(node: NodeIndex, distance: f64, point: Point, data: N, path: Vec<NodeIndex>) -> Self {
+    fn new(node: NodeIndex, distance: f64, data: N, path: Vec<NodeIndex>) -> Self {
         StackNode {
             idx: node,
             distance,
-            point,
             data,
             path,
         }
@@ -60,13 +58,7 @@ where
         let discovered = graph.visit_map();
         let mut stack = VecDeque::new();
         let start_data = graph.node_weight(start).unwrap();
-        stack.push_front(StackNode::new(
-            start,
-            0.0,
-            start_data.point(),
-            *start_data,
-            vec![],
-        ));
+        stack.push_front(StackNode::new(start, 0.0, *start_data, vec![]));
         let distances = HashMap::new();
         let paths = HashMap::new();
         CustomBfs {
@@ -104,13 +96,7 @@ where
                     }
 
                     let distance = node.distance + distance;
-                    self.insert_sorted(StackNode::new(
-                        to,
-                        distance,
-                        to_data.point(),
-                        *to_data,
-                        path.clone(),
-                    ));
+                    self.insert_sorted(StackNode::new(to, distance, *to_data, path.clone()));
                 }
                 return Some((node.idx, node.distance, node.path));
             }
@@ -154,13 +140,7 @@ where
                     }
 
                     let distance = node.distance + distance;
-                    self.insert_sorted(StackNode::new(
-                        to,
-                        distance,
-                        to_data.point(),
-                        *to_data,
-                        path.clone(),
-                    ));
+                    self.insert_sorted(StackNode::new(to, distance, *to_data, path.clone()));
                 }
                 return Some((node.idx, node.distance, node.path));
             }

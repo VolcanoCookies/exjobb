@@ -2,8 +2,6 @@ use clap::Args;
 use longitude::Location;
 use serde::{Deserialize, Serialize};
 
-use crate::processing::Metadata;
-
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Args)]
 #[group(required = true, multiple = true)]
 pub struct Point {
@@ -118,11 +116,6 @@ fn parse_lane(lane: &str) -> i32 {
     lane.parse().unwrap()
 }
 
-pub fn read_sensors(path: &str) -> Vec<SensorData> {
-    let raw = std::fs::read_to_string(path).unwrap();
-    serde_json::from_str(&raw).unwrap()
-}
-
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub(crate) struct RawRoadData {
@@ -159,7 +152,6 @@ pub struct RoadData {
     pub length: f64,
     pub unique_id: i32,
     pub speed_limit: f64,
-    pub metadata: Metadata,
 }
 
 pub fn parse_road_data(raw: Vec<RawRoadData>) -> Vec<RoadData> {
@@ -173,7 +165,6 @@ pub fn parse_road_data(raw: Vec<RawRoadData>) -> Vec<RoadData> {
             length: raw.length as f64,
             unique_id: unique_id as i32,
             speed_limit: 0.0,
-            metadata: Metadata::default(),
         })
         .collect()
 }

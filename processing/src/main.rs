@@ -1,11 +1,14 @@
+mod args;
 mod custom_bfs;
 mod gpkg;
 mod math;
 mod modes;
+mod mongo;
 mod output;
 mod parse;
 mod processing;
 mod progress;
+mod travel_time;
 mod util;
 mod visitor;
 
@@ -13,15 +16,14 @@ use clap::{Parser, Subcommand};
 use console::style;
 use human_bytes::human_bytes;
 use modes::{AggregateOptions, InspectOptions, TestPeriodDivisionOptions};
+use mongo::client::MongoOptions;
 use parse::{parse_road_data, parse_sensor_data};
-use processing::NodeCollapse;
 use tokio::runtime::Runtime;
 use visitor::DistanceMetric;
 
 use crate::{
-    modes::{test_period_division, SimulationOptions, SimulationSetup},
-    parse::{read_roads, read_sensors},
-    util::PointQuery,
+    modes::test_period_division, mongo::client::async_client::AsyncMongoClient, parse::read_roads,
+    processing::ProcessedGraph, util::PointQuery,
 };
 
 #[derive(Debug, Parser)]
@@ -69,7 +71,7 @@ enum Commands {
         metric: DistanceMetric,
     },
     DrawDisjoint {
-        #[clap(long, default_value = "./out/graph.bin")]
+        #[clap(long, default_value = "./out/graph.json")]
         input: String,
         #[clap(long, default_value = "./out/graph.svg")]
         output: String,
@@ -105,36 +107,14 @@ enum Commands {
         forward_only: bool,
     },
     Process {
-        #[clap(long, default_value = "../roadData.json")]
+        #[clap(short, long, default_value = "./out/gpkgData.json")]
         road_data: String,
-        #[clap(long, default_value = "../sensorData.json")]
-        sensor_data: String,
-        #[clap(long, default_value = "./out/graph.bin")]
+        #[clap(short, long, default_value = "./out/graph.json")]
         output: String,
-        #[clap(short, long, default_value = "false", default_missing_value = "true")]
-        dedup_road_data: bool,
-        #[clap(short, long)]
-        max_distance: Option<f64>,
-        #[clap(short = 'M', long, default_missing_value = "0")]
-        merge_overlapping_distance: Option<f64>,
-        #[clap(short, long, default_value = "none")]
-        collapse_nodes: NodeCollapse,
-        #[clap(short, long, default_value = "false", default_missing_value = "true")]
-        remove_disjoint_nodes: bool,
-        #[clap(
-            short = 'D',
-            long,
-            default_value = "false",
-            default_missing_value = "true"
-        )]
-        dedup_edges: bool,
-        #[clap(
-            short = 'v',
-            long,
-            default_value = "-1",
-            default_missing_value = "20.0"
-        )]
-        connect_distance: f64,
+        #[clap(flatten)]
+        mongo_options: MongoOptions,
+        #[clap(flatten)]
+        processing_options: processing::GraphProcessingOptions,
     },
     ExtractGpkgData {
         #[clap(short, long, default_value = "SverigepaketTP.gpkg")]
@@ -152,6 +132,7 @@ enum Commands {
         #[clap(flatten)]
         options: InspectOptions,
     },
+    /*
     Simulate {
         #[clap(long, default_value = "./out/graph.bin")]
         input: String,
@@ -161,7 +142,7 @@ enum Commands {
         setup: String,
         #[clap(flatten)]
         options: SimulationOptions,
-    },
+    }, */
     AggregateSensorData {
         #[clap(flatten)]
         options: AggregateOptions,
@@ -169,6 +150,10 @@ enum Commands {
     TestPeriodDivision {
         #[clap(flatten)]
         options: TestPeriodDivisionOptions,
+    },
+    LiveRoute {
+        #[clap(flatten)]
+        options: modes::LiveRouteOptions,
     },
 }
 
@@ -248,8 +233,10 @@ fn main() {
             canvas.save(&output);
         }
         Commands::DrawDisjoint { input, output } => {
-            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
-            let canvas = modes::draw_disjoint(graph);
+            println!("Reading graph from {}", input);
+            let processed_graph: ProcessedGraph =
+                serde_json::from_str(&std::fs::read_to_string(&input).unwrap()).unwrap();
+            let canvas = modes::draw_disjoint(processed_graph.graph);
             canvas.save(&output);
         }
         Commands::DrawReachable {
@@ -291,6 +278,7 @@ fn main() {
             let canvas = modes::inspect(graph, options);
             canvas.save(&output);
         }
+        /*
         Commands::Simulate {
             input,
             output,
@@ -301,37 +289,35 @@ fn main() {
             let setup: SimulationSetup =
                 serde_json::from_str(&std::fs::read_to_string(&setup).unwrap()).unwrap();
             modes::simulate(&mut graph, setup, options, &output);
-        }
+        } */
         Commands::Process {
             road_data,
-            sensor_data,
             output,
-            dedup_road_data,
-            max_distance,
-            merge_overlapping_distance,
-            collapse_nodes,
-            remove_disjoint_nodes,
-            dedup_edges,
-            connect_distance,
+            mongo_options,
+            processing_options,
         } => {
-            let opts = processing::GraphProcessingOptions {
-                dedup_road_data,
-                max_distance_from_sensors: max_distance.unwrap_or(f64::INFINITY),
-                merge_overlap_distance: merge_overlapping_distance.unwrap_or(f64::NAN),
-                collapse_nodes,
-                remove_disjoint_nodes,
-                dedup_edges,
-                connect_distance,
-            };
+            let runtime = Runtime::new().unwrap();
 
-            let road_data = read_roads(&road_data);
-            let sensor_data = read_sensors(&sensor_data);
+            runtime.block_on(async {
+                let road_data = read_roads(&road_data);
 
-            let graph = processing::parse_data(road_data, sensor_data, opts);
-            let data = bitcode::serialize(&graph).unwrap();
-            std::fs::write(output.clone(), data).unwrap();
-            let size = std::fs::metadata(output).unwrap().len();
-            println!("Graph size: {} bytes", human_bytes(size as f64));
+                let client = AsyncMongoClient::new(mongo_options).await.unwrap();
+
+                let sensor_data = client
+                    .get_all_sensors()
+                    .await
+                    .expect("Failed to get sensor data");
+
+                let graph = processing::process_graph(processing_options, road_data, sensor_data);
+                let data = serde_json::to_string(&graph).unwrap();
+                std::fs::write(output.clone(), data).unwrap();
+                let size = std::fs::metadata(output.clone()).unwrap().len();
+                println!("Graph size: {} bytes", human_bytes(size as f64));
+                println!("Wrote graph to {}", output);
+
+                //let data = bitcode::serialize(&graph.graph).unwrap();
+                //let _: ProcessedGraph = bitcode::deserialize(&data).unwrap();
+            });
         }
         Commands::ExtractGpkgData {
             sqlite_file,
@@ -357,6 +343,12 @@ fn main() {
             let runtime = Runtime::new().unwrap();
             runtime.block_on(async {
                 test_period_division(options).await;
+            });
+        }
+        Commands::LiveRoute { options } => {
+            let runtime = Runtime::new().unwrap();
+            runtime.block_on(async {
+                modes::live_route(options).await;
             });
         }
     }

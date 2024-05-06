@@ -1,35 +1,10 @@
 use std::{io::Error, ops::Range};
 
+use crate::args::deserialize_f64_null_as_infinity;
 use clap::Args;
-use petgraph::{graph::NodeIndex, stable_graph::StableDiGraph};
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::{Deserialize, Serialize};
 
-use crate::{
-    math::geo_distance,
-    parse,
-    processing::{build_node_acceleration_structure, EdgeData, NodeData},
-};
-
-pub fn find_point(
-    graph: &StableDiGraph<NodeData, EdgeData>,
-    query: PointQuery,
-) -> Result<NodeIndex, Error> {
-    let tree = build_node_acceleration_structure(graph);
-    let p = [query.point.latitude, query.point.longitude];
-    let mut iter = tree
-        .iter_nearest(&p, &geo_distance)
-        .expect("Failed to find nearest node");
-    while let Some((dist, (node, data))) = iter.next() {
-        if dist > query.radius {
-            break;
-        }
-        if query.heading.contains(&data.heading) {
-            return Ok(*node);
-        }
-    }
-
-    Err(Error::new(std::io::ErrorKind::NotFound, "No node found"))
-}
+use crate::parse;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Args)]
 #[group(required = true, multiple = true)]
@@ -61,11 +36,4 @@ impl PointQuery {
             heading,
         }
     }
-}
-
-/// A helper to deserialize `f64`, treating JSON null as f64::NAN.
-/// See https://github.com/serde-rs/json/issues/202
-fn deserialize_f64_null_as_infinity<'de, D: Deserializer<'de>>(des: D) -> Result<f64, D::Error> {
-    let optional = Option::<f64>::deserialize(des)?;
-    Ok(optional.unwrap_or(f64::INFINITY))
 }

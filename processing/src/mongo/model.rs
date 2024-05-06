@@ -1,10 +1,10 @@
 use mongodb::bson::{doc, oid::ObjectId, Bson, DateTime, Document};
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::{Deserialize, Serialize};
 
 use crate::custom_bfs::Positionable;
 
 #[derive(Debug, Serialize, Deserialize, Clone, Hash, PartialEq, Eq)]
-pub(super) enum MeasurementSide {
+pub enum MeasurementSide {
     Unknown,
     NorthBound,
     SouthBound,
@@ -34,7 +34,7 @@ impl Into<Bson> for MeasurementSide {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "PascalCase")]
-pub(super) struct SensorData {
+pub struct RawSensorData {
     #[serde(rename = "_id")]
     pub mongo_id: Option<ObjectId>,
     pub site_id: i32,
@@ -53,7 +53,7 @@ pub(super) struct SensorData {
     pub location: Location,
 }
 
-impl Positionable for SensorData {
+impl Positionable for RawSensorData {
     fn point(&self) -> crate::parse::Point {
         crate::parse::Point {
             latitude: self.location.coordinates[0],
@@ -62,12 +62,10 @@ impl Positionable for SensorData {
     }
 }
 
-impl SensorData {
+impl RawSensorData {
     pub fn filter(&self) -> Document {
         doc! {
             "SiteId": self.site_id,
-            "Specificlane": &self.specific_lane.to_string(),
-            "MeasurementSide": &self.measurement_side,
         }
     }
 
@@ -91,16 +89,16 @@ impl SensorData {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub(super) struct Location {
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+pub struct Location {
     #[serde(rename = "type")]
     pub _type: String,
     pub coordinates: [f64; 2],
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all = "PascalCase")]
-pub(super) struct Sensor {
+pub struct SensorMetadata {
     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
     pub mongo_id: Option<ObjectId>,
     pub site_id: i32,
@@ -110,8 +108,8 @@ pub(super) struct Sensor {
     pub period: i32,
 }
 
-impl From<SensorData> for Sensor {
-    fn from(data: SensorData) -> Self {
+impl From<RawSensorData> for SensorMetadata {
+    fn from(data: RawSensorData) -> Self {
         let measurement_side = data.get_measurement_side();
         let lane = data.get_lane_i32();
         Self {
@@ -125,21 +123,29 @@ impl From<SensorData> for Sensor {
     }
 }
 
+impl Positionable for SensorMetadata {
+    fn point(&self) -> crate::parse::Point {
+        crate::parse::Point {
+            latitude: self.location.coordinates[1],
+            longitude: self.location.coordinates[0],
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DataPoint {
-    #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
-    pub mongo_id: Option<ObjectId>,
+    pub mongo_id: ObjectId,
     pub sensor_id: ObjectId,
     pub time: DateTime,
     pub flow_rate: f64,
     pub average_speed: f64,
 }
 
-impl From<SensorData> for DataPoint {
-    fn from(data: SensorData) -> Self {
+impl From<RawSensorData> for DataPoint {
+    fn from(data: RawSensorData) -> Self {
         Self {
-            mongo_id: None,
+            mongo_id: data.mongo_id.unwrap(),
             sensor_id: data.mongo_id.unwrap(),
             time: data.measurement_time,
             flow_rate: data.flow_rate,

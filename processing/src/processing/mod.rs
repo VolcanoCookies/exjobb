@@ -1,13 +1,14 @@
 use crate::{
     custom_bfs::Positionable,
     math::{geo_distance, midpoint},
-    parse::{Point, RoadDirection, SensorData},
-    progress::eta_bar,
+    mongo::model::SensorMetadata,
+    parse::{Point, RoadDirection},
+    progress::Progress,
 };
 
 use std::collections::{HashMap, HashSet};
 
-use clap::ValueEnum;
+use clap::{Args, ValueEnum};
 use console::style;
 use kdtree::KdTree;
 use petgraph::{
@@ -31,12 +32,12 @@ pub mod collapse;
 pub struct NodeData {
     pub point: Point,
     pub direction: RoadDirection,
-    pub sensor: Option<SensorData>,
     pub main_number: i32,
     pub sub_number: i32,
     pub original_road_id: i32,
     pub heading: f64,
     pub is_road_cap: bool,
+    pub has_sensor: bool,
 }
 
 impl Positionable for NodeData {
@@ -56,11 +57,7 @@ pub struct EdgeData {
     pub direction: RoadDirection,
     pub original_road_id: i32,
     pub speed_limit: Option<f64>,
-    pub metadata: Metadata,
 }
-
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-pub struct Metadata {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub enum DriveDirection {
@@ -68,16 +65,6 @@ pub enum DriveDirection {
     Backward,
     Both,
     None,
-}
-
-impl Default for Metadata {
-    fn default() -> Self {
-        Metadata {}
-    }
-}
-
-impl Metadata {
-    pub fn merge(&mut self, other: &Metadata) {}
 }
 
 fn merge_edge_data(start: NodeData, end: NodeData, data: Vec<EdgeData>) -> EdgeData {
@@ -94,13 +81,10 @@ fn merge_edge_data(start: NodeData, end: NodeData, data: Vec<EdgeData>) -> EdgeD
     let mut polyline = first.polyline;
     let mut speed_limit = first.speed_limit.unwrap_or(0.0) * first.distance;
 
-    let mut metadata = first.metadata.clone();
-
     for edge_data in edge_iter {
         distance += edge_data.distance;
         polyline.extend(edge_data.polyline.iter().skip(1));
         speed_limit += edge_data.speed_limit.unwrap_or(0.0) * edge_data.distance;
-        metadata.merge(&edge_data.metadata);
     }
 
     let speed_limit = speed_limit / distance;
@@ -115,18 +99,50 @@ fn merge_edge_data(start: NodeData, end: NodeData, data: Vec<EdgeData>) -> EdgeD
         direction: first.direction,
         original_road_id: first.original_road_id,
         speed_limit: Some(speed_limit),
-        metadata,
     }
 }
 
+#[derive(Debug, Args)]
 pub struct GraphProcessingOptions {
-    pub dedup_road_data: bool,
-    pub max_distance_from_sensors: f64,
-    pub merge_overlap_distance: f64,
-    pub collapse_nodes: NodeCollapse,
-    pub remove_disjoint_nodes: bool,
-    pub dedup_edges: bool,
-    pub connect_distance: f64,
+    #[clap(short, long, default_value = "false", default_missing_value = "true")]
+    dedup_road_data: bool,
+    #[clap(
+        short,
+        long,
+        value_parser = crate::args::parse_f64_nan_inf,
+        default_value = "inf"
+    )]
+    max_distance_from_sensors: f64,
+    #[clap(
+        short = 'M',
+        long,
+        value_parser = crate::args::parse_f64_nan_inf,
+        default_missing_value = "0"
+    )]
+    merge_overlap_distance: f64,
+    #[clap(short, long, default_value = "none")]
+    collapse_nodes: NodeCollapse,
+    #[clap(
+        short = 'R',
+        long,
+        default_value = "false",
+        default_missing_value = "true"
+    )]
+    remove_disjoint_nodes: bool,
+    #[clap(
+        short = 'D',
+        long,
+        default_value = "false",
+        default_missing_value = "true"
+    )]
+    dedup_edges: bool,
+    #[clap(
+        short = 'v',
+        long,
+        default_value = "-1",
+        default_missing_value = "20.0"
+    )]
+    connect_distance: f64,
 }
 
 #[derive(Debug, Clone, ValueEnum)]
@@ -136,31 +152,25 @@ pub enum NodeCollapse {
     None,
 }
 
-impl Default for GraphProcessingOptions {
-    fn default() -> Self {
-        GraphProcessingOptions {
-            dedup_road_data: false,
-            max_distance_from_sensors: f64::INFINITY,
-            merge_overlap_distance: f64::NAN,
-            collapse_nodes: NodeCollapse::None,
-            remove_disjoint_nodes: false,
-            dedup_edges: false,
-            connect_distance: 20.0,
-        }
-    }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ProcessedGraph {
+    pub graph: StableDiGraph<NodeData, EdgeData>,
+    pub sensor_store: HashMap<NodeIndex, Vec<SensorMetadata>>,
 }
 
-pub fn parse_data(
+pub fn process_graph(
+    options: GraphProcessingOptions,
     mut road_data: Vec<RoadData>,
-    sensor_data: Vec<SensorData>,
-    opts: GraphProcessingOptions,
-) -> StableGraph<NodeData, EdgeData> {
+    sensor_data: Vec<SensorMetadata>,
+) -> ProcessedGraph {
+    let mut progress = Progress::new();
     let process_start = std::time::Instant::now();
+
     let mut graph = StableDiGraph::new();
+    let mut sensor_store = HashMap::<NodeIndex, Vec<SensorMetadata>>::new();
 
-    //let sensor_data = sensor_data[0..1].to_vec();
-
-    let sensor_middle = sensor_data.iter().map(|s| s.point).fold(
+    progress.step_unsized("Calculating middle and range of sensors");
+    let sensor_middle = sensor_data.iter().map(|s| s.point()).fold(
         Point {
             latitude: 0.0,
             longitude: 0.0,
@@ -176,14 +186,17 @@ pub fn parse_data(
     };
     let range = sensor_data
         .iter()
-        .map(|s| dist(sensor_middle, s.point))
+        .map(|s| dist(sensor_middle, s.point()))
         .fold(0.0, f64::max);
-    let range = range + opts.max_distance_from_sensors;
+    let range = range + options.max_distance_from_sensors;
+    progress.finish(format!(
+        "Middle: {:?}, Range: {}",
+        style(sensor_middle).bold(),
+        style(range).bold()
+    ));
 
-    if opts.dedup_road_data {
-        println!("{} Deduplicating road data", style("[1/12]").bold().dim());
-        let start = std::time::Instant::now();
-        let pb = eta_bar(road_data.len());
+    if options.dedup_road_data {
+        progress.step_sized(road_data.len(), "Deduplicating road data");
 
         let mut unique_roads = Vec::new();
         let len = road_data.len();
@@ -218,24 +231,18 @@ pub fn parse_data(
                 }
             }
             unique_roads.push(road_data[i].clone());
-            pb.inc(1);
+            progress.tick();
         }
         road_data = unique_roads;
-        println!(
-            "{:?} Removed {} duplicate roads",
-            style(start.elapsed()).bold().dim().yellow(),
-            style(len - road_data.len()).bold(),
-        );
+        progress.finish(format!(
+            "Removed {} duplicate roads",
+            style(len - road_data.len()).bold()
+        ));
     } else {
-        println!(
-            "{} Skipping deduplication of road data",
-            style("[1/12]").bold().dim()
-        );
+        progress.step_single("Skipping deduplication of road data");
     }
 
-    println!("{} Adding nodes and edges", style("[2/12]").bold().dim());
-    let start = std::time::Instant::now();
-    let pb = eta_bar(road_data.len());
+    progress.step_unsized("Adding nodes and edges");
     let mut skipped = 0;
     for road in road_data.iter_mut() {
         let mut prev_node: Option<(NodeIndex, NodeData)> = None;
@@ -249,7 +256,7 @@ pub fn parse_data(
         }
 
         for (idx, point) in road.coordinates.iter().enumerate() {
-            if opts.max_distance_from_sensors < f64::INFINITY {
+            if options.max_distance_from_sensors < f64::INFINITY {
                 let d = dist(sensor_middle, *point);
                 if d > range {
                     prev_node = None;
@@ -261,12 +268,12 @@ pub fn parse_data(
             let node_data = NodeData {
                 point: *point,
                 direction: road.direction,
-                sensor: None,
                 main_number: road.main_number,
                 sub_number: road.sub_number,
                 original_road_id: road.unique_id,
                 heading: 0.0,
                 is_road_cap: idx == 0 || idx == road.coordinates.len() - 1,
+                has_sensor: false,
             };
             let node = graph.add_node(node_data);
 
@@ -282,7 +289,6 @@ pub fn parse_data(
                     direction: direction_from_data(prev_data, node_data),
                     original_road_id: road.unique_id,
                     speed_limit: Some(road.speed_limit),
-                    metadata: road.metadata,
                 };
                 if road.direction == RoadDirection::Both {
                     let mut rev_edge_data = edge_data.clone();
@@ -295,20 +301,16 @@ pub fn parse_data(
 
             prev_node = Some((node, node_data));
         }
-        pb.inc(1);
+        progress.tick();
     }
-    pb.finish_and_clear();
-    println!(
-        "{:?} Added {} nodes and {} edges, skipping {} nodes out of range",
-        style(start.elapsed()).bold().dim().yellow(),
+    progress.finish(format!(
+        "Added {} nodes and {} edges, skipping {} nodes out of range",
         style(graph.node_count()).bold(),
         style(graph.edge_count()).bold(),
         style(skipped).bold()
-    );
+    ));
 
-    println!("{} Calculating node headings", style("[3/12]").bold().dim());
-    let start = std::time::Instant::now();
-    let pb = eta_bar(graph.node_count());
+    progress.step_sized(graph.node_count(), "Calculating node headings");
     for node in graph.clone().node_indices() {
         let in_edges = graph.edges_directed(node, Incoming);
         let out_edges = graph.edges_directed(node, Outgoing);
@@ -331,24 +333,20 @@ pub fn parse_data(
 
         let data = graph.node_weight_mut(node).unwrap();
         data.heading = angle_average(&headings);
-        pb.inc(1);
+        progress.tick();
     }
-    pb.finish_and_clear();
-    println!(
-        "{:?} Calculated node headings",
-        style(start.elapsed()).bold().dim().yellow()
-    );
+    progress.finish("Calculated node headings");
 
-    if opts.max_distance_from_sensors < f64::INFINITY {
-        println!(
-            "{} Removing nodes not within {}m of any sensors",
-            style("[4/12]").bold().dim(),
-            style(opts.max_distance_from_sensors).bold()
+    if options.max_distance_from_sensors < f64::INFINITY {
+        progress.step_sized(
+            graph.node_count(),
+            format!(
+                "Removing nodes not within {}m of any sensors",
+                style(options.max_distance_from_sensors).bold()
+            ),
         );
-        let start = std::time::Instant::now();
-        let pb = eta_bar(graph.node_count());
-
-        let sensor_tree = build_sensor_acceleration_structure(&sensor_data);
+        let pb = progress.get_pb();
+        let sensor_tree = build_sensor_acceleration_structure(sensor_data.iter());
         let to_remove = graph
             .node_indices()
             .par_bridge()
@@ -361,7 +359,7 @@ pub fn parse_data(
                 }
 
                 let (dist, _) = find_closest_sensor(&sensor_tree, data.point);
-                if dist > opts.max_distance_from_sensors {
+                if dist > options.max_distance_from_sensors {
                     pb.inc(1);
                     return true;
                 }
@@ -369,45 +367,38 @@ pub fn parse_data(
                 false
             })
             .collect::<Vec<_>>();
-        pb.finish_and_clear();
+
         let len = to_remove.len();
         for node in to_remove {
             graph.remove_node(node);
         }
 
-        println!(
-            "{:?} Removed {} nodes",
-            style(start.elapsed()).bold().dim().yellow(),
-            len
-        );
+        progress.finish(format!("Removed {} nodes", style(len).bold()));
     } else {
-        println!(
-            "{} Skipping removal of nodes not close to any sensors",
-            style("[4/12]").bold().dim()
-        );
+        progress.step_single("Skipping removal of nodes not close to any sensors");
     }
 
-    if !opts.merge_overlap_distance.is_nan() {
-        println!(
-            "{} Merging nodes with overlap distance {}",
-            style("[5/12]").bold().dim(),
-            style(opts.merge_overlap_distance).bold()
+    if !options.merge_overlap_distance.is_nan() {
+        progress.step_sized(
+            graph.node_count(),
+            format!(
+                "Merging nodes with overlap distance {}",
+                style(options.merge_overlap_distance).bold()
+            ),
         );
-        let start = std::time::Instant::now();
-        let pb = eta_bar(graph.node_count());
 
         let node_tree = build_node_acceleration_structure(&graph);
         let mut removed = HashSet::new();
         let indices = graph.node_indices().collect::<Vec<_>>();
         for node in indices {
             if removed.contains(&node) {
-                pb.inc(1);
+                progress.tick();
                 continue;
             }
             let data = graph.node_weight(node).unwrap().clone();
 
             if !data.is_road_cap {
-                pb.inc(1);
+                progress.tick();
                 continue;
             }
 
@@ -420,7 +411,7 @@ pub fn parse_data(
                 }
 
                 let d = dist(data.point, other_data.point);
-                if d <= opts.merge_overlap_distance {
+                if d <= options.merge_overlap_distance {
                     let mut edges = Vec::new();
                     let in_edges = graph.edges_directed(*other, Incoming);
                     for edge in in_edges {
@@ -444,115 +435,48 @@ pub fn parse_data(
                     break;
                 }
             }
-            pb.inc(1);
+            progress.tick();
         }
-        pb.finish_and_clear();
-        println!(
-            "{:?} Merged {} overlapping nodes",
-            style(start.elapsed()).bold().dim().yellow(),
+        progress.finish(format!(
+            "Merged {} overlapping nodes",
             style(removed.len()).bold()
-        );
+        ));
     }
 
-    println!(
-        "{} Assigning sensors to nodes",
-        style("[6/12]").bold().dim()
-    );
-    let start = std::time::Instant::now();
-    let pb = eta_bar(sensor_data.len());
+    progress.step_sized(sensor_data.len(), "Assigning sensors to nodes");
     let node_tree = build_node_acceleration_structure(&graph);
-    let mut sensor_assignments = HashMap::<NodeIndex, Vec<SensorData>>::new();
-    for sensor in sensor_data.iter() {
-        let (_, closest_idx) = find_closest_node(&node_tree, sensor.point);
-        let mut sensors = sensor_assignments
+    for sensor in sensor_data {
+        let (_, closest_idx) = find_closest_node(&node_tree, sensor.point());
+        sensor_store
             .entry(closest_idx)
             .or_insert(Vec::new())
-            .clone();
-        sensors.push(*sensor);
-        sensor_assignments.insert(closest_idx, sensors.clone());
-        pb.inc(1);
+            .push(sensor);
+        let data = graph.node_weight_mut(closest_idx).unwrap();
+        data.has_sensor = true;
+        progress.tick();
     }
-    pb.finish_and_clear();
-    println!(
-        "{:?} Assigned sensors to {} nodes",
-        style(start.elapsed()).bold().dim().yellow(),
-        style(sensor_assignments.len()).bold()
-    );
+    progress.finish(format!(
+        "Assigned sensors to {} nodes",
+        style(sensor_store.len()).bold()
+    ));
 
-    println!("{} Merging sensors", style("[7/12]").bold().dim());
-    let start = std::time::Instant::now();
-    let pb = eta_bar(sensor_assignments.len());
-    let mut merged_sensors = Vec::new();
-    for (idx, sensors) in sensor_assignments.iter() {
-        let mut flow_rate = 0.0;
-        let mut average_speed = 0.0;
-        let mut point = Point {
-            latitude: 0.0,
-            longitude: 0.0,
-        };
-
-        for sensor in sensors.iter() {
-            flow_rate += sensor.flow_rate;
-            average_speed += sensor.average_speed;
-            point.latitude += sensor.point.latitude;
-            point.longitude += sensor.point.longitude;
-        }
-
-        let len = sensors.len() as f64;
-        let sensor = SensorData {
-            site_id: sensors[0].site_id,
-            flow_rate: flow_rate / len,
-            average_speed: average_speed / len,
-            point: Point {
-                latitude: point.latitude / len,
-                longitude: point.longitude / len,
-            },
-            lane: 1,
-            side: sensors[0].side,
-        };
-
-        merged_sensors.push(sensor);
-
-        let data = graph.node_weight_mut(*idx).unwrap();
-        data.sensor = Some(sensor);
-        pb.inc(1);
-    }
-    pb.finish_and_clear();
-    println!(
-        "{:?} Merged {} sensors into {} nodes",
-        style(start.elapsed()).bold().dim().yellow(),
-        style(sensor_assignments.len()).bold(),
-        style(merged_sensors.len()).bold()
-    );
-
-    println!(
-        "{} Finding longest road segment",
-        style("[8/12]").bold().dim()
-    );
-    let start = std::time::Instant::now();
-    let pb = eta_bar(graph.edge_count());
+    progress.step_sized(graph.edge_count(), "Finding longest road segment");
     let mut longest_road_segment = f64::NEG_INFINITY;
     for edge in graph.edge_indices() {
         let data = graph.edge_weight(edge).unwrap();
         if data.distance > longest_road_segment {
             longest_road_segment = data.distance;
         }
-        pb.inc(1);
+        progress.tick();
     }
-    pb.finish_and_clear();
-    println!(
-        "{:?} Longest road segment: {}",
-        style(start.elapsed()).bold().dim().yellow(),
+    progress.finish(format!(
+        "Longest road segment: {}",
         style(longest_road_segment).bold()
-    );
+    ));
 
-    if opts.connect_distance >= 0.0 {
-        println!(
-            "{} Connecting individual roads",
-            style("[9/12]").bold().dim()
-        );
-        let start = std::time::Instant::now();
-        let pb = eta_bar(graph.node_count());
+    if options.connect_distance >= 0.0 {
+        progress.step_sized(graph.node_count(), "Connecting individual roads");
+        let pb = progress.get_pb();
         let edge_tree = build_edge_acceleration_structure(&graph, None);
         let par_iter = graph.node_indices().par_bridge();
         let to_connect = par_iter
@@ -567,7 +491,7 @@ pub fn parse_data(
                     &graph,
                     &edge_tree,
                     data.point,
-                    opts.connect_distance,
+                    options.connect_distance,
                     longest_road_segment,
                     |(_, data)| data.original_road_id,
                 );
@@ -653,7 +577,6 @@ pub fn parse_data(
                 direction: direction_from_data(from_data, to_data),
                 original_road_id: -1,
                 speed_limit: None,
-                metadata: Metadata::default(),
             };
             graph.add_edge(from, to, edge_data);
 
@@ -667,52 +590,40 @@ pub fn parse_data(
                 direction: direction_from_data(to_data, from_data),
                 original_road_id: -1,
                 speed_limit: None,
-                metadata: Metadata::default(),
             };
             graph.add_edge(to, from, edge_data);
         }
-        pb.finish_and_clear();
-        println!(
-            "{:?} Connected {} roads and skipped {}",
-            style(start.elapsed()).bold().dim().yellow(),
+        progress.finish(format!(
+            "Connected {} roads and skipped {}",
             style(connected).bold(),
             style(skipped).bold()
-        );
+        ));
     } else {
-        println!(
-            "{} Skipping connection of individual roads",
-            style("[9/12]").bold().dim()
-        );
+        progress.step_single("Skipping connection of individual roads");
     }
 
-    if opts.remove_disjoint_nodes {
-        println!(
-            "{} Removing disjointed nodes",
-            style("[10/12]").bold().dim()
-        );
-        let start = std::time::Instant::now();
-        let pb = indicatif::ProgressBar::new_spinner();
+    if options.remove_disjoint_nodes {
+        progress.step_unsized("Removing disjointed nodes");
         let (some_sensor_idx, _) = graph
             .node_references()
             .into_iter()
-            .find(|(_, data)| data.sensor.is_some())
+            .find(|(idx, _)| sensor_store.contains_key(idx))
             .unwrap();
         let mut seen = Vec::new();
         let mut bfs = Bfs::new(&graph, some_sensor_idx);
 
         for node in graph.node_indices() {
-            let data = graph.node_weight(node).unwrap();
-            if data.sensor.is_some() {
+            if sensor_store.contains_key(&node) {
                 bfs.stack.push_front(node);
                 bfs.discovered.visit(node);
                 seen.push(node);
             }
-            pb.tick();
+            progress.tick();
         }
 
         while let Some(node) = bfs.next(&graph) {
             seen.push(node);
-            pb.tick();
+            progress.tick();
         }
 
         let mut to_remove = Vec::new();
@@ -720,29 +631,19 @@ pub fn parse_data(
             if !seen.contains(&node) {
                 to_remove.push(node);
             }
-            pb.tick();
+            progress.tick();
         }
         let len = to_remove.len();
         for node in to_remove {
             graph.remove_node(node);
         }
-        pb.finish_and_clear();
-        println!(
-            "{:?} Removed {} disjointed nodes",
-            style(start.elapsed()).bold().dim().yellow(),
-            style(len).bold()
-        );
+        progress.finish(format!("Removed {} disjointed nodes", style(len).bold()));
     } else {
-        println!(
-            "{} Skipping removal of disjointed nodes",
-            style("[10/12]").bold().dim()
-        );
+        progress.step_single("Skipping removal of disjointed nodes");
     }
 
-    if opts.dedup_edges {
-        println!("{} Removing duplicate edges", style("[11/12]").bold().dim());
-        let start = std::time::Instant::now();
-        let pb = eta_bar(graph.edge_count());
+    if options.dedup_edges {
+        progress.step_sized(graph.edge_count(), "Removing duplicate edges");
 
         let edge_tree = build_edge_acceleration_structure(&graph, None);
         let mut edges_to_remove = Vec::new();
@@ -750,7 +651,7 @@ pub fn parse_data(
             let data = edge.weight();
             let idx = edge.id();
             if data.is_connector || edges_to_remove.contains(&idx) {
-                pb.inc(1);
+                progress.tick();
                 continue;
             }
 
@@ -776,7 +677,7 @@ pub fn parse_data(
             {
                 edges_to_remove.push(*closest_idx);
             }
-            pb.inc(1);
+            progress.tick();
         }
 
         let len = edges_to_remove.len();
@@ -784,56 +685,39 @@ pub fn parse_data(
             graph.remove_edge(edge);
         }
 
-        pb.finish_and_clear();
-        println!(
-            "{:?} Removed {} duplicate edges",
-            style(start.elapsed()).bold().dim().yellow(),
-            style(len).bold()
-        );
+        progress.finish(format!("Removed {} duplicate edges", style(len).bold()));
     } else {
-        println!(
-            "{} Skipping removal of duplicate edges",
-            style("[11/12]").bold().dim()
-        );
+        progress.step_single("Skipping removal of duplicate edges");
     }
 
-    match opts.collapse_nodes {
+    match options.collapse_nodes {
         NodeCollapse::Naive => {
-            println!(
-                "{} Collapsing nodes: {}",
-                style("[12/12]").bold().dim(),
-                style("naive").bold()
-            );
-            let start = std::time::Instant::now();
+            progress.step_unsized(format!("Collapsing nodes: {}", style("naive").bold()));
 
             let nodes = graph.node_count();
             collapse::naive(&mut graph);
 
-            println!(
-                "{:?} Collapsed {} nodes",
-                style(start.elapsed()).bold().dim().yellow(),
-                nodes - graph.node_count()
-            );
+            progress.finish(format!(
+                "Collapsed {} nodes",
+                style(nodes - graph.node_count()).bold()
+            ));
         }
         NodeCollapse::ForwardOnly => {
-            println!(
-                "{} Collapsing nodes: {}",
-                style("[12/12]").bold().dim(),
+            progress.step_unsized(format!(
+                "Collapsing nodes: {}",
                 style("forward only").bold()
-            );
-            let start = std::time::Instant::now();
+            ));
 
             let nodes = graph.node_count();
             collapse::forward_only(&mut graph);
 
-            println!(
-                "{:?} Collapsed {} nodes",
-                style(start.elapsed()).bold().dim().yellow(),
-                nodes - graph.node_count()
-            );
+            progress.finish(format!(
+                "Collapsed {} nodes",
+                style(nodes - graph.node_count()).bold()
+            ));
         }
         NodeCollapse::None => {
-            println!("{} Skipping node collapse", style("[12/12]").bold().dim());
+            progress.step_single("Skipping node collapse");
         }
     }
 
@@ -844,21 +728,25 @@ pub fn parse_data(
         style(graph.edge_count()).bold()
     );
 
-    graph
+    ProcessedGraph {
+        graph,
+        sensor_store,
+    }
 }
 
 fn are_neighbours(graph: &StableDiGraph<NodeData, EdgeData>, a: NodeIndex, b: NodeIndex) -> bool {
     graph.edges_connecting(a, b).count() > 0
 }
 
-fn build_sensor_acceleration_structure(
-    sensors: &Vec<SensorData>,
-) -> KdTree<f64, SensorData, [f64; 2]> {
+fn build_sensor_acceleration_structure<'a, I: Iterator<Item = &'a SensorMetadata>>(
+    sensors: I,
+) -> KdTree<f64, SensorMetadata, [f64; 2]> {
     let mut kdtree = KdTree::new(2);
 
-    sensors.iter().for_each(|data| {
+    sensors.for_each(|data| {
+        let point = data.point();
         kdtree
-            .add([data.point.latitude, data.point.longitude], *data)
+            .add([point.latitude, point.longitude], data.clone())
             .unwrap();
     });
 
@@ -866,18 +754,18 @@ fn build_sensor_acceleration_structure(
 }
 
 fn find_closest_sensor(
-    kdtree: &KdTree<f64, SensorData, [f64; 2]>,
+    kdtree: &KdTree<f64, SensorMetadata, [f64; 2]>,
     point: Point,
-) -> (f64, SensorData) {
+) -> (f64, SensorMetadata) {
     let (_, data) = *kdtree
         .nearest(&[point.latitude, point.longitude], 1, &geo_distance)
         .unwrap()
         .first()
         .unwrap();
 
-    let dist = dist(data.point, point);
+    let dist = dist(data.point(), point);
 
-    (dist, *data)
+    (dist, data.clone())
 }
 
 pub fn build_node_acceleration_structure(

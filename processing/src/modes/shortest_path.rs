@@ -1,19 +1,26 @@
-use petgraph::stable_graph::StableDiGraph;
+use petgraph::{stable_graph::StableDiGraph, visit::IntoNodeReferences};
 use rayon::iter::{ParallelBridge, ParallelIterator};
 
 use crate::{
+    custom_bfs::Positionable,
     math::geo_distance,
     output::{Canvas, DrawOptions},
-    processing::{build_node_acceleration_structure, EdgeData, NodeData},
-    visitor, PointQuery,
+    processing::{build_node_acceleration_structure, EdgeData, NodeData, ProcessedGraph},
+    visitor::{self, convert_kmh_to_ms},
+    PointQuery,
 };
 
 pub fn shortest_path(
-    mut graph: StableDiGraph<NodeData, EdgeData>,
+    progessed_graph: ProcessedGraph,
     desired_path: Vec<PointQuery>,
     cull_to_path_distance: f64,
     distance_metric: visitor::DistanceMetric,
 ) -> Canvas {
+    let ProcessedGraph {
+        mut graph,
+        sensor_store,
+    } = progessed_graph;
+
     let tree = build_node_acceleration_structure(&graph);
     let points = desired_path
         .iter()
@@ -134,35 +141,42 @@ pub fn shortest_path(
         },
     );
 
-    for data in graph.node_weights() {
-        if let Some(sensor) = &data.sensor {
-            canvas.draw_line(
-                sensor.point,
-                data.point,
-                DrawOptions {
-                    stroke: 1.0,
-                    color: "aqua".into(),
-                    ..Default::default()
-                },
-            );
+    for (idx, data) in graph.node_references() {
+        if data.has_sensor {
+            let sensors = sensor_store.get(&idx).unwrap();
+            for sensor in sensors {
+                canvas.draw_line(
+                    sensor.point(),
+                    data.point,
+                    DrawOptions {
+                        stroke: 1.0,
+                        color: "aqua".into(),
+                        ..Default::default()
+                    },
+                );
+            }
             canvas.draw_circle(data.point, "yellow", 2.5);
         }
     }
 
     for node in path.nodes.iter() {
         let data = graph.node_weight(*node).unwrap();
-        if let Some(sensor) = &data.sensor {
-            canvas.draw_line(
-                sensor.point,
-                data.point,
-                DrawOptions {
-                    stroke: 1.0,
-                    color: "aqua".into(),
-                    ..Default::default()
-                },
-            );
+        if data.has_sensor {
+            let sensors = sensor_store.get(node).unwrap();
+            for sensor in sensors {
+                canvas.draw_line(
+                    sensor.point(),
+                    data.point,
+                    DrawOptions {
+                        stroke: 1.0,
+                        color: "aqua".into(),
+                        ..Default::default()
+                    },
+                );
+                canvas.text(sensor.point(), format!("{}", sensor.site_id).as_str());
+            }
+
             canvas.draw_circle(data.point, "orange", 2.5);
-            canvas.text(sensor.point, format!("{}", sensor.site_id).as_str());
         }
     }
 
@@ -173,23 +187,21 @@ pub fn shortest_path(
     }
 
     let travel_time = calculate_travel_time(&graph, &path);
-    let travel_time_sensors = calculate_travel_time_sensors(&graph, &path);
 
     println!("Travel time: {}s", travel_time);
-    println!("Travel time sensors: {}s", travel_time_sensors);
 
     canvas
 }
 
 fn calculate_travel_time(graph: &StableDiGraph<NodeData, EdgeData>, path: &visitor::Path) -> f64 {
     let mut travel_time = 0.0;
-    let mut previous_speed_limit = convert_speed(50.0);
+    let mut previous_speed_limit = convert_kmh_to_ms(50.0);
 
     for nodes in path.nodes.windows(2) {
         let edge = graph.edges_connecting(nodes[0], nodes[1]).next().unwrap();
         let data = edge.weight();
         let speed_limit = if let Some(speed_limit) = data.speed_limit {
-            convert_speed(speed_limit)
+            convert_kmh_to_ms(speed_limit)
         } else {
             previous_speed_limit
         };
@@ -201,49 +213,4 @@ fn calculate_travel_time(graph: &StableDiGraph<NodeData, EdgeData>, path: &visit
     }
 
     travel_time
-}
-
-fn calculate_travel_time_sensors(
-    graph: &StableDiGraph<NodeData, EdgeData>,
-    path: &visitor::Path,
-) -> f64 {
-    let mut distance = 0.0;
-    let mut sensors = Vec::new();
-
-    path.nodes.windows(2).for_each(|nodes| {
-        let edge = graph.edges_connecting(nodes[0], nodes[1]).next().unwrap();
-        let data = edge.weight();
-
-        let end_data = graph.node_weight(nodes[1]).unwrap();
-
-        distance += data.distance;
-        if let Some(sensor) = &end_data.sensor {
-            sensors.push((*sensor, distance));
-        }
-    });
-    let total_distance = distance;
-
-    let mut iter = sensors.iter();
-    let mut prev = iter.next().unwrap();
-
-    let (sensor, distance) = prev;
-    let mut travel_time = distance / convert_speed(sensor.average_speed);
-
-    while let Some(curr) = iter.next() {
-        let (sensor, distance) = curr;
-        let distance = distance - prev.1;
-        let time = 2.0 * distance
-            / (convert_speed(prev.0.average_speed) + convert_speed(sensor.average_speed));
-        travel_time += time;
-        prev = curr;
-    }
-
-    let distance = total_distance - prev.1;
-    travel_time += distance / convert_speed(prev.0.average_speed);
-
-    travel_time
-}
-
-fn convert_speed(speed: f64) -> f64 {
-    speed * 1000.0 / 3600.0
 }
