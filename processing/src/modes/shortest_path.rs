@@ -39,8 +39,11 @@ pub fn shortest_path(
 
     println!("Finding shortest path");
     let path = visitor::shortest_path(&graph, points, distance_metric).expect("No path found");
-    match distance_metric {
-        visitor::DistanceMetric::Space => println!("Shortest path distance: {}m", path.length),
+    let distance = match distance_metric {
+        visitor::DistanceMetric::Space => {
+            println!("Shortest path distance: {}m", path.length);
+            path.length
+        }
         visitor::DistanceMetric::Time => {
             let distance = path.nodes.windows(2).fold(0.0, |acc, nodes| {
                 let edge = graph.edges_connecting(nodes[0], nodes[1]).next().unwrap();
@@ -50,9 +53,11 @@ pub fn shortest_path(
             println!(
                 "Shortest path time: {}s, distance: {}, average speed: {}m/s",
                 path.length, distance, average_speed
-            )
+            );
+
+            distance
         }
-    }
+    };
 
     println!("Shortest path length: {}", path.length);
 
@@ -110,36 +115,63 @@ pub fn shortest_path(
 
     let mut canvas = Canvas::from_graph(4000, &graph);
 
+    let grad = colorgrad::CustomGradient::new()
+        .html_colors(&["gold", "hotpink", "darkturquoise"])
+        .domain(&[0.0, distance])
+        .build()
+        .unwrap();
+
     for query in desired_path {
         canvas.draw_circle(query.point, "magenta", 10.0);
     }
 
     for edge in graph.edge_weights() {
-        let color = if edge.is_connector {
-            "lime"
-        } else if edge.speed_limit.is_none() {
-            "aqua"
-        } else {
-            "green"
-        };
         canvas.draw_polyline(
             edge.polyline.clone(),
             DrawOptions {
-                color: color.into(),
+                color: "gray".into(),
                 stroke: 1.0,
                 ..Default::default()
             },
         )
     }
 
-    canvas.draw_polyline(
-        points,
-        DrawOptions {
-            color: "red".into(),
-            stroke: 0.75,
-            ..Default::default()
-        },
-    );
+    let mut line_distance = 0.0;
+    for pair in path.nodes.windows(2) {
+        let edge = graph.edges_connecting(pair[0], pair[1]).next().unwrap();
+        let data = edge.weight();
+
+        let mut polyline_len_traveled = 0.0;
+        for pair in data.polyline.windows(2) {
+            let a = pair[0];
+            let b = pair[1];
+            let ap = [a.latitude, a.longitude];
+            let bp = [b.latitude, b.longitude];
+            let dist = geo_distance(&ap, &bp);
+            polyline_len_traveled += dist;
+
+            let color = grad.at(line_distance + polyline_len_traveled);
+            let color = format!(
+                "rgb({}, {}, {})",
+                color.r * 255.0,
+                color.g * 255.0,
+                color.b * 255.0
+            );
+            canvas.draw_line(
+                a,
+                b,
+                DrawOptions {
+                    stroke: 1.0,
+                    color: color.into(),
+                    ..Default::default()
+                },
+            );
+
+            polyline_len_traveled += dist;
+        }
+
+        line_distance += data.distance;
+    }
 
     for (idx, data) in graph.node_references() {
         if data.has_sensor {
@@ -178,6 +210,11 @@ pub fn shortest_path(
 
             canvas.draw_circle(data.point, "orange", 2.5);
         }
+    }
+
+    for node in graph.node_indices() {
+        let data = graph.node_weight(node).unwrap();
+        canvas.draw_triangle(data.point, "green", 2.5, data.heading);
     }
 
     for missed in path.missed.iter() {

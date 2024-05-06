@@ -6,7 +6,7 @@ use fixedbitset::FixedBitSet;
 use petgraph::{
     graph::NodeIndex,
     stable_graph::StableDiGraph,
-    visit::{EdgeRef, IntoEdgeReferences, VisitMap, Visitable},
+    visit::{EdgeRef, IntoEdgeReferences, NodeRef, VisitMap, Visitable},
 };
 
 use crate::{
@@ -123,7 +123,11 @@ fn disjoint(
         }
 
         let opts = opts.line_style.to_draw(color);
-        canvas.draw_polyline(edge.weight().polyline.clone(), opts);
+        //canvas.draw_polyline(edge.weight().polyline.clone(), opts);
+        let polyline = edge.weight().polyline.clone();
+        let start = polyline.first().unwrap();
+        let end = polyline.last().unwrap();
+        canvas.draw_line(*start, *end, opts);
 
         progress.tick();
     }

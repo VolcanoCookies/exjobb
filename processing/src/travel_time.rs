@@ -82,6 +82,12 @@ pub async fn calculate_live_travel_time(
         prev_node = Some(*node);
     }
 
+    if measurements_distance.is_empty() {
+        println!("No sensor data found for path");
+        println!("At timestamp: {}", DateTime::from_millis(timestamp));
+        println!("Max age: {}", DateTime::from_millis(timestamp - max_age));
+    }
+
     let mut iter = measurements_distance.iter();
     let mut prev = iter.next().unwrap();
     // Calculate the travel time from the start of the path to the first sensor

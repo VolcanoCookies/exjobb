@@ -35,9 +35,11 @@ interface GroupedData {
 async function main() {
 	await connectDb();
 
-	const bingEntries = await BingRouteEntryModel.find();
-	const tomtomEntries = await TomTomRouteEntryModel.find();
-	const hereEntries = await HereRouteEntryModel.find();
+	const batchId = 'second-batch';
+
+	const bingEntries = await BingRouteEntryModel.find({ batchId });
+	const tomtomEntries = await TomTomRouteEntryModel.find({ batchId });
+	const hereEntries = await HereRouteEntryModel.find({ batchId });
 
 	const data: Map<number, GroupedData> = new Map();
 
@@ -178,13 +180,17 @@ function writeToFile(data: GroupedData[], filePath: string) {
 	);
 
 	for (const entry of data) {
-		writeStream.write(
-			`${entry.bing.travelTime},${entry.bing.travelTimeTraffic},${
-				entry.tomtom.travelTime
-			},${entry.tomtom.travelTimeTraffic},${entry.here.travelTime},${
-				entry.here.travelTimeTraffic
-			},${entry.bing.distance},${formatDate(entry.bing.time)}\n`
-		);
+		try {
+			writeStream.write(
+				`${entry.bing.travelTime},${entry.bing.travelTimeTraffic},${
+					entry.tomtom.travelTime
+				},${entry.tomtom.travelTimeTraffic},${entry.here.travelTime},${
+					entry.here.travelTimeTraffic
+				},${entry.bing.distance},${formatDate(entry.bing.time)}\n`
+			);
+		} catch (e) {
+			logger.error(e);
+		}
 	}
 
 	writeStream.end();

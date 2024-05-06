@@ -59,7 +59,7 @@ enum Commands {
         unique_ids: Vec<i32>,
     },
     ShortestPath {
-        #[clap(long, default_value = "./out/graph.bin")]
+        #[clap(long, default_value = "./out/graph.json")]
         input: String,
         #[clap(long, default_value = "./out/graph.svg")]
         output: String,
@@ -125,7 +125,7 @@ enum Commands {
         query: Option<String>,
     },
     Inspect {
-        #[clap(long, default_value = "./out/graph.bin")]
+        #[clap(long, default_value = "./out/graph.json")]
         input: String,
         #[clap(long, default_value = "./out/graph.svg")]
         output: String,
@@ -228,8 +228,10 @@ fn main() {
         } => {
             let desired_path =
                 serde_json::from_str(&std::fs::read_to_string(&query_file).unwrap()).unwrap();
-            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
-            let canvas = modes::shortest_path(graph, desired_path, cull_to_path_distance, metric);
+            let processed_graph: ProcessedGraph =
+                serde_json::from_str(&std::fs::read_to_string(&input).unwrap()).unwrap();
+            let canvas =
+                modes::shortest_path(processed_graph, desired_path, cull_to_path_distance, metric);
             canvas.save(&output);
         }
         Commands::DrawDisjoint { input, output } => {
@@ -274,8 +276,9 @@ fn main() {
             output,
             options,
         } => {
-            let graph = bitcode::deserialize(&std::fs::read(&input).unwrap()).unwrap();
-            let canvas = modes::inspect(graph, options);
+            let processed_graph: ProcessedGraph =
+                serde_json::from_str(&std::fs::read_to_string(&input).unwrap()).unwrap();
+            let canvas = modes::inspect(processed_graph.graph, options);
             canvas.save(&output);
         }
         /*

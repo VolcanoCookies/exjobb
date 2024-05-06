@@ -1,8 +1,11 @@
-use std::{fs, ops::Deref};
+use std::{
+    fs,
+    ops::Deref,
+    time::{Instant, SystemTime},
+};
 
 use clap::Args;
 use mongodb::bson::DateTime;
-use tokio::spawn;
 
 use crate::{
     math::geo_distance,
@@ -11,7 +14,7 @@ use crate::{
     progress::Progress,
     travel_time::{self, DataPointFilter},
     util::PointQuery,
-    visitor::{self, convert_kmh_to_ms, convert_ms_to_kmh},
+    visitor::{self, convert_ms_to_kmh},
 };
 
 #[derive(Debug, Clone)]
@@ -51,8 +54,15 @@ impl std::str::FromStr for ParseableDuration {
         let duration = if let Ok(duration) = s.parse::<i64>() {
             duration
         } else {
+            let first_char = s.chars().next().unwrap();
+            let duration = if first_char == '-' {
+                let duration = s[1..s.len() - 1].parse::<i64>().unwrap();
+                -duration
+            } else {
+                s[..s.len() - 1].parse::<i64>().unwrap()
+            };
+
             let last_char = s.chars().last().unwrap();
-            let duration = s[..s.len() - 1].parse::<i64>().unwrap();
             match last_char {
                 's' => duration * 1000,
                 'm' => duration * 60 * 1000,
@@ -82,6 +92,8 @@ pub struct LiveRouteOptions {
     pub query: String,
     #[clap(short, long, default_value = "now")]
     pub start_date: ParseableDate,
+    #[clap(short, long, default_value = "0s")]
+    pub date_offset: ParseableDuration,
     #[clap(short, long)]
     pub step_size: ParseableDuration,
     #[clap(short, long)]
@@ -180,7 +192,10 @@ pub async fn live_route(options: LiveRouteOptions) {
         )
         .await;
 
-        data.push((current_time, live_travel_time));
+        let date = DateTime::from_millis(current_time + *options.date_offset);
+        let date = date.try_to_rfc3339_string().unwrap();
+        let date = date.replace("T", " ").replace("Z", "");
+        data.push((date, live_travel_time));
 
         progress.tick();
     }
