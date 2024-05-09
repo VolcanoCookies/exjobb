@@ -1,3 +1,4 @@
+use clap::ValueEnum;
 use mongodb::bson::{doc, oid::ObjectId, Bson, DateTime, Document};
 use serde::{Deserialize, Serialize};
 
@@ -32,6 +33,90 @@ impl Into<Bson> for MeasurementSide {
     }
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, Hash, Copy, ValueEnum)]
+#[serde(rename_all = "camelCase")]
+pub enum VehicleType {
+    AgriculturalVehicle,
+    AnyVehicle,
+    ArticulatedVehicle,
+    Bicycle,
+    Bus,
+    Car,
+    Caravan,
+    CarOrLightVehicle,
+    CarWithCaravan,
+    CarWithTrailer,
+    ConstructionOrMaintenanceVehicle,
+    FourWheelDrive,
+    HighSidedVehicle,
+    Lorry,
+    Moped,
+    Motorcycle,
+    MotorcycleWithSideCar,
+    Motorscooter,
+    Tanker,
+    ThreeWheeledVehicle,
+    Trailer,
+    Tram,
+    TwoWheeledVehicle,
+    Van,
+    VehicleWithCatalyticConverter,
+    VehicleWithoutCatalyticConverter,
+    VehicleWithCaravan,
+    VehicleWithTrailer,
+    WithEvenNumberedRegistrationPlates,
+    WithOddNumberedRegistrationPlates,
+    Other,
+}
+
+impl Into<Bson> for VehicleType {
+    fn into(self) -> Bson {
+        match self {
+            VehicleType::AgriculturalVehicle => Bson::String("agriculturalVehicle".to_string()),
+            VehicleType::AnyVehicle => Bson::String("anyVehicle".to_string()),
+            VehicleType::ArticulatedVehicle => Bson::String("articulatedVehicle".to_string()),
+            VehicleType::Bicycle => Bson::String("bicycle".to_string()),
+            VehicleType::Bus => Bson::String("bus".to_string()),
+            VehicleType::Car => Bson::String("car".to_string()),
+            VehicleType::Caravan => Bson::String("caravan".to_string()),
+            VehicleType::CarOrLightVehicle => Bson::String("carOrLightVehicle".to_string()),
+            VehicleType::CarWithCaravan => Bson::String("carWithCaravan".to_string()),
+            VehicleType::CarWithTrailer => Bson::String("carWithTrailer".to_string()),
+            VehicleType::ConstructionOrMaintenanceVehicle => {
+                Bson::String("constructionOrMaintenanceVehicle".to_string())
+            }
+            VehicleType::FourWheelDrive => Bson::String("fourWheelDrive".to_string()),
+            VehicleType::HighSidedVehicle => Bson::String("highSidedVehicle".to_string()),
+            VehicleType::Lorry => Bson::String("lorry".to_string()),
+            VehicleType::Moped => Bson::String("moped".to_string()),
+            VehicleType::Motorcycle => Bson::String("motorcycle".to_string()),
+            VehicleType::MotorcycleWithSideCar => Bson::String("motorcycleWithSideCar".to_string()),
+            VehicleType::Motorscooter => Bson::String("motorscooter".to_string()),
+            VehicleType::Tanker => Bson::String("tanker".to_string()),
+            VehicleType::ThreeWheeledVehicle => Bson::String("threeWheeledVehicle".to_string()),
+            VehicleType::Trailer => Bson::String("trailer".to_string()),
+            VehicleType::Tram => Bson::String("tram".to_string()),
+            VehicleType::TwoWheeledVehicle => Bson::String("twoWheeledVehicle".to_string()),
+            VehicleType::Van => Bson::String("van".to_string()),
+            VehicleType::VehicleWithCatalyticConverter => {
+                Bson::String("vehicleWithCatalyticConverter".to_string())
+            }
+            VehicleType::VehicleWithoutCatalyticConverter => {
+                Bson::String("vehicleWithoutCatalyticConverter".to_string())
+            }
+            VehicleType::VehicleWithCaravan => Bson::String("vehicleWithCaravan".to_string()),
+            VehicleType::VehicleWithTrailer => Bson::String("vehicleWithTrailer".to_string()),
+            VehicleType::WithEvenNumberedRegistrationPlates => {
+                Bson::String("withEvenNumberedRegistrationPlates".to_string())
+            }
+            VehicleType::WithOddNumberedRegistrationPlates => {
+                Bson::String("withOddNumberedRegistrationPlates".to_string())
+            }
+            VehicleType::Other => Bson::String("other".to_string()),
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "PascalCase")]
 pub struct RawSensorData {
@@ -41,7 +126,7 @@ pub struct RawSensorData {
     pub measurement_time: DateTime,
     #[serde(rename = "MeasurementOrCalculationPeriod")]
     pub period: i32,
-    pub vehicle_type: String,
+    pub vehicle_type: VehicleType,
     #[serde(rename = "VehicleFlowRate")]
     pub flow_rate: f64,
     #[serde(rename = "AverageVehicleSpeed")]
@@ -66,6 +151,9 @@ impl RawSensorData {
     pub fn filter(&self) -> Document {
         doc! {
             "SiteId": self.site_id,
+            "VehicleType": self.vehicle_type,
+            "SpecificLane": self.get_lane_i32(),
+            "MeasurementSide": self.get_measurement_side(),
         }
     }
 
@@ -104,6 +192,7 @@ pub struct SensorMetadata {
     pub site_id: i32,
     pub location: Location,
     pub measurement_side: MeasurementSide,
+    pub vehicle_type: VehicleType,
     pub specific_lane: i32,
     pub period: i32,
 }
@@ -117,6 +206,7 @@ impl From<RawSensorData> for SensorMetadata {
             site_id: data.site_id,
             location: data.location,
             measurement_side,
+            vehicle_type: data.vehicle_type,
             specific_lane: lane,
             period: data.period,
         }

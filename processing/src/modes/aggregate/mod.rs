@@ -11,44 +11,38 @@ use mongodb::{
     Client, IndexModel,
 };
 
-use crate::progress::Progress;
+use crate::{
+    mongo::{self, client::MongoOptions, model::VehicleType},
+    progress::Progress,
+};
 
 use crate::mongo::model::{DataPoint, MeasurementSide, RawSensorData, SensorMetadata};
 
 #[derive(Debug, Args)]
 pub struct AggregateOptions {
-    #[clap(short, long)]
-    connection_url: String,
-    #[clap(short = 'D', long)]
-    database: String,
-    #[clap(short, long)]
-    input_collection: String,
-    #[clap(short, long, help = "Output collection for sensor data")]
-    sensor_collection: String,
-    #[clap(
-        short,
-        long,
-        help = "Output collection for invididual measurement points"
-    )]
-    data_collection: String,
+    #[clap(flatten)]
+    mongo_options: MongoOptions,
 }
 
 pub async fn aggregate(options: AggregateOptions) {
     let mut progress = Progress::new();
 
+    let mongo_options = options.mongo_options;
+
     progress.step_unsized("Connecting to MongoDB");
-    let client = Client::with_uri_str(options.connection_url).await;
+    let client = Client::with_uri_str(mongo_options.uri).await;
     let client = client.unwrap();
     progress.finish("Connected to MongoDB");
 
-    let db = client.database(&options.database);
-    let input_collection = db.collection::<RawSensorData>(&options.input_collection);
-    let sensor_collection = db.collection::<SensorMetadata>(&options.sensor_collection);
-    let data_collection = db.collection::<DataPoint>(&options.data_collection);
+    let db = client.database(&mongo_options.db);
+    let input_collection =
+        db.collection::<RawSensorData>(&mongo_options.raw_sensor_data_collection);
+    let sensor_collection = db.collection::<SensorMetadata>(&mongo_options.sensors_collection);
+    let data_collection = db.collection::<DataPoint>(&mongo_options.data_points_collection);
 
     let _ = db
         .create_collection(
-            &options.data_collection,
+            &mongo_options.data_points_collection,
             CreateCollectionOptions::builder()
                 .timeseries(
                     TimeseriesOptions::builder()
@@ -70,6 +64,9 @@ pub async fn aggregate(options: AggregateOptions) {
         .options(IndexOptions::builder().unique(true).build())
         .keys(doc! {
             "SiteId": 1,
+            "VehicleType": 1,
+            "SpecificLane": 1,
+            "MeasurementSide": 1,
         })
         .build();
     let sensor_id_index = IndexModel::builder()
@@ -112,7 +109,7 @@ pub async fn aggregate(options: AggregateOptions) {
 
     progress.step_sized(total as usize, "Processing documents");
 
-    let sensor_id_cache = HashMap::<(i32, MeasurementSide, i32), ObjectId>::new();
+    let sensor_id_cache = HashMap::<(i32, MeasurementSide, i32, VehicleType), ObjectId>::new();
     let sensor_id_cache = Arc::new(RwLock::new(sensor_id_cache));
 
     let options = FindOptions::builder().batch_size(10000).build();
@@ -125,12 +122,13 @@ pub async fn aggregate(options: AggregateOptions) {
         progress: ProgressBar,
         sensor_collection: mongodb::Collection<SensorMetadata>,
         data_collection: mongodb::Collection<DataPoint>,
-        sensor_id_cache: Arc<RwLock<HashMap<(i32, MeasurementSide, i32), ObjectId>>>,
+        sensor_id_cache: Arc<RwLock<HashMap<(i32, MeasurementSide, i32, VehicleType), ObjectId>>>,
     ) {
         let key = (
             data.site_id,
             data.get_measurement_side(),
             data.get_lane_i32(),
+            data.vehicle_type,
         );
 
         let existing_sensor_id = {

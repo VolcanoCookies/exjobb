@@ -155,6 +155,10 @@ enum Commands {
         #[clap(flatten)]
         options: modes::LiveRouteOptions,
     },
+    FindGaps {
+        #[clap(flatten)]
+        options: modes::FindGapsOptions,
+    },
 }
 
 fn main() {
@@ -352,6 +356,12 @@ fn main() {
             let runtime = Runtime::new().unwrap();
             runtime.block_on(async {
                 modes::live_route(options).await;
+            });
+        }
+        Commands::FindGaps { options } => {
+            let runtime = Runtime::new().unwrap();
+            runtime.block_on(async {
+                modes::find_gaps(options).await;
             });
         }
     }

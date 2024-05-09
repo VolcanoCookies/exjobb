@@ -7,6 +7,7 @@ mod inspect;
 mod live_route;
 mod shortest_path;
 //mod simulate;
+mod find_gaps;
 mod test_period_division;
 
 pub use aggregate::aggregate;
@@ -23,5 +24,7 @@ pub use shortest_path::shortest_path;
 //pub use simulate::simulate;
 //pub use simulate::SimulationOptions;
 //pub use simulate::SimulationSetup;
+pub use find_gaps::find_gaps;
+pub use find_gaps::FindGapsOptions;
 pub use test_period_division::test_period_division;
 pub use test_period_division::TestPeriodDivisionOptions;

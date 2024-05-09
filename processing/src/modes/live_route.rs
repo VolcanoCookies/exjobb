@@ -9,7 +9,10 @@ use mongodb::bson::DateTime;
 
 use crate::{
     math::geo_distance,
-    mongo::client::{async_client::AsyncMongoClient, MongoOptions},
+    mongo::{
+        client::{async_client::AsyncMongoClient, MongoOptions},
+        model::VehicleType,
+    },
     processing::{build_node_acceleration_structure, ProcessedGraph},
     progress::Progress,
     travel_time::{self, DataPointFilter},
@@ -104,6 +107,8 @@ pub struct LiveRouteOptions {
     pub max_sensor_data_age: ParseableDuration,
     #[clap(short, long, default_value = "./out/live_route.csv")]
     pub output: String,
+    #[clap(short, long, default_value = "anyVehicle")]
+    pub vehicle_type: VehicleType,
 }
 
 pub async fn live_route(options: LiveRouteOptions) {
@@ -116,12 +121,6 @@ pub async fn live_route(options: LiveRouteOptions) {
     progress.finish("");
 
     progress.step_unsized("Reading graph");
-    /*
-    let ProcessedGraph {
-        graph,
-        sensor_store,
-    } = bitcode::deserialize(&std::fs::read(&options.graph_path).unwrap()).unwrap();
-     */
     let ProcessedGraph {
         graph,
         sensor_store,
@@ -189,6 +188,7 @@ pub async fn live_route(options: LiveRouteOptions) {
                 timestamp: Some(current_time),
                 max_age: Some(*options.max_sensor_data_age),
             },
+            Some(options.vehicle_type),
         )
         .await;
 

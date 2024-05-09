@@ -1,7 +1,7 @@
 use mongodb::bson::DateTime;
 
 use crate::{
-    mongo::client::async_client::AsyncMongoClient,
+    mongo::{client::async_client::AsyncMongoClient, model::VehicleType},
     processing::ProcessedGraph,
     visitor::{convert_kmh_to_ms, Path},
 };
@@ -25,6 +25,7 @@ pub async fn calculate_live_travel_time(
     path: &Path,
     mongo: &AsyncMongoClient,
     filter: DataPointFilter,
+    vehicle_type: Option<VehicleType>,
 ) -> f64 {
     let ProcessedGraph {
         graph,
@@ -33,8 +34,12 @@ pub async fn calculate_live_travel_time(
 
     let mut passed_sensors = Vec::new();
     for node in &path.nodes {
-        if sensor_store.contains_key(node) {
-            passed_sensors.extend(sensor_store.get(node).unwrap());
+        if let Some(sensor) = sensor_store.get(node) {
+            if let Some(vehicle_type) = vehicle_type {
+                passed_sensors.extend(sensor.iter().filter(|s| s.vehicle_type == vehicle_type));
+            } else {
+                passed_sensors.extend(sensor.iter());
+            }
         }
     }
 
