@@ -1,20 +1,11 @@
 import dotenv from 'dotenv';
-import {
-	BingRouteResponse,
-	Location,
-	bingRouteStats,
-} from './lib/bing/types.js';
+import { BingRouteResponse, bingRouteStats } from './lib/bing/types.js';
 import { BingClient } from './lib/bing/client.js';
 import { HereRouteResponse, hereRouteStats } from './lib/here/types.js';
 import { HereClient } from './lib/here/client.js';
-import {
-	TomTomRouteResponse,
-	TomTomRoute,
-	tomtomRouteStats,
-} from './lib/tomtom/types.js';
+import { TomTomRouteResponse, tomtomRouteStats } from './lib/tomtom/types.js';
 import { TomTomClient } from './lib/tomtom/client.js';
 import { Point } from '.';
-import { mkdirSync, writeFileSync } from 'fs';
 import { save_route } from './utils.js';
 
 dotenv.config();

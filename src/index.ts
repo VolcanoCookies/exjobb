@@ -1,27 +1,6 @@
-import {
-	createWriteStream,
-	mkdirSync,
-	readFileSync,
-	readdirSync,
-	writeFile,
-	writeFileSync,
-} from 'fs';
+import { createWriteStream, readFileSync, readdirSync } from 'fs';
 
-import { HereFlowResponse } from './lib/here/types.js';
-import { HereClient } from './lib/here/client.js';
-import openlr from 'openlr-js';
-import { TrafikVerketClient } from './lib/trafikverket/client.js';
-import { sleep } from './lib/utils.js';
-import { save_flow } from './utils.js';
 import { TrafikVerketTrafficFlowResponse } from './lib/trafikverket/types.js';
-const { BinaryDecoder, LocationReference, RawLocationReference, Serializer } =
-	openlr;
-
-const BING_API_KEY =
-	'***REMOVED***';
-const HERE_API_KEY = '***REMOVED***';
-const TOMTOM_API_KEY = '***REMOVED***';
-const TRAFIKVERKET_API_KEY = '***REMOVED***';
 
 export async function main() {
 	const base_path = './data/flows/2024-02-25';

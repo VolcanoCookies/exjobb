@@ -1,8 +1,5 @@
 import { configDotenv } from 'dotenv';
-import { TrafikVerketClient } from './lib/trafikverket/client.js';
-import { readFile, readFileSync, readdirSync, writeFileSync } from 'fs';
-import { save_flow } from './utils.js';
-import { sleep } from './lib/utils.js';
+import { readFileSync, readdirSync } from 'fs';
 import mongoose from 'mongoose';
 import { TrafikverketFlowEntryModel } from './model/trafikverketFlowModel.js';
 import { TrafikVerketTrafficFlowResponse } from './lib/trafikverket/types.js';
