@@ -1,7 +1,6 @@
 .env
 error.json
 *.tar
-*.tar.gz
 test
 node_modules
 dist
