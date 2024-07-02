@@ -13,6 +13,44 @@ import { AxiosError } from 'axios';
 configDotenv();
 const logger = new Logger('scrape-routes');
 
+/// Configuration
+// Set to true to skip scraping from the respective service
+const skipBing = false;
+const skipTomtom = false;
+const skipHere = false;
+// When we want to start scraping
+const startDate = new Date();
+// How long we want to scrape for, in milliseconds
+const duration = 8 * 60 * 60 * 1000;
+// Duration between each scrape, in milliseconds
+const frequency = 60 * 1000;
+// Batch id, attached to all entries in the database
+const batchId = 'test';
+
+// Start and end points (latitude, longitude), creates one route for each end point, starting from the start point
+const start = {
+	latitude: 59.305007,
+	longitude: 18.017391,
+};
+const ends = [
+	{
+		latitude: 59.31137,
+		longitude: 18.006439,
+	},
+	{
+		latitude: 59.319604,
+		longitude: 17.997351,
+	},
+	{
+		latitude: 59.334975,
+		longitude: 18.010087,
+	},
+	{
+		latitude: 59.356922,
+		longitude: 18.032265,
+	},
+];
+
 async function main() {
 	await connectDb();
 
@@ -34,39 +72,12 @@ async function main() {
 	const tomtomClient = new TomTomClient(tomtomKey);
 	const hereClient = new HereClient(hereKey);
 
-	const start = {
-		latitude: 59.305007,
-		longitude: 18.017391,
-	};
-
-	const end1km = {
-		latitude: 59.31137,
-		longitude: 18.006439,
-	};
-	const end2km = {
-		latitude: 59.319604,
-		longitude: 17.997351,
-	};
-	const end4km = {
-		latitude: 59.334975,
-		longitude: 18.010087,
-	};
-	const end8km = {
-		latitude: 59.356922,
-		longitude: 18.032265,
-	};
-
-	const routes: { points: Point[]; heading: number }[] = [
-		[start, end1km],
-		[start, end2km],
-		[start, end4km],
-		[start, end8km],
-	].map((points) => ({
-		points,
-		heading: get_bearing(points[0], points[1]),
+	const routes: { points: Point[]; heading: number }[] = ends.map((end) => ({
+		points: [start, end],
+		heading: get_bearing(start, end),
 	}));
 
-	const desiredStartDate = Date.parse('2024-05-06T05:00:00+02:00');
+	const desiredStartDate = startDate.getTime();
 	const now = Date.now();
 	const delay = desiredStartDate - now;
 	if (delay < 0) {
@@ -83,9 +94,6 @@ async function main() {
 		);
 		await sleep(delay);
 	}
-
-	const frequency = 60 * 1000;
-	let duration = 8 * 3600 * 1000;
 
 	exitDelay(duration);
 
@@ -148,28 +156,33 @@ async function main() {
 		}
 	}
 
-	const batchId = 'second-batch';
-
 	let i = 0;
 	setInterval(async () => {
 		logger.info('Scraping routes ' + i++);
 		for (const route of routes) {
 			const date = new Date();
-			const [bingResponse, tomtomResponse, hereResponse] =
-				await Promise.all([
-					doBingRequest(route),
-					doTomTomRequest(route),
-					doHereRequest(route),
-				]);
+			const promises = [];
+			if (!skipBing) {
+				promises.push(doBingRequest(route));
+			}
+			if (!skipTomtom) {
+				promises.push(doTomTomRequest(route));
+			}
+			if (!skipHere) {
+				promises.push(doHereRequest(route));
+			}
 
-			await saveRouteResponse(batchId, route.points, bingResponse!, date);
-			await saveRouteResponse(
-				batchId,
-				route.points,
-				tomtomResponse!,
-				date
-			);
-			await saveRouteResponse(batchId, route.points, hereResponse, date);
+			const responses = await Promise.all(promises);
+			for (const response of responses) {
+				if (response) {
+					await saveRouteResponse(
+						batchId,
+						route.points,
+						response,
+						date
+					);
+				}
+			}
 		}
 	}, frequency);
 }
