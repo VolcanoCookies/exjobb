@@ -9,8 +9,8 @@
 		"dev": "nodemon",
 		"copy": "node copy.js",
 		"build": "npm run copy && tsc",
-		"compare": "tsc && node dist/compareRoutes.js",
-		"scrape": "tsc && node dist/scrape.js"
+		"collect-routes": "tsc && node dist/collect/routes.js",
+		"collect-trafikverket": "tsc && node dist/collect/trafikverketFlow.js"
 	},
 	"author": "",
 	"license": "ISC",
