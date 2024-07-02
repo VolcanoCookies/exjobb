@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use mongodb::{
-    bson::{doc, Bson, DateTime},
+    bson::{doc, DateTime},
     options::FindOneOptions,
 };
 

@@ -203,9 +203,23 @@ pub async fn live_route(options: LiveRouteOptions) {
 
     progress.step_unsized("Writing output");
     let mut writer = csv::Writer::from_path(&options.output).unwrap();
-    writer.write_record(&["time", "travelTimeSensors"]).unwrap();
-    for (time, travel_time) in data {
-        let _ = writer.write_record(&[time.to_string(), travel_time.to_string()]);
+    writer
+        .write_record(&[
+            "time",
+            "travelTimeSensors",
+            "totalFlow",
+            "averageFlow",
+            "sensorCount",
+        ])
+        .unwrap();
+    for (time, results) in data {
+        let _ = writer.write_record(&[
+            time.to_string(),
+            results.travel_time.to_string(),
+            results.total_flow_rate.to_string(),
+            results.average_flow_rate.to_string(),
+            results.sensor_count.to_string(),
+        ]);
     }
     writer.flush().unwrap();
     progress.finish("Output written");

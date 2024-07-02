@@ -2,6 +2,8 @@ use clap::Args;
 use longitude::Location;
 use serde::{Deserialize, Serialize};
 
+use crate::output::CanvasSize;
+
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Args)]
 #[group(required = true, multiple = true)]
 pub struct Point {
@@ -9,6 +11,18 @@ pub struct Point {
     pub latitude: f64,
     #[clap(short = 'o', long = "lon")]
     pub longitude: f64,
+}
+
+impl Point {
+    pub fn within(&self, canvas_size: &CanvasSize) -> bool {
+        if self.latitude < canvas_size.min_lat || self.latitude > canvas_size.max_lat {
+            return false;
+        }
+        if self.longitude < canvas_size.min_lon || self.longitude > canvas_size.max_lon {
+            return false;
+        }
+        true
+    }
 }
 
 impl Into<Location> for Point {

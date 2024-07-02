@@ -225,7 +225,9 @@ impl Positionable for SensorMetadata {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DataPoint {
-    pub mongo_id: ObjectId,
+    #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
+    pub mongo_id: Option<ObjectId>,
+    pub original_id: ObjectId,
     pub sensor_id: ObjectId,
     pub time: DateTime,
     pub flow_rate: f64,
@@ -235,7 +237,8 @@ pub struct DataPoint {
 impl From<RawSensorData> for DataPoint {
     fn from(data: RawSensorData) -> Self {
         Self {
-            mongo_id: data.mongo_id.unwrap(),
+            mongo_id: None,
+            original_id: data.mongo_id.unwrap(),
             sensor_id: data.mongo_id.unwrap(),
             time: data.measurement_time,
             flow_rate: data.flow_rate,

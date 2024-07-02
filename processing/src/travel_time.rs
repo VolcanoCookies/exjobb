@@ -20,13 +20,21 @@ impl Default for DataPointFilter {
     }
 }
 
+pub struct LiveRouteResults {
+    pub travel_time: f64,
+    pub total_flow_rate: f64,
+    pub average_flow_rate: f64,
+    pub average_speed: f64,
+    pub sensor_count: usize,
+}
+
 pub async fn calculate_live_travel_time(
     graph: &ProcessedGraph,
     path: &Path,
     mongo: &AsyncMongoClient,
     filter: DataPointFilter,
     vehicle_type: Option<VehicleType>,
-) -> f64 {
+) -> LiveRouteResults {
     let ProcessedGraph {
         graph,
         sensor_store,
@@ -55,6 +63,10 @@ pub async fn calculate_live_travel_time(
 
     let mut distance = 0.0;
     let mut measurements_distance = Vec::new();
+    let mut total_flow_rate = 0.0;
+    let mut total_average_flow = 0.0;
+    let mut average_flows_count = 0;
+    let mut sensor_count = 0;
 
     let mut prev_node = None;
 
@@ -78,6 +90,20 @@ pub async fn calculate_live_travel_time(
                 .map(|d| d.average_speed)
                 .fold((0.0, 0), |(sum, count), speed| (sum + speed, count + 1));
             let average_speed = sum / count as f64;
+
+            let (sum, count) = site_ids
+                .iter()
+                .filter_map(|id| data.get(id))
+                .map(|d| d.flow_rate)
+                .fold((0.0, 0), |(sum, count), flow_rate| {
+                    (sum + flow_rate, count + 1)
+                });
+            total_flow_rate += sum;
+            let average_flow_rate = sum / count as f64;
+            total_average_flow += average_flow_rate;
+            average_flows_count += count;
+
+            sensor_count += count;
 
             if count > 0 {
                 measurements_distance.push((distance, average_speed));
@@ -113,5 +139,11 @@ pub async fn calculate_live_travel_time(
     let distance = distance - prev_distance;
     travel_time += distance / convert_kmh_to_ms(*prev_speed);
 
-    travel_time
+    LiveRouteResults {
+        travel_time,
+        total_flow_rate,
+        average_flow_rate: total_average_flow / average_flows_count as f64,
+        average_speed: distance / travel_time,
+        sensor_count,
+    }
 }

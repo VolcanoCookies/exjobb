@@ -45,7 +45,7 @@ pub async fn test_period_division(options: TestPeriodDivisionOptions) {
         if data.flow_rate as usize % period != 0 {
             println!(
                 "Datapoint {} does not match period, {} % {} != 0",
-                data.mongo_id, data.flow_rate, period
+                data.original_id, data.flow_rate, period
             );
         }
 

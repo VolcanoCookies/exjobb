@@ -10,9 +10,10 @@ use mongodb::{
     options::{CreateCollectionOptions, FindOptions, IndexOptions, TimeseriesOptions},
     Client, IndexModel,
 };
+use tokio::sync::mpsc;
 
 use crate::{
-    mongo::{self, client::MongoOptions, model::VehicleType},
+    mongo::{client::MongoOptions, model::VehicleType},
     progress::Progress,
 };
 
@@ -121,8 +122,9 @@ pub async fn aggregate(options: AggregateOptions) {
         data: RawSensorData,
         progress: ProgressBar,
         sensor_collection: mongodb::Collection<SensorMetadata>,
-        data_collection: mongodb::Collection<DataPoint>,
         sensor_id_cache: Arc<RwLock<HashMap<(i32, MeasurementSide, i32, VehicleType), ObjectId>>>,
+        channel: mpsc::Sender<DataPoint>,
+        permit: tokio::sync::OwnedSemaphorePermit,
     ) {
         let key = (
             data.site_id,
@@ -175,24 +177,56 @@ pub async fn aggregate(options: AggregateOptions) {
         let mut data_point: DataPoint = data.into();
         data_point.sensor_id = sensor_id;
 
-        let _ = data_collection.insert_one(&data_point, None).await;
+        channel.send(data_point).await.unwrap();
+
         progress.inc(1);
+        drop(permit);
     }
 
     let pb = progress.get_pb().clone();
 
+    let (tx, mut rx) = mpsc::channel(2000);
+
+    let semaphore = Arc::new(tokio::sync::Semaphore::new(100));
+
+    tokio::spawn(async move {
+        let mut buf = Vec::with_capacity(2000);
+
+        while rx.recv_many(&mut buf, 2000).await > 0 {
+            if buf.len() >= 2000 {
+                let insert_many_res = data_collection.insert_many(&buf, None).await;
+                if let Err(e) = insert_many_res {
+                    eprintln!("Error inserting data: {:?}", e);
+                }
+
+                buf.clear();
+            }
+        }
+
+        if !buf.is_empty() {
+            let insert_many_res = data_collection.insert_many(buf, None).await;
+            if let Err(e) = insert_many_res {
+                eprintln!("Error inserting data: {:?}", e);
+            }
+        }
+    });
+
     while cursor.advance().await.is_ok() {
         let data = cursor.deserialize_current().unwrap();
 
+        let permit = semaphore.clone().acquire_owned().await.unwrap();
         let future = process(
             data,
             pb.clone(),
             sensor_collection.clone(),
-            data_collection.clone(),
             sensor_id_cache.clone(),
+            tx.clone(),
+            permit,
         );
 
         runtime.spawn(future);
     }
+    drop(tx);
+
     progress.finish("Documents processed");
 }

@@ -1,3 +1,4 @@
+use geo::Within;
 use petgraph::stable_graph::StableGraph;
 use svg::{node::element::path::Data, Document, Node};
 
@@ -18,6 +19,10 @@ pub struct RenderOptions {
     pub show_path: bool,
 }
 
+const WITH_SIMPLE_PROJECTION: bool = true;
+
+const PROJECTION_LATITUDE: f64 = 59.323700;
+
 fn convert_point(point: Point, canvas_size: CanvasSize) -> (f64, f64) {
     let lat_extent = canvas_size.max_lat - canvas_size.min_lat;
     let lon_extent = canvas_size.max_lon - canvas_size.min_lon;
@@ -29,6 +34,29 @@ fn convert_point(point: Point, canvas_size: CanvasSize) -> (f64, f64) {
         - ((point.latitude - canvas_size.min_lat) / lat_extent) * canvas_size.height as f64;
 
     (x, y)
+}
+
+pub fn calc_canvas_size_from_extents(width: u32, extents: [f64; 4]) -> CanvasSize {
+    let min_lat = extents[0];
+    let max_lat = extents[1];
+    let min_lon = extents[2];
+    let max_lon = extents[3];
+
+    let height = if WITH_SIMPLE_PROJECTION {
+        let ratio = 1.0 / PROJECTION_LATITUDE.to_radians().cos();
+        (width as f64 * (max_lat - min_lat) / (max_lon - min_lon) * ratio) as u32
+    } else {
+        (width as f64 * (max_lat - min_lat) / (max_lon - min_lon)) as u32
+    };
+
+    CanvasSize {
+        width,
+        height,
+        min_lat,
+        max_lat,
+        min_lon,
+        max_lon,
+    }
 }
 
 pub fn calc_canvas_size(width: u32, graph: &StableGraph<NodeData, EdgeData>) -> CanvasSize {
@@ -54,25 +82,18 @@ pub fn calc_canvas_size(width: u32, graph: &StableGraph<NodeData, EdgeData>) -> 
         .map(|d| d.point.longitude)
         .max_by(|a, b| a.partial_cmp(b).unwrap())
         .unwrap();
-    let height = (width as f64 * (max_lat - min_lat) / (max_lon - min_lon)) as u32;
-    CanvasSize {
-        width,
-        height,
-        min_lat,
-        max_lat,
-        min_lon,
-        max_lon,
-    }
+
+    calc_canvas_size_from_extents(width, [min_lat, max_lat, min_lon, max_lon])
 }
 
 #[derive(Debug, Clone, Copy)]
 pub struct CanvasSize {
     width: u32,
     height: u32,
-    min_lat: f64,
-    max_lat: f64,
-    min_lon: f64,
-    max_lon: f64,
+    pub min_lat: f64,
+    pub max_lat: f64,
+    pub min_lon: f64,
+    pub max_lon: f64,
 }
 
 #[derive(Debug, Clone)]
@@ -116,6 +137,19 @@ impl Canvas {
         Canvas { size, document }
     }
 
+    pub fn new_with_background(size: CanvasSize, color: &str) -> Self {
+        let document = Document::new()
+            .set("viewBox", (0, 0, size.width, size.height))
+            .add(
+                svg::node::element::Rectangle::new()
+                    .set("width", size.width)
+                    .set("height", size.height)
+                    .set("fill", color),
+            );
+
+        Canvas { size, document }
+    }
+
     pub fn from_graph(width: u32, graph: &StableGraph<NodeData, EdgeData>) -> Self {
         let size = calc_canvas_size(width, graph);
         Canvas::new(size)
@@ -123,6 +157,9 @@ impl Canvas {
 
     pub fn draw_circle(&mut self, point: Point, color: &str, size: f32) {
         let (x, y) = convert_point(point, self.size);
+        if !point.within(&self.size) {
+            return;
+        }
         self.document.append(
             svg::node::element::Circle::new()
                 .set("cx", x)
@@ -144,9 +181,19 @@ impl Canvas {
         let mut iter = points.iter();
         let point = iter.next().unwrap();
         path = path.move_to(convert_point(*point, self.size));
+        let mut any_inside = false;
         for point in iter {
+            let (x, y) = convert_point(*point, self.size);
+            if !any_inside && self.contains_point(x, y) {
+                any_inside = true;
+            }
             path = path.line_to(convert_point(*point, self.size));
         }
+
+        if !any_inside {
+            return;
+        }
+
         self.document.append(
             svg::node::element::Path::new()
                 .set("fill", "none")
@@ -216,5 +263,18 @@ impl Canvas {
 
     pub fn save(&self, path: &str) {
         svg::save(path, &self.document).unwrap();
+    }
+
+    pub fn contains_point(&self, x: f64, y: f64) -> bool {
+        x >= 0.0 && x <= self.size.width as f64 && y >= 0.0 && y <= self.size.height as f64
+    }
+
+    pub fn get_node_count(&self) -> usize {
+        self.document.get_children().len()
+    }
+
+    pub fn set_background(&mut self, color: &str) {
+        self.document
+            .assign("style", format!("background-color: {}", color));
     }
 }

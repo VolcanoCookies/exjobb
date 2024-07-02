@@ -15,9 +15,13 @@ mod visitor;
 use clap::{Parser, Subcommand};
 use console::style;
 use human_bytes::human_bytes;
+use math::geo_distance;
 use modes::{AggregateOptions, InspectOptions, TestPeriodDivisionOptions};
 use mongo::client::MongoOptions;
-use parse::{parse_road_data, parse_sensor_data};
+use output::{calc_canvas_size_from_extents, Canvas, DrawOptions};
+use parse::{parse_road_data, parse_sensor_data, Point};
+use petgraph::visit::IntoEdgeReferences;
+use processing::build_node_acceleration_structure;
 use tokio::runtime::Runtime;
 use visitor::DistanceMetric;
 
@@ -159,6 +163,9 @@ enum Commands {
         #[clap(flatten)]
         options: modes::FindGapsOptions,
     },
+    Custom {},
+    Custom2 {},
+    Custom3 {},
 }
 
 fn main() {
@@ -362,6 +369,321 @@ fn main() {
             let runtime = Runtime::new().unwrap();
             runtime.block_on(async {
                 modes::find_gaps(options).await;
+            });
+        }
+        Commands::Custom {} => {
+            let processed_graph: ProcessedGraph =
+                serde_json::from_str(&std::fs::read_to_string("./out/graph.json").unwrap())
+                    .unwrap();
+
+            const COLORS: [&str; 4] = ["#FFF275", "#07BEB8", "#FF3C38", "#A4A8D1"];
+
+            fn get_polyline_from_query(graph: &ProcessedGraph, path: &str) -> Vec<Point> {
+                let query: Vec<PointQuery> =
+                    serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
+
+                let graph = &graph.graph;
+
+                let tree = build_node_acceleration_structure(graph);
+                let points = query
+                    .iter()
+                    .map(|query| {
+                        let p = [query.point.latitude, query.point.longitude];
+                        let mut iter = tree.iter_nearest(&p, &geo_distance).unwrap();
+                        while let Some((dist, (idx, data))) = iter.next() {
+                            if query.heading.contains(&data.heading) && dist <= query.radius {
+                                return *idx;
+                            }
+                        }
+
+                        panic!("No node found for query {:?}", query);
+                    })
+                    .collect::<Vec<_>>();
+
+                println!("Finding shortest path for points {:?}", points);
+                let path = visitor::shortest_path(&graph, points, DistanceMetric::Space)
+                    .expect("No path found");
+
+                println!("Path complete: {:?}", path.complete);
+
+                path.nodes
+                    .windows(2)
+                    .flat_map(|edge| {
+                        let edge = graph.edges_connecting(edge[0], edge[1]).next().unwrap();
+                        edge.weight().polyline.clone()
+                    })
+                    .collect::<Vec<_>>()
+            }
+
+            let extent = [59.293914, 59.370097, 17.974399, 18.138043];
+
+            let mut canvas =
+                Canvas::new_with_background(calc_canvas_size_from_extents(4000, extent), "#100e16");
+
+            for edge in processed_graph.graph.edge_references() {
+                let data = edge.weight();
+                canvas.draw_polyline(
+                    data.polyline.clone(),
+                    DrawOptions {
+                        color: "#433E45".into(),
+                        stroke: 4.0,
+                        ..Default::default()
+                    },
+                );
+            }
+
+            let polyline_query_1 =
+                get_polyline_from_query(&processed_graph, "./queries/query1km.json");
+            let polyline_query_2 =
+                get_polyline_from_query(&processed_graph, "./queries/query2km.json");
+            let polyline_query_3 =
+                get_polyline_from_query(&processed_graph, "./queries/query4km.json");
+            let polyline_query_4 =
+                get_polyline_from_query(&processed_graph, "./queries/query8km.json");
+
+            let polylines = vec![
+                polyline_query_1,
+                polyline_query_2,
+                polyline_query_3,
+                polyline_query_4,
+            ];
+
+            for (i, polyline) in polylines.iter().enumerate().rev() {
+                println!("Drawing polyline {}", i);
+                println!("Length: {}", polyline.len());
+                canvas.draw_polyline(
+                    polyline.clone(),
+                    DrawOptions {
+                        color: COLORS[i].into(),
+                        stroke: 10.0,
+                        ..Default::default()
+                    },
+                );
+            }
+
+            canvas.save("./out/graphpathsegmented.svg");
+        }
+        Commands::Custom2 {} => {
+            let runtime = Runtime::new().unwrap();
+            runtime.block_on(async {
+                let mongo = AsyncMongoClient::new(MongoOptions {
+                    uri: "mongodb://localhost:27017".into(),
+                    db: "exjobb".into(),
+                    raw_sensor_data_collection: "trafikverketflowentries_v2".into(),
+                    sensors_collection: "sensors".into(),
+                    data_points_collection: "sensordata".into(),
+                })
+                .await
+                .unwrap();
+
+                let metadata = mongo.get_all_sensors().await.unwrap();
+
+                // Min lat max lat min lon max lon
+                let mut extent = [f64::MAX, f64::MIN, f64::MAX, f64::MIN];
+
+                for sensor in metadata.iter() {
+                    extent[0] = extent[0].min(sensor.location.coordinates[1]);
+                    extent[1] = extent[1].max(sensor.location.coordinates[1]);
+                    extent[2] = extent[2].min(sensor.location.coordinates[0]);
+                    extent[3] = extent[3].max(sensor.location.coordinates[0]);
+                }
+
+                let processed_graph: ProcessedGraph =
+                    serde_json::from_str(&std::fs::read_to_string("./out/graph.json").unwrap())
+                        .unwrap();
+
+                let canvas_size = calc_canvas_size_from_extents(4000, extent);
+                let mut canvas_with_path = Canvas::new(canvas_size);
+                let mut canvas_just_points = Canvas::new(canvas_size);
+
+                println!("Drawing graph with {}", processed_graph.graph.edge_count());
+
+                for edge in processed_graph.graph.edge_references() {
+                    let data = edge.weight();
+                    canvas_with_path.draw_polyline(
+                        data.polyline.clone(),
+                        DrawOptions {
+                            color: "#433E45".into(),
+                            stroke: 4.0,
+                            ..Default::default()
+                        },
+                    );
+                    canvas_just_points.draw_polyline(
+                        data.polyline.clone(),
+                        DrawOptions {
+                            color: "#433E45".into(),
+                            stroke: 4.0,
+                            ..Default::default()
+                        },
+                    );
+                }
+
+                for sensor in metadata.iter() {
+                    let point = Point {
+                        latitude: sensor.location.coordinates[1],
+                        longitude: sensor.location.coordinates[0],
+                    };
+                    canvas_with_path.draw_circle(point, "#ff0000", 5.0);
+                    canvas_just_points.draw_circle(point, "#ff0000", 5.0);
+                }
+
+                let start = PointQuery::new(59.305007, 18.017391, 25.0, -90.0..90.0);
+                let end = PointQuery::new(59.356922, 18.032265, 25.0, -45.0..45.0);
+
+                let top_left = Point {
+                    latitude: 59.370097,
+                    longitude: 17.974399,
+                };
+                let bottom_right = Point {
+                    latitude: 59.293914,
+                    longitude: 18.138043,
+                };
+
+                fn in_box(point: &Point, top_left: &Point, bottom_right: &Point) -> bool {
+                    point.latitude < top_left.latitude
+                        && point.latitude > bottom_right.latitude
+                        && point.longitude > top_left.longitude
+                        && point.longitude < bottom_right.longitude
+                }
+
+                let mut graph = processed_graph.graph;
+                let mut to_remove = Vec::new();
+                for node in graph.node_indices() {
+                    let data = graph.node_weight(node).unwrap();
+                    if !in_box(&data.point, &top_left, &bottom_right) {
+                        to_remove.push(node);
+                    }
+                }
+                for node in to_remove {
+                    graph.remove_node(node);
+                }
+
+                let tree = processing::build_node_acceleration_structure(&graph);
+                let (_, (start_idx, _)) = tree
+                    .iter_nearest(
+                        &[start.point.latitude, start.point.longitude],
+                        &math::geo_distance,
+                    )
+                    .unwrap()
+                    .skip_while(|(_, (_, data))| !start.heading.contains(&data.heading))
+                    .next()
+                    .unwrap();
+                let (_, (end_idx, _)) = tree
+                    .iter_nearest(
+                        &[end.point.latitude, end.point.longitude],
+                        &math::geo_distance,
+                    )
+                    .unwrap()
+                    .skip_while(|(_, (_, data))| !end.heading.contains(&data.heading))
+                    .next()
+                    .unwrap();
+                let path = visitor::shortest_path(
+                    &graph,
+                    vec![*start_idx, *end_idx],
+                    DistanceMetric::Space,
+                )
+                .unwrap();
+
+                let polyline = path
+                    .nodes
+                    .windows(2)
+                    .flat_map(|edge| {
+                        let edge = graph.edges_connecting(edge[0], edge[1]).next().unwrap();
+                        edge.weight().polyline.clone()
+                    })
+                    .collect::<Vec<_>>();
+                canvas_with_path.draw_polyline(
+                    polyline,
+                    DrawOptions {
+                        color: "#00ff00".into(),
+                        stroke: 10.0,
+                        ..Default::default()
+                    },
+                );
+
+                println!(
+                    "With path node count: {}",
+                    canvas_with_path.get_node_count()
+                );
+                println!(
+                    "Just points node count: {}",
+                    canvas_just_points.get_node_count()
+                );
+
+                canvas_with_path.save("./out/allsensorswithpath.svg");
+                canvas_just_points.save("./out/allsensors.svg");
+            });
+        }
+        Commands::Custom3 {} => {
+            let runtime = Runtime::new().unwrap();
+            runtime.block_on(async {
+                let mongo = AsyncMongoClient::new(MongoOptions {
+                    uri: "mongodb://localhost:27017".into(),
+                    db: "exjobb".into(),
+                    raw_sensor_data_collection: "trafikverketflowentries_v2".into(),
+                    sensors_collection: "sensors".into(),
+                    data_points_collection: "sensordata".into(),
+                })
+                .await
+                .unwrap();
+
+                let metadata = mongo.get_all_sensors().await.unwrap();
+
+                // Min lat max lat min lon max lon
+                let mut large_extent = [f64::MAX, f64::MIN, f64::MAX, f64::MIN];
+
+                for sensor in metadata.iter() {
+                    large_extent[0] = large_extent[0].min(sensor.location.coordinates[1]);
+                    large_extent[1] = large_extent[1].max(sensor.location.coordinates[1]);
+                    large_extent[2] = large_extent[2].min(sensor.location.coordinates[0]);
+                    large_extent[3] = large_extent[3].max(sensor.location.coordinates[0]);
+                }
+
+                let small_extent = [59.319467, 59.329296, 18.058204, 18.080229];
+
+                let processed_graph: ProcessedGraph =
+                    serde_json::from_str(&std::fs::read_to_string("./out/graph.json").unwrap())
+                        .unwrap();
+
+                let canvas_size_large = calc_canvas_size_from_extents(4000, large_extent);
+                let canvas_size_small = calc_canvas_size_from_extents(4000, small_extent);
+
+                let mut canvas_large = Canvas::new_with_background(canvas_size_large, "#100e16");
+                let mut canvas_small = Canvas::new_with_background(canvas_size_small, "#100e16");
+
+                const COLORS: [&str; 25] = [
+                    "#006400", "#808000", "#483d8b", "#b22222", "#008080", "#000080", "#9acd32",
+                    "#8fbc8f", "#8b008b", "#ff0000", "#ff8c00", "#ffff00", "#00ff00", "#00fa9a",
+                    "#8a2be2", "#00ffff", "#0000ff", "#ff00ff", "#1e90ff", "#db7093", "#f0e68c",
+                    "#87ceeb", "#ff1493", "#ffa07a", "#ee82ee",
+                ];
+
+                let mut i = 0;
+                for edge in processed_graph.graph.edge_references() {
+                    let data = edge.weight();
+                    let color = COLORS[i % COLORS.len()];
+                    i += 1;
+
+                    canvas_large.draw_polyline(
+                        data.polyline.clone(),
+                        DrawOptions {
+                            color: color.into(),
+                            stroke: 4.0,
+                            ..Default::default()
+                        },
+                    );
+                    canvas_small.draw_polyline(
+                        data.polyline.clone(),
+                        DrawOptions {
+                            color: color.into(),
+                            stroke: 4.0,
+                            ..Default::default()
+                        },
+                    );
+                }
+
+                canvas_large.save("./out/disjoint_large.svg");
+                canvas_small.save("./out/disjoint_small.svg");
             });
         }
     }
